@@ -8,11 +8,11 @@
 }
 
 *{
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
 }
 
 body {
@@ -53,13 +53,25 @@ header{
 
 .header-container .logo{
   font-weight: 700;
-  font-size: clamp(0.6rem, 2vw, 2rem);
+  font-size: clamp(1rem, 2vw, 2rem);
   cursor: pointer;
   transition: 0.2s ease;
 }
 
-.header-container .logo:hover{
+.header-container .logo-container:hover{
   color: var(--elem-color);
+}
+
+.header-container .logo-container{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.logo-container img{
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
 }
 
 .header-container .header-icons,
@@ -83,7 +95,11 @@ header{
   white-space: pre-line;
 }
 
-ul.nav{
+.menu-button-icon{
+  display: none;
+}
+
+.header-nav ul{
   display: flex;
   text-align: center;
   align-items: center;
@@ -94,19 +110,19 @@ ul.nav{
   padding: 0 10vw;
 }
 
-ul.nav li{
+.header-nav ul li a{
+  color: black;
   font-weight: 500;
   display: inline;
   text-decoration: none;
   cursor: pointer;
   transition: 0.2s ease;
-  font-size: clamp(0.6rem, 1vw, 1rem);
+  font-size: 1rem;
 }
 
-ul.nav li:hover{
+.header-nav ul li a:hover{
   color: var(--light-text-color);
 }
-
 
 /*стили главной секции*/
 .main-section{
@@ -210,12 +226,8 @@ ul.nav li:hover{
   scroll-behavior: smooth;
 }
 
-.slider-container.dragging {
-  cursor: grabbing;
-}
-
 .slider-container::-webkit-scrollbar {
-  height: 8px;
+  height: 6px;
 }
 
 .slider-container::-webkit-scrollbar-thumb {
@@ -340,7 +352,7 @@ h2{
   margin: 1vw 0;
   display: inline-block;
   width: 60%;
-  font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+  font-size: clamp(0.8rem, 1.4vw, 1.2rem);
   font-weight: 400;
 }
 
@@ -355,16 +367,16 @@ h2{
   margin-bottom: 1vw;
   display: flex;
   align-items: flex-end;
+  font-size: clamp(0.8rem, 1.2vw, 1.2rem);
 }
 
 .entertainment a:hover{
   opacity: 0.5;
 }
 
-.cards-container{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.custom-swiper {
+  height: 400px;
+  width: 100%;
 }
 
 .reviews-img{
@@ -412,10 +424,17 @@ h2{
 }
 
 .route .map{
+  border-radius: 10px;
+  overflow: hidden;
   width: 600px;
   height: 500px;
-  background-color: #ccc;
-  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.route .map iframe{
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 .route-text{
@@ -444,15 +463,111 @@ h2{
   opacity: 0.7;
 }
 
-
-
 .accordion-usage{
   width: 60%;
   margin: 0 auto;
 }
 
+.mobile-contacts {
+  display: none;
+}
+
 /*медиа запросы*/
 @media (max-width: 768px) {
+  .header-container .logo-container{
+    gap: 0.1rem;
+  }
+
+  .header-icons .header-icon,
+  .header-icons .header-text{
+    display: none;
+  }
+
+  .header-container .logo{
+    display: block;
+    width: 52px;
+  }
+
+  .header-nav{
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--add-color);
+    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s linear;
+  }
+
+  .header-nav.active{
+    transform: translateX(-100%);
+  }
+
+  .header-nav ul{
+    background-color: transparent;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-top: 40px;
+  }
+
+  .header-nav li{
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+  }
+
+  .mobile-contacts {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    gap: 1rem;
+    margin: 5vw 10vw 8vw 10vw;
+  }
+
+  .mobile-contacts .vk,
+  .mobile-contacts .tg,
+  .mobile-contacts .phone,
+  .mobile-contacts .location {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .mobile-contacts .vk:hover,
+  .mobile-contacts .tg:hover,
+  .mobile-contacts .location:hover,
+  .mobile-contacts .phone:hover{
+    color: var(--light-text-color);
+    transition: 0.2s ease;
+  }
+
+  .mobile-contacts .header-icon{
+    margin: 0 10px 0 0;
+    width: 36px;
+    height: 36px;
+  }
+
+  .mobile-contacts .header-text{
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .menu-button-icon{
+    position: absolute;
+    top: 14px;
+    right: 10vw;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+
   .main-title {
     bottom: auto;
     top: 10%;
@@ -515,13 +630,25 @@ h2{
     flex-direction: column;
     align-items: center;
   }
+
+  .entertainment h4{
+    width: 70%;
+  }
+
   .reviews h3{
     width: 80%;
   }
 
+  .route .map{
+    margin-top: 10px;
+    height: 300px;
+  }
+
   .route-text{
+    margin-top: 20px;
     width: 100%;
     margin-left: 0;
+    height: 500px;
   }
 
 }
