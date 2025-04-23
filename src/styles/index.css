@@ -20,110 +20,6 @@ body {
   min-height: 100vh;
 }
 
-
-/*стили шапки*/
-.header-icon{
-  width: 26px;
-  height: 26px;
-  margin: 0 10px;
-}
-
-.header-icon:hover {
-  color: var(--elem-color);
-  transition: 0.2s ease;
-}
-
-header{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  width: 100%;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-}
-
-.header-container{
-  padding: 0 10vw;
-  height: 50px;
-  align-items: center;
-  display: flex;
-  background-color: var(--main-color);
-  justify-content: space-between;
-  font-weight: 500;
-}
-
-.header-container .logo{
-  font-weight: 700;
-  font-size: clamp(1rem, 2vw, 2rem);
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.header-container .logo-container:hover{
-  color: var(--elem-color);
-}
-
-.header-container .logo-container{
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.logo-container img{
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-}
-
-.header-container .header-icons,
-.header-container .location,
-.header-container .phone{
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.header-container .location:hover,
-.header-container .phone:hover{
-  color: var(--elem-color);
-  transition: 0.2s ease;
-}
-
-.header-text{
-  font-weight: 500;
-  font-size: clamp(0.6rem, 1vw, 1rem);
-  display: inline-block;
-  white-space: pre-line;
-}
-
-.menu-button-icon{
-  display: none;
-}
-
-.header-nav ul{
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: space-between;
-  height: 30px;
-  list-style: none;
-  background-color: var(--add-color);
-  padding: 0 10vw;
-}
-
-.header-nav ul li a{
-  color: black;
-  font-weight: 500;
-  display: inline;
-  text-decoration: none;
-  cursor: pointer;
-  transition: 0.2s ease;
-  font-size: 1rem;
-}
-
-.header-nav ul li a:hover{
-  color: var(--light-text-color);
-}
-
 /*стили главной секции*/
 .main-section{
   position: relative;
@@ -163,7 +59,7 @@ header{
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
-.reservation-form input, button{
+.reservation-form input{
   height: 40%;
   border: none;
   border-radius: 5px;
@@ -178,15 +74,6 @@ header{
   padding: 10px;
 }
 
-.reservation-form button{
-  width: 15%;
-  background-color: var(--main-color);
-  color: var(--light-text-color);
-  font-weight: 600;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-}
-
 .reservation-form input:hover{
   border: 2px solid var(--main-color);
 }
@@ -194,11 +81,6 @@ header{
 .reservation-form input:focus{
   outline: none;
   border: 2px solid var(--main-color);
-}
-
-.reservation-form button:hover{
-  background-color: #273026;
-  transform: scale(1.05);
 }
 
 /*слайдер*/
@@ -287,22 +169,6 @@ h2{
   font-size: clamp(1rem, 1.4vw, 1.4rem);
   font-weight: 600;
   margin: 1.4vw 0;
-}
-
-.why-us-text button{
-  width: 30%;
-  min-width: 240px;
-  height: 56px;
-  background-color: var(--main-color);
-  color: var(--light-text-color);
-  font-weight: 600;
-  font-size: 1.4rem;
-  text-transform: uppercase;
-}
-
-.why-us-text button:hover{
-  background-color: #273026;
-  transform: scale(1.05);
 }
 
 .advantages{
@@ -449,7 +315,6 @@ h2{
   font-weight: 550;
 }
 
-
 .footer {
   background-color: var(--light-text-color);
   padding: 2vw 10vw;
@@ -468,111 +333,14 @@ h2{
   margin: 0 auto;
 }
 
-.mobile-contacts {
-  display: none;
-}
-
 /*медиа запросы*/
 @media (max-width: 768px) {
-  .header-container .logo-container{
-    gap: 0.1rem;
-  }
-
-  .header-icons .header-icon,
-  .header-icons .header-text{
-    display: none;
-  }
-
-  .header-container .logo{
-    display: block;
-    width: 52px;
-  }
-
-  .header-nav{
-    position: fixed;
-    top: 0;
-    right: -300px;
-    width: 300px;
-    border-bottom-left-radius: 10px;
-    background-color: var(--add-color);
-    box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s linear;
-  }
-
-  .header-nav.active{
-    transform: translateX(-100%);
-  }
-
-  .header-nav ul{
-    background-color: transparent;
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin-top: 40px;
-  }
-
-  .header-nav li{
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 100%;
-    height: 34px;
-    line-height: 34px;
-  }
-
-  .mobile-contacts {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    gap: 1rem;
-    margin: 5vw 10vw 8vw 10vw;
-  }
-
-  .mobile-contacts .vk,
-  .mobile-contacts .tg,
-  .mobile-contacts .phone,
-  .mobile-contacts .location {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .mobile-contacts .vk:hover,
-  .mobile-contacts .tg:hover,
-  .mobile-contacts .location:hover,
-  .mobile-contacts .phone:hover{
-    color: var(--light-text-color);
-    transition: 0.2s ease;
-  }
-
-  .mobile-contacts .header-icon{
-    margin: 0 10px 0 0;
-    width: 36px;
-    height: 36px;
-  }
-
-  .mobile-contacts .header-text{
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .menu-button-icon{
-    position: absolute;
-    top: 14px;
-    right: 10vw;
-    display: block;
-    width: 24px;
-    height: 24px;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-
   .main-title {
     bottom: auto;
     top: 10%;
     z-index: 1;
   }
+
   .main-title::before {
     content: "";
     position: absolute;
@@ -611,10 +379,6 @@ h2{
     align-items: center;
   }
 
-  .why-us-text button{
-    width: 100%;
-  }
-
   .why-us-text span{
     text-align: center;
   }
@@ -650,5 +414,4 @@ h2{
     margin-left: 0;
     height: 500px;
   }
-
 }

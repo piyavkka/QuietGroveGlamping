@@ -35,7 +35,8 @@ function App() {
                         <p>Активный отдых – пешие прогулки, веломаршруты, SUP-доски и походные бани.</p>
                         <p>Окунитесь в мир гармонии и вдохновения – бронируйте отдых мечты уже сегодня!</p>
                     <span>От 8 000 /сутки</span>
-                    <button>забронировать</button>
+                    <Button variant="contained" href="#"
+                            sx={{bgcolor: 'var(--main-color)', fontFamily: 'Montserrat', width: '300px'}}>забронировать</Button>
                 </div>
                 <div className="advantages">
                     <h3>Есть всё необходимое для вашего комфорта</h3>
@@ -84,7 +85,6 @@ function App() {
             </section>
 
             <section className="route">
-
                 <div className="map">
                     <iframe
                         src="https://yandex.ru/map-widget/v1/?um=constructor%3Ad31d6bcef6c6ac64e41786b39e3002f65c03a4fcea89270a0f2d4efa1c49e5a6&amp;source=constructor"

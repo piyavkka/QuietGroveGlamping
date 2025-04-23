@@ -6,20 +6,23 @@ import CardActionArea from '@mui/material/CardActionArea';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// @ts-ignore
 import 'swiper/css';
-// @ts-ignore
 import 'swiper/css/scrollbar';
+import 'swiper/css/keyboard';
 
-import { Scrollbar } from 'swiper/modules';
+import { Scrollbar, Keyboard } from 'swiper/modules';
 
 export default function ActionAreaCard() {
     return (
         <div className="cards-slider">
             <Swiper className="custom-swiper"
-                modules={[Scrollbar]}
+                modules={[Scrollbar, Keyboard]}
                 spaceBetween={16}
                 scrollbar={{ draggable: true }}
+                keyboard={{
+                    enabled: true,
+                    onlyInViewport: true,
+                }}
                 touchMoveStopPropagation={false}
                 breakpoints={{
                     0: { slidesPerView: 1.2,},

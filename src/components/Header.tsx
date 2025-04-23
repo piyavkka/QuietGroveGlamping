@@ -15,10 +15,9 @@ export const Header = () => {
             <header>
                 <div className="header-container">
                     <div className="logo-container">
-                        <img src={logo} alt="Logo" />
+                        <img src={logo} alt="Logo" className='logo-img' />
                         <span className="logo">Тихая Роща</span>
                     </div>
-
 
                     <div className="header-icons">
                         <SiVk className="header-icon"/>
@@ -45,19 +44,19 @@ export const Header = () => {
                     </ul>
 
                     <div className="mobile-contacts">
-                        <div className="vk">
+                        <div className="group">
                             <SiVk className="header-icon" />
                             <span className="header-text">@quiet_grove</span>
                         </div>
-                        <div className="tg">
+                        <div className="group">
                             <FaTelegram className="header-icon" />
                             <span className="header-text">@quiet_grove</span>
                         </div>
-                        <div className="phone">
+                        <div className="group">
                             <MdOutlinePhoneIphone className="header-icon" />
                             <span className="header-text">+7 (986) 742 70 80</span>
                         </div>
-                        <div className="location">
+                        <div className="group">
                             <FaLocationDot className="header-icon" />
                             <span className="header-text">посёлок Ильиногорск</span>
                         </div>
