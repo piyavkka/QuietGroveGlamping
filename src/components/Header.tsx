@@ -9,6 +9,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import logo from '/src/assets/logo.png';
 
+import '../styles/header.css';
+
 export const Header = () => {
         const [isOpen, setIsOpen] = useState(false);
         return (
