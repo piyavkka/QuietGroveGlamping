@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
 
 const images = [
-    "/images/house1.jpg",
-    "/images/house2.jpg",
-    "/images/house3.jpg",
-    "/images/house4.jpg",
-    "/images/house5.jpg",];
+    "/src/assets/Home/house1.jpg",
+    "/src/assets/Home/house2.jpg",
+    "/src/assets/Home/house3.jpg",
+    "/src/assets/Home/house4.jpg",
+    "/src/assets/Home/house5.jpg",];
 
 export const Slider: React.FC = () => {
     const scrollRef = useRef<HTMLDivElement>(null);
