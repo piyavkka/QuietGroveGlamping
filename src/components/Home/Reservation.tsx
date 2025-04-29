@@ -1,8 +1,6 @@
-import {Component} from 'react';
 import {Button} from "@mui/material";
 
-class Reservation extends Component {
-    render() {
+export default function Reservation() {
         return (
             <div className="reservation-form">
                 <input placeholder="заезд"/>
@@ -13,7 +11,4 @@ class Reservation extends Component {
                 </Button>
             </div>
         );
-    }
 }
-
-export default Reservation;

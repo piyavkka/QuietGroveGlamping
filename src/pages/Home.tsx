@@ -1,20 +1,21 @@
 import main_img from "../assets/Home/main_img.jpg";
 import reviews from "../assets/Home/reviews.png";
-import {Header} from "../components/Header.tsx";
-import Reservation from "../components/Home/Reservation.tsx";
-import {Slider} from "../components/Home/Slider.tsx";
-import ActionAreaCard from "../components/Home/ActionAreaCard.tsx";
-import ReviewSlider from "../components/Home/ReviewSlider.tsx";
-import Route from "../components/Home/Route.tsx";
-import Footer from "../components/Footer.tsx";
-import WhyUs from "../components/Home/WhyUs.tsx";
+
+import {
+    Reservation,
+    Slider,
+    ActionAreaCard,
+    ReviewSlider,
+    Route,
+    WhyUs
+} from '../components/Home/index.tsx';
+
 import '../styles/home.css'
 
 function Home() {
 
     return (
         <>
-            <Header/>
             <section className="main-section">
                 <img src={main_img} className="main-img" alt="Глэмпинг"/>
                 <h2 className="main-title">наедине с природой, не отвлекаясь от важного</h2>
@@ -48,8 +49,6 @@ function Home() {
             <section className="route">
                 <Route/>
             </section>
-
-            <Footer/>
         </>
     )
 }

@@ -6,7 +6,7 @@ import { MdOutlinePhoneIphone } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { Link } from 'react-router-dom';
 import logo from '/src/assets/logo.png';
 
 import '../styles/header.css';
@@ -16,10 +16,10 @@ export const Header = () => {
         return (
             <header>
                 <div className="header-container">
-                    <div className="logo-container">
-                        <img src={logo} alt="Logo" className='logo-img' />
+                    <Link to="/" className="logo-container">
+                        <img src={logo} alt="Logo" className="logo-img" />
                         <span className="logo">Тихая Роща</span>
-                    </div>
+                    </Link>
 
                     <div className="header-icons">
                         <SiVk className="header-icon"/>
@@ -38,11 +38,11 @@ export const Header = () => {
                 </div>
                 <nav className={`header-nav ${isOpen ? 'active' : ''}`}>
                     <ul>
-                        <li><a href='#'>Дома</a></li>
-                        <li><a href='#'>Развлечения</a></li>
-                        <li><a href='#'>Мероприятия</a></li>
-                        <li><a href='#'>Банный комплекс</a></li>
-                        <li><a href='#'>Вход</a></li>
+                        <li><Link to="/houses">Дома</Link></li>
+                        <li><Link to="/entertainment">Развлечения</Link></li>
+                        <li><Link to="/events">Мероприятия</Link></li>
+                        <li><Link to="/bath-complex">Банный комплекс</Link></li>
+
                     </ul>
 
                     <div className="mobile-contacts">
