@@ -38,7 +38,8 @@ export const Header = () => {
                 </div>
                 <nav className={`header-nav ${isOpen ? 'active' : ''}`}>
                     <ul>
-                        <li><Link to="/houses">Дома</Link></li>
+                        <li><Link to="/">О нас</Link></li>
+                        <li><Link to="/houses">Домики</Link></li>
                         <li><Link to="/entertainment">Развлечения</Link></li>
                         <li><Link to="/events">Мероприятия</Link></li>
                         <li><Link to="/bath-complex">Банный комплекс</Link></li>
