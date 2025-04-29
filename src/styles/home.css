@@ -3,12 +3,6 @@
     position: relative;
     width: 100%;
 }
-.main-img {
-    width: 100%;
-    height: 670px;
-    display: block;
-    object-fit: cover;
-}
 
 .main-title {
     font-size: clamp(1rem, 5vw, 3.2rem);
@@ -105,10 +99,7 @@
 }
 
 .slider-item img {
-    width: 100%;
     height: 100%;
-    object-fit: cover;
-    display: block;
 }
 
 
@@ -206,7 +197,6 @@ h2{
 }
 
 .entertainment a{
-    text-decoration: none;
     color: black;
     margin-bottom: 1vw;
     display: flex;
@@ -221,13 +211,6 @@ h2{
 .custom-swiper {
     height: 400px;
     width: 100%;
-}
-
-.reviews-img{
-    width: 100%;
-    height: 700px;
-    display: block;
-    object-fit: cover;
 }
 
 .reviews{
