@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import {H1Light, H2Light} from "../styles/theme.ts";
 
 interface IntroSectionProps {
     src: string;
@@ -7,6 +8,32 @@ interface IntroSectionProps {
     title: string;
     description: string;
 }
+
+const Content = styled.div`
+    max-width: 1440px;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: clamp(15px, 5vw, 80px);
+    color: var(--light-text-color);
+    z-index: 1;
+`;
+
+export const IntroSection: React.FC<IntroSectionProps> = ({src, alt, title, description}) => {
+    return (
+        <Wrapper>
+            <ImageWrapper>
+                <img src={src} alt={alt}/>
+                <Content>
+                    <H1Light>{title}</H1Light>
+                    <StyledH2>{description}</StyledH2>
+                </Content>
+            </ImageWrapper>
+        </Wrapper>
+    );
+};
 
 const Wrapper = styled.section`
     background-color: var(--main-color);
@@ -34,37 +61,8 @@ const ImageWrapper = styled.div`
     }
 `;
 
-const Content = styled.div`
-    max-width: 1440px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    padding: min(8vw, 100px);
-    color: var(--light-text-color);
-    z-index: 1;
-`;
-
-const Title = styled.h2`
-    font-size: 40px;
-    font-weight: bold;
-    text-transform: uppercase;
-`;
-
-const Description = styled.p`
-    font-size: 28px;
-    margin-top: 16px;
-`;
-
-export const IntroSection: React.FC<IntroSectionProps> = ({src, alt, title, description}) => {
-    return (
-        <Wrapper>
-            <ImageWrapper>
-                <img src={src} alt={alt}/>
-                <Content>
-                    <Title>{title}</Title>
-                    <Description>{description}</Description>
-                </Content>
-            </ImageWrapper>
-        </Wrapper>
-    );
-};
+const StyledH2 = styled(H2Light)`
+    display: inline-block;
+    max-width: 1000px;
+    margin-top: 1rem;
+`
