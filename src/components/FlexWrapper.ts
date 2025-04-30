@@ -9,8 +9,6 @@ interface FlexWrapperProps {
 }
 
 export const FlexWrapper = styled.div<FlexWrapperProps>`
-    width: 100%;
-    height: 100%;  
     display: flex;
     justify-content: ${({ justify = 'flex-start' }) => justify};
     align-items: ${({ align = 'stretch' }) => align};

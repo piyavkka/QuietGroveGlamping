@@ -47,6 +47,7 @@ const ImageWrapper = styled.div`
     height: 670px;
     overflow: hidden;
     position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
 
     &::before {
         content: "";

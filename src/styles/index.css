@@ -2,7 +2,7 @@
 :root {
   --main-color: #455442;
   --add-color: #8ea076;
-  --accent-color: #95b73c;
+  --accent-color: #2c352a;
   --light-text-color: #f5f2ec;
   --elem-color: #b4b198;
 }
@@ -35,4 +35,9 @@ img{
   display: block;
   width: 100%;
   height: 100%;
+}
+
+button {
+  border: none;
+  cursor: pointer;
 }
