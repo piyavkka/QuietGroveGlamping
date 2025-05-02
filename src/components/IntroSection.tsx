@@ -56,7 +56,7 @@ const ImageWrapper = styled.div`
         left: 0;
         width: 100%;
         height: 70%;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.93), transparent);
         z-index: 0;
         pointer-events: none;
     }

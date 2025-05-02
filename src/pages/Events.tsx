@@ -36,11 +36,11 @@ const eventsData = [
         title: "День рождения",
         description: "Отметьте день рождения в уютной атмосфере загородного отдыха, наслаждаясь природой и комфортом. Мы организуем праздник по вашим пожеланиям: стильное оформление, ужин на террасе, уютную зону для отдыха у костра и развлекательную программу. Гости смогут провести время в комфортных домиках, попробовать местные угощения и насладиться теплой атмосферой. Этот день будет наполнен радостью, уютом и незабываемыми моментами.",
         images: [
-            { src: "/src/assets/Events/events1.jpg", alt: "" },
-            { src: "/src/assets/Events/events2.jpg", alt: "" },
-            { src: "/src/assets/Events/events3.jpg", alt: "" },
-            { src: "/src/assets/Events/events4.jpg", alt: "" },
-            { src: "/src/assets/Events/events5.jpg", alt: "" },
+            { src: "/src/assets/Events/events11.jpg", alt: "" },
+            { src: "/src/assets/Events/events12.jpg", alt: "" },
+            { src: "/src/assets/Events/events13.jpg", alt: "" },
+            { src: "/src/assets/Events/events14.jpg", alt: "" },
+            { src: "/src/assets/Events/events15.jpg", alt: "" },
         ],
     },
 
@@ -49,11 +49,11 @@ const eventsData = [
         title: "Семейный уикенд",
         description: "Проведите время с семьей вдали от городской суеты, наслаждаясь уютом и природой. Наш глэмпинг-отель предлагает комфортное размещение, живописные прогулки, расслабляющий отдых в бане и возможность весело провести время на свежем воздухе. Дети будут в восторге от приключений на природе, а взрослые смогут насладиться покоем и уединением. Здесь каждый найдет занятие по душе, а теплые вечера в кругу семьи у камина или на террасе станут самыми ценными моментами.",
         images: [
-            { src: "/src/assets/Events/events1.jpg", alt: "" },
-            { src: "/src/assets/Events/events2.jpg", alt: "" },
-            { src: "/src/assets/Events/events3.jpg", alt: "" },
-            { src: "/src/assets/Events/events4.jpg", alt: "" },
-            { src: "/src/assets/Events/events5.jpg", alt: "" },
+            { src: "/src/assets/Events/events16.jpg", alt: "" },
+            { src: "/src/assets/Events/events17.jpg", alt: "" },
+            { src: "/src/assets/Events/events18.jpg", alt: "" },
+            { src: "/src/assets/Events/events19.jpg", alt: "" },
+            { src: "/src/assets/Events/events20.jpg", alt: "" },
         ],
     },
 
@@ -63,16 +63,13 @@ const eventsData = [
         description: "Если вам хочется замедлиться, отвлечься от суеты и посвятить время себе, наш глэмпинг — идеальное место для уединенного отдыха. Здесь нет шума и спешки, только природа, тишина и уютные домики, где можно расслабиться и перезагрузиться. Медитации на свежем воздухе, неспешные прогулки и возможность полностью отвлечься от внешнего мира помогут восстановить баланс и наполниться энергией. Подарите себе время для отдыха, спокойствия и гармонии.",
         images: [
             { src: "/src/assets/Events/events23.jpg", alt: "" },
-            { src: "/src/assets/Events/events2.jpg", alt: "" },
-            { src: "/src/assets/Events/events2.jpg", alt: "" },
+            { src: "/src/assets/Events/events21.jpg", alt: "" },
+            { src: "/src/assets/Events/events22.jpg", alt: "" },
             { src: "/src/assets/Events/events24.jpg", alt: "" },
             { src: "/src/assets/Events/events25.jpg", alt: "" },
         ],
     },
 ];
-
-
-
 
 function Events() {
     return (
@@ -85,7 +82,7 @@ function Events() {
             />
 
             <SectionWrapper >
-                <FlexWrapper direction="column" gap="clamp(16px, 5vw, 70px)">
+                <FlexWrapper direction="column" gap="70px">
                     {eventsData.map(({ id, title, description, images }) => (
                         <VerticalImageSlider
                             key={id}

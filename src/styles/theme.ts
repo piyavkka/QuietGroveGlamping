@@ -13,12 +13,22 @@ export const theme = {
         light: '#f5f2ec',
     },
 
-    fontSize: {},
+    fontSize: {
+        P: 'clamp(0.8rem, 5vw, 1rem);',
+    },
 
     fontWeight: {
         medium: '400',
         semibold: '500',
         bold: '600',
+    },
+
+    padding: {
+        small: '16px',
+    },
+
+    gap: {
+        small: '16px',
     },
 };
 
@@ -29,7 +39,7 @@ export const H3Dark = styled.h3`
 `
 export const H2Light = styled.h2`
     color: ${theme.fontColor.light};
-    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-size: clamp(1.5rem, 5vw, 1rem);
     text-align: left;
     font-weight: ${theme.fontWeight.medium};
     text-shadow: ${theme.shadow.text};
@@ -48,7 +58,7 @@ export const P = styled.p`
     font-weight: ${theme.fontWeight.medium};
     line-height: 140%;
     text-align: justify;
-    font-size: clamp(0.8rem, 5vw, 1rem);
+    font-size: ${theme.fontSize.P};
 `
 export const Span = styled.span`
     font-weight: ${theme.fontWeight.bold};

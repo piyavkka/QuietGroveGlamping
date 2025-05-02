@@ -289,11 +289,6 @@ h2{
     opacity: 0.7;
 }
 
-.accordion-usage{
-    width: 60%;
-    margin: 0 auto;
-}
-
 /*медиа запросы*/
 @media (max-width: 768px) {
     .main-title {
