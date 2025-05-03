@@ -10,7 +10,7 @@ import Footer from "./components/Footer.tsx";
 function App() {
     return (
         <Router>
-            <Header />
+            <Header/>
 
             <main style={{ minHeight: '80vh' }}>
                 <Routes>
@@ -22,7 +22,7 @@ function App() {
                 </Routes>
             </main>
 
-            <Footer />
+            <Footer/>
         </Router>
     );
 }

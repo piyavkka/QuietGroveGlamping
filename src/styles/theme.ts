@@ -4,16 +4,18 @@ export const theme = {
 
     shadow: {
       text: '0 0 10px rgba(0, 0, 0, 0.9)',
-      elements: '',
+      elements: '0 0 20px rgba(0, 0, 0, 0.8)',
     },
 
     fontColor: {
         main: '#000000',
         accent: '#95b73c',
         light: '#f5f2ec',
+        additional: '#8ea076',
     },
 
     fontSize: {
+        logo: 'clamp(1rem, 2vw, 2rem)',
         P: 'clamp(0.8rem, 5vw, 1rem);',
     },
 
@@ -28,6 +30,7 @@ export const theme = {
     },
 
     gap: {
+        icons: '12px',
         small: '16px',
     },
 };
