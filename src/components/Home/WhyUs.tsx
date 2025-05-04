@@ -1,55 +1,106 @@
-import {Button} from "@mui/material";
+import styled from 'styled-components';
+import { Button } from "../Button.ts";
+import {FlexWrapper} from "../FlexWrapper.ts";
+import { SectionWrapper } from '../SectionWrapper.ts';
+import {H2Dark, P, Span} from "../../styles/theme.ts";
 
-export default function WhyUs(){
+const whyUsData = [
+    {
+        text: `Добро пожаловать в Тихую рощу – место, где природа встречается с уютом. Забудьте о городской суете и подарите себе отдых в стильных домиках среди леса.\n
+                Уединение и спокойствие – пробуждайтесь под пение птиц и вдыхайте свежий воздух.\n
+                Комфорт без компромиссов – мягкие кровати, горячий душ, Wi-Fi и всё, что нужно для полного расслабления.\n
+                Атмосфера уюта – вечерние костры, звёздное небо и аромат свежесваренного кофе по утрам.\n
+                Активный отдых – пешие прогулки, веломаршруты, SUP-доски и походные бани.\n
+                Окунитесь в мир гармонии и вдохновения – бронируйте отдых мечты уже сегодня!`,
+    },
+];
+
+const advantagesData = [
+    { icon: "/src/assets/Home/image.svg", title: "Кухня" },
+    { icon: "/src/assets/Home/image-1.svg", title: "Ванная комната" },
+    { icon: "/src/assets/Home/image-2.svg", title: "Бельё" },
+    { icon: "/src/assets/Home/image-3.svg", title: "Банный комплекс" },
+    { icon: "/src/assets/Home/image-4.svg", title: "Мангал" },
+    { icon: "/src/assets/Home/image-5.svg", title: "Развлечения" },
+];
+
+export default function WhyUs() {
     return (
-        <>
-            <div className="why-us-text">
-                <h2>Отдых на природе с комфортом – ваш идеальный глэмпинг! </h2>
-                <p>Добро пожаловать в Тихую рощу – место, где природа встречается с уютом. Забудьте о городской суете и
-                    подарите себе отдых в стильных домиках среди леса.</p>
-                <p>Уединение и спокойствие – пробуждайтесь под пение птиц и вдыхайте свежий воздух.</p>
-                <p>Комфорт без компромиссов – мягкие кровати, горячий душ, Wi-Fi и всё, что нужно для полного
-                    расслабления.</p>
-                <p>Атмосфера уюта – вечерние костры, звёздное небо и аромат свежесваренного кофе по утрам.</p>
-                <p>Активный отдых – пешие прогулки, веломаршруты, SUP-доски и походные бани.</p>
-                <p>Окунитесь в мир гармонии и вдохновения – бронируйте отдых мечты уже сегодня!</p>
-                <span>От 8 000 /сутки</span>
-                <Button variant="contained" href="#"
-                        sx={{
-                            bgcolor: 'var(--main-color)',
-                            fontFamily: 'Montserrat',
-                            width: '300px'
-                        }}>забронировать</Button>
-            </div>
-            <div className="advantages">
-                <h3>Есть всё необходимое для вашего комфорта</h3>
-                <div className="advantages-list">
-                    <div className="list-icon">
-                        <img src="/src/assets/Home/image.svg" alt="" className="icon"/>
-                        <h4>Кухня</h4>
-                    </div>
-                    <div className="list-icon">
-                        <img src="/src/assets/Home/image-1.svg" alt="" className="icon"/>
-                        <h4>Ванная комната</h4>
-                    </div>
-                    <div className="list-icon">
-                        <img src="/src/assets/Home/image-2.svg" alt="" className="icon"/>
-                        <h4>Бельё</h4>
-                    </div>
-                    <div className="list-icon">
-                        <img src="/src/assets/Home/image-3.svg" alt="" className="icon"/>
-                        <h4>Банный комплекс</h4>
-                    </div>
-                    <div className="list-icon">
-                        <img src="/src/assets/Home/image-4.svg" alt="" className="icon"/>
-                        <h4>Мангал</h4>
-                    </div>
-                    <div className="list-icon">
-                        <img src="/src/assets/Home/image-5.svg" alt="" className="icon"/>
-                        <h4>Развлечения</h4>
-                    </div>
-                </div>
-            </div>
-        </>
+        <SectionWrapper>
+            <FlexWrapper justify="space-between" align="flex-start" gap="20px" wrap="wrap">
+                <WhyUsText direction="column" gap="16px">
+                    <H2Dark>Отдых на природе с комфортом – ваш идеальный глэмпинг!</H2Dark>
+                    {whyUsData.map((item, index) => (
+                        <P key={index}>{item.text}</P>
+                    ))}
+                    <Span>От 8 000 /сутки</Span>
+                    <Button>Забронировать</Button>
+                </WhyUsText>
+
+                <Advantages direction="column" gap="16px">
+                    <h3>Есть всё необходимое<br/>для вашего комфорта</h3>
+                    <AdvantagesList direction="column" gap="16px">
+                        {advantagesData.map((item, index) => (
+                            <div className="list-icon" key={index}>
+                                <img src={item.icon} alt={item.title} className="icon" />
+                                <h4>{item.title}</h4>
+                            </div>
+                        ))}
+                    </AdvantagesList>
+                </Advantages>
+            </FlexWrapper>
+        </SectionWrapper>
     );
 }
+
+const WhyUsText = styled(FlexWrapper)`
+    width: 100%;
+    max-width: 860px;
+    min-width: 500px;
+    border-radius: 10px;
+    flex: 1;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        min-width: unset;
+        align-items: center;
+        border: none;
+    }
+`
+
+const Advantages = styled(FlexWrapper)`
+    padding: 20px;
+    background-color: var(--light-text-color);
+    border-radius: 10px;
+    flex: 0 0 auto;
+
+    .list-icon {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .icon {
+        width: 52px;
+        height: 52px;
+    }
+
+    h4 {
+        font-weight: 500;
+    }
+
+    h3 {
+        font-size: clamp(1rem, 5vw, 1.4rem);
+        font-weight: 500;
+        text-align: center;
+    }
+    
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+`
+
+const AdvantagesList = styled(FlexWrapper)`
+    width: fit-content; 
+    margin: 0 auto;
+`

@@ -98,17 +98,17 @@ function AccordionItemComponent(
 }
 
 const AccordionContainer = styled.div`
-    max-width: 600px;
+    max-width: 1010px;
 `;
 
 const AccordionItem = styled.div`
-    border-bottom: 2px solid lightgray;
+    border-bottom: 2px solid var(--main-color);
 `;
 
 const AccordionQuestion = styled.button`
     width: 100%;
     padding: ${theme.padding.small};
-    background: #f8f8f8;
+    background: rgba(142, 160, 118, 0.45);
     text-align: left;
     font-size: ${theme.fontSize.P};
     display: flex;
