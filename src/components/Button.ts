@@ -14,4 +14,9 @@ export const Button = styled.button`
     &:hover {
         background-color: var(--accent-color);
     }
+
+    @media (max-width: 768px) {
+        margin: 0 auto;
+        width: 260px;
+    }
 `
