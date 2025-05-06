@@ -117,7 +117,7 @@ export default function ReviewSlider() {
                                 </Box>
                             </Box>
 
-                            <P>{reviews[index].text}</P>
+                            <P lang="ru">{reviews[index].text}</P>
 
                             <Button>Читать ещё отзывы</Button>
                         </Box>

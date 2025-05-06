@@ -18,13 +18,13 @@ function Entertainment() {
 
             <SectionWrapper>
                 <FlexWrapper gap="clamp(16px, 5vw, 70px)" wrap="wrap" justify="center">
-                    {description.map((item) => (
-                        <Card>
+                    {description.map((card) => (
+                        <Card key={card.id}>
                             <FlexWrapper direction="column" gap="20px" align="center">
-                                <Img src={item.img} alt={item.alt}/>
-                                <H3Dark>{item.title}</H3Dark>
-                                <P lang="ru">{item.text}</P>
-                                <Span>{item.price}</Span>
+                                <Img src={card.img} alt={card.alt}/>
+                                <H3Dark>{card.title}</H3Dark>
+                                <P lang="ru">{card.text}</P>
+                                <Span>{card.price}</Span>
                             </FlexWrapper>
                         </Card>
                     ))}

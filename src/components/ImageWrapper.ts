@@ -3,7 +3,7 @@ import {theme} from "../styles/theme.ts";
 
 export const ImageWrapper = styled.div`
     width: 100%;
-    max-width: 1600px;
+    display: block;
     margin: 0 auto;
     height: 670px;
     overflow: hidden;

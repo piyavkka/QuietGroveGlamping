@@ -1,28 +1,19 @@
-import main_img from "../assets/Home/main_img.jpg";
-
 import {
-    Reservation,
     Slider,
     ActionAreaCard,
     ReviewSlider,
     Route,
-    WhyUs
+    WhyUs,
+    MainSection,
 } from '../components/Home/index.tsx';
-
-import '../styles/home.css'
 
 function Home() {
 
     return (
         <>
-            <section className="main-section">
-                <img src={main_img} alt="Глэмпинг"/>
-                <h2 className="main-title">наедине с природой, не отвлекаясь от важного</h2>
-                <Reservation/>
-            </section>
+            <MainSection/>
 
-            <section className="slider">
-                <h1 className="slider-title">Тихая роща - идеальное место для отдыха на природе, вдали от городской суеты</h1>
+            <section>
                 <Slider/>
             </section>
 
