@@ -15,35 +15,37 @@ import {useNavigate} from 'react-router-dom';
 export default function ActionAreaCard() {
     const navigate = useNavigate();
     return (
-        <SectionWrapper>
-            <H2Dark style={{marginBottom: '16px'}}>Развлечения</H2Dark>
-            <FlexWrapper justify="space-between" gap="12px" wrap="wrap">
-                <H4Dark>Отдых в нашем глэмпинге — это не только уют и комфорт, но и множество увлекательных развлечений
-                    на свежем воздухе! Вас ждут:</H4Dark>
-                <StyledLink to="/entertainment">смотреть все</StyledLink>
-            </FlexWrapper>
+        <section>
+            <SectionWrapper>
+                <H2Dark style={{marginBottom: '16px'}}>Развлечения</H2Dark>
+                <FlexWrapper justify="space-between" gap="12px" wrap="wrap">
+                    <H4Dark>Отдых в нашем глэмпинге — это не только уют и комфорт, но и множество увлекательных развлечений
+                        на свежем воздухе! Вас ждут:</H4Dark>
+                    <StyledLink to="/entertainment">смотреть все</StyledLink>
+                </FlexWrapper>
 
-            <Swiper
-                modules={[Scrollbar, Keyboard]}
-                spaceBetween={24}
-                scrollbar={{draggable: true}}
-                keyboard={{enabled: true, onlyInViewport: true}}
-                touchMoveStopPropagation={false}
-                slidesPerView="auto"
-                centeredSlides={false}
-                style={{padding: "16px 0"}}
-            >
+                <Swiper
+                    modules={[Scrollbar, Keyboard]}
+                    spaceBetween={24}
+                    scrollbar={{draggable: true}}
+                    keyboard={{enabled: true, onlyInViewport: true}}
+                    touchMoveStopPropagation={false}
+                    slidesPerView="auto"
+                    centeredSlides={false}
+                    style={{padding: "16px 0"}}
+                >
 
-                {description.map((card) => (
-                    <SwiperSlideStyled key={card.id}>
-                        <Card onClick={() => navigate(`/entertainment/${card.id}`)}>
-                            <Img src={card.img} alt={card.alt} />
-                            <H3Dark>{card.title}</H3Dark>
-                        </Card>
-                    </SwiperSlideStyled>
-                ))}
-            </Swiper>
-        </SectionWrapper>
+                    {description.map((card) => (
+                        <SwiperSlideStyled key={card.id}>
+                            <Card onClick={() => navigate(`/entertainment/${card.id}`)}>
+                                <Img src={card.img} alt={card.alt} />
+                                <H3Dark>{card.title}</H3Dark>
+                            </Card>
+                        </SwiperSlideStyled>
+                    ))}
+                </Swiper>
+            </SectionWrapper>
+        </section>
     );
 }
 

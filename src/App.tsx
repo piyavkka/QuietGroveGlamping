@@ -6,6 +6,7 @@ import Entertainment from './pages/Entertainment';
 import Events from './pages/Events';
 import {Header} from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
     return (
@@ -13,6 +14,8 @@ function App() {
             <Header/>
 
             <main style={{ minHeight: '80vh' }}>
+
+                <ScrollToTop />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/houses" element={<Houses />} />

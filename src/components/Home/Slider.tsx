@@ -23,39 +23,42 @@ export const Slider = () => {
     const swiperRef = useRef<SwiperType | null>(null);
 
     return (
-        <SectionWrapper>
-            <FlexWrapper direction="column" align="center">
-                <H1>Тихая роща - идеальное место для отдыха на природе, вдали от городской суеты</H1>
-                <SliderWrapper>
-                    <ArrowButton
-                        className="prev"
-                        onClick={() => swiperRef.current?.slidePrev()}
-                    >
-                        <ArrowBackIosNewIcon fontSize="small"/>
-                    </ArrowButton>
-                    <StyledSwiper
-                        modules={[Autoplay, Pagination, Keyboard]}
-                        pagination={{ clickable: true }}
-                        autoplay={{ delay: 10000 }}
-                        keyboard={{ enabled: true }}
-                        loop={true}
-                        onSwiper={(swiper) => (swiperRef.current = swiper)}
-                    >
-                        {images.map((src, index) => (
-                            <SwiperSlide key={index}>
-                                <img src={src} alt={`Slide ${index + 1}`} />
-                            </SwiperSlide>
-                        ))}
-                    </StyledSwiper>
-                    <ArrowButton
-                        className="next"
-                        onClick={() => swiperRef.current?.slideNext()}
-                    >
-                        <ArrowForwardIosIcon fontSize="small"/>
-                    </ArrowButton>
-                </SliderWrapper>
-            </FlexWrapper>
-        </SectionWrapper>
+        <section>
+            <SectionWrapper>
+                <FlexWrapper direction="column" align="center">
+                    <H1>Тихая роща - идеальное место для отдыха на природе, вдали от городской суеты</H1>
+                    <SliderWrapper>
+                        <ArrowButton
+                            className="prev"
+                            onClick={() => swiperRef.current?.slidePrev()}
+                        >
+                            <ArrowBackIosNewIcon fontSize="small"/>
+                        </ArrowButton>
+                        <StyledSwiper
+                            modules={[Autoplay, Pagination, Keyboard]}
+                            pagination={{ clickable: true }}
+                            autoplay={{ delay: 5000 }}
+                            keyboard={{ enabled: true }}
+                            loop={true}
+                            onSwiper={(swiper) => (swiperRef.current = swiper)}
+                        >
+                            {images.map((src, index) => (
+                                <SwiperSlide key={index}>
+                                    <img src={src} alt={`Slide ${index + 1}`} />
+                                </SwiperSlide>
+                            ))}
+                        </StyledSwiper>
+                        <ArrowButton
+                            className="next"
+                            onClick={() => swiperRef.current?.slideNext()}
+                        >
+                            <ArrowForwardIosIcon fontSize="small"/>
+                        </ArrowButton>
+                    </SliderWrapper>
+                </FlexWrapper>
+            </SectionWrapper>
+        </section>
+
     );
 };
 

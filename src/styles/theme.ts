@@ -68,7 +68,7 @@ export const H4Dark = styled.h4`
 
 export const MainTitle = styled.h2`
     color: ${theme.fontColor.light};
-    font-size: clamp(1.6rem, 5vw, 3rem);
+    font-size: clamp(1.6rem, 3vw, 3rem);
     font-weight: ${theme.fontWeight.bold};
     text-align: left;
     text-transform: uppercase;
