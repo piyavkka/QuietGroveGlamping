@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from "../Button.ts";
+import { Button } from "../Button";
 import {FlexWrapper} from "../FlexWrapper.ts";
 import { SectionWrapper } from '../SectionWrapper.ts';
 import {H2Dark, P, Span} from "../../styles/theme.ts";
@@ -26,30 +26,32 @@ const advantagesData = [
 
 export default function WhyUs() {
     return (
-        <SectionWrapper>
-            <FlexWrapper justify="space-between" align="flex-start" gap="20px" wrap="wrap">
-                <WhyUsText direction="column" gap="16px">
-                    <H2Dark>Отдых на природе с комфортом – ваш идеальный глэмпинг!</H2Dark>
-                    {whyUsData.map((item, index) => (
-                        <P key={index}>{item.text}</P>
-                    ))}
-                    <Span>От 8 000 /сутки</Span>
-                    <Button>Забронировать</Button>
-                </WhyUsText>
-
-                <Advantages direction="column" gap="16px">
-                    <h3>Есть всё необходимое<br/>для вашего комфорта</h3>
-                    <AdvantagesList direction="column" gap="16px">
-                        {advantagesData.map((item, index) => (
-                            <div className="list-icon" key={index}>
-                                <img src={item.icon} alt={item.title} className="icon" />
-                                <h4>{item.title}</h4>
-                            </div>
+        <section>
+            <SectionWrapper>
+                <FlexWrapper justify="space-between" align="flex-start" gap="20px" wrap="wrap">
+                    <WhyUsText direction="column" gap="16px">
+                        <H2Dark>Отдых на природе с комфортом – ваш идеальный глэмпинг!</H2Dark>
+                        {whyUsData.map((item, index) => (
+                            <P key={index}>{item.text}</P>
                         ))}
-                    </AdvantagesList>
-                </Advantages>
-            </FlexWrapper>
-        </SectionWrapper>
+                        <Span>От 8 000 /сутки</Span>
+                        <Button>Забронировать</Button>
+                    </WhyUsText>
+
+                    <Advantages direction="column" gap="16px">
+                        <h3>Есть всё необходимое<br/>для вашего комфорта</h3>
+                        <AdvantagesList direction="column" gap="16px">
+                            {advantagesData.map((item, index) => (
+                                <div className="list-icon" key={index}>
+                                    <img src={item.icon} alt={item.title} className="icon" />
+                                    <h4>{item.title}</h4>
+                                </div>
+                            ))}
+                        </AdvantagesList>
+                    </Advantages>
+                </FlexWrapper>
+            </SectionWrapper>
+        </section>
     );
 }
 

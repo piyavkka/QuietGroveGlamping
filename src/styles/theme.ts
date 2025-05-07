@@ -16,7 +16,8 @@ export const theme = {
 
     fontSize: {
         logo: 'clamp(1rem, 2vw, 2rem)',
-        P: 'clamp(0.8rem, 5vw, 1rem);',
+        P: 'clamp(0.8rem, 5vw, 1rem)',
+        button: '16px',
     },
 
     fontWeight: {
@@ -60,14 +61,28 @@ export const H2Dark = styled.h2`
 
 export const H4Dark = styled.h4`
     color: ${theme.fontColor.main};
-    display: inline-block;
-    width: 60%;
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     font-weight: ${theme.fontWeight.medium};
-    
-    @media (max-width: 768px)  {
-        width: 70%;
-    }
+    max-width: 760px;
+`
+
+export const MainTitle = styled.h2`
+    color: ${theme.fontColor.light};
+    font-size: clamp(1.6rem, 3vw, 3rem);
+    font-weight: ${theme.fontWeight.bold};
+    text-align: left;
+    text-transform: uppercase;
+    text-shadow: ${theme.shadow.text};
+    max-width: 1100px;
+`
+
+export const H1 = styled.h1`
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    color: ${theme.fontColor.main};
+    text-align: center;
+    font-weight: ${theme.fontWeight.medium};
+    margin-bottom: 40px;
+    max-width: 800px;
 `
 
 export const H1Light = styled.h1`

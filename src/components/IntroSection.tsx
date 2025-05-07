@@ -25,7 +25,6 @@ export const IntroSection: React.FC<IntroSectionProps> = ({src, alt, title, desc
 };
 
 const Wrapper = styled.section`
-    background-color: var(--main-color);
     width: 100%;
 `;
 

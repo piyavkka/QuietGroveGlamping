@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import {IconButton, Fade, Box, Rating, Avatar} from '@mui/material';
+import { Fade, Rating, Avatar} from '@mui/material';
 import { ArrowForwardIos } from '@mui/icons-material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import {Button} from "../Button.ts";
+import {Button} from "../Button";
 import {SectionWrapper} from "../SectionWrapper.ts";
 import styled from 'styled-components';
-import {P, Span, theme} from '../../styles/theme.ts';
+import {MainTitle, P, Span, theme} from '../../styles/theme.ts';
 import {ImageWrapper} from "../ImageWrapper.ts";
+import { FlexWrapper } from '../FlexWrapper.ts';
 
 const reviews = [
     {
@@ -30,7 +31,7 @@ const reviews = [
         text: `Впечатления самые положительные! Сразу порадовало, что домики утеплённые и оборудованы всем необходимым, даже в прохладную погоду было комфортно.\n
 Отдельно хочу отметить баню с чаном — это просто must-have после активного дня. Вода горячая, вид на лес — полное расслабление.\n
 Территория ухоженная, везде чисто, приятные тропинки, удобно гулять. Удивило, как тихо вокруг — идеальное место, чтобы выспаться и отдохнуть без шума.\n
-Большой плюс — быстрая регистрация и понятная навигация. Вернусь сюда обязательно ещё раз!`,
+Вернусь сюда обязательно ещё раз!`,
         name: 'Дмитрий Кузнецов',
         avatar: '/src/assets/Home/avatar3.jpg',
         stars: 5,
@@ -44,110 +45,55 @@ export default function ReviewSlider() {
     const handleChange = (direction: 'next' | 'prev') => {
         setFadeIn(false);
         setTimeout(() => {
-            setIndex((prev) => {
-                if (direction === 'next') return (prev + 1) % reviews.length;
-                else return (prev - 1 + reviews.length) % reviews.length;
-            });
+            setIndex((prev) =>
+                direction === 'next'
+                    ? (prev + 1) % reviews.length
+                    : (prev - 1 + reviews.length) % reviews.length
+            );
             setFadeIn(true);
         }, 200);
     };
 
     return (
-        <StyledImageWrapper>
-            <img src="/src/assets/Home/reviews.png" alt="glamping"/>
-            <SectionWrapper>
-                <StyledH3>место, в котором обязательно нужно побывать</StyledH3>
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: { xs: '30%', md: '10%' },
-                        right: { xs: '5%', md: '10vw' },
-                        width: { xs: '90%', sm: '80%', md: '35%' },
-                        height: { xs: '60%', md: '80%' },
-                        backgroundColor: 'var(--light-text-color)',
-                        borderRadius: '10px',
-                        py: { xs: 2, md: 3 },
-                        px: { xs: 3, md: 4 },
-                        display: 'flex',
-                        flexDirection: 'column',
-                        zIndex: 2,
-                        boxShadow: '0 0 10px rgba(0, 0, 0, 0.9)'
-                    }}
-                >
-                    <IconButton
-                        onClick={() => handleChange('prev')}
-                        sx={{
-                            position: 'absolute',
-                            width: 40,
-                            height: 40,
-                            left: -20,
-                            top: '50%',
-                            transform: 'translateY(-50%)',
-                            backgroundColor: 'var(--elem-color)',
-                            borderRadius: '50%',
-                            '&:hover': {
-                                backgroundColor: 'rgb(133,130,112)',
-                            },
-                        }}
-                    >
-                        <ArrowBackIosNewIcon fontSize="small" sx={{ color: 'black' }} />
-                    </IconButton>
+        <section>
+            <StyledImageWrapper>
+                <img src="/src/assets/Home/reviews.png" alt="glamping" />
+                <Content>
+                    <StyledH3>место, в котором обязательно нужно побывать</StyledH3>
 
-                    <Fade in={fadeIn} timeout={200}>
+                    <ReviewCard>
+                        <ArrowButton onClick={() => handleChange('prev')} disabled={reviews.length <= 1} $position="left">
+                            <ArrowBackIosNewIcon fontSize="small" />
+                        </ArrowButton>
 
-                        <Box sx={{height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                            <Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center'}}>
-                                    <Avatar
-                                        src={reviews[index].avatar}
-                                        sx={{
-                                            width: { xs: 26,  md: 40 },
-                                            height: { xs: 26, md: 40 },
-                                            mr: 2 }} />
-                                    <Span>{reviews[index].name}</Span>
-                                </Box>
+                        <Fade in={fadeIn} timeout={200}>
+                            <FlexWrapper direction="column" gap="10px" justify="space-between">
+                                <FlexWrapper direction="column" gap="10px">
+                                    <FlexWrapper align="center" gap="10px">
+                                        <Avatar src={reviews[index].avatar} sx={{ width: 40, height: 40 }} />
+                                        <Span>{reviews[index].name}</Span>
+                                    </FlexWrapper>
+                                    <Rating name="read-only" value={reviews[index].stars} readOnly sx={{ color: 'gold' }} />
+                                </FlexWrapper>
 
-                                <Box>
-                                    <Rating
-                                        name="read-only"
-                                        value={reviews[index].stars}
-                                        readOnly
-                                        sx={{ color: 'gold', mt: 1}}
-                                    />
-                                </Box>
-                            </Box>
+                                <ReviewText lang="ru">{reviews[index].text}</ReviewText>
 
-                            <P>{reviews[index].text}</P>
+                                <Button href="https://perfect-housewife.ru/">Читать ещё отзывы</Button>
+                            </FlexWrapper>
+                        </Fade>
 
-                            <Button>Читать ещё отзывы</Button>
-                        </Box>
-                    </Fade>
-
-                    <IconButton
-                        onClick={() => handleChange('next')}
-                        sx={{
-                            position: 'absolute',
-                            width: 40,
-                            height: 40,
-                            right: -20,
-                            top: '50%',
-                            transform: 'translateY(-50%)' ,
-                            backgroundColor: 'var(--elem-color)',
-                            borderRadius: '50%',
-                            '&:hover': {
-                                backgroundColor: 'rgb(133,130,112)',
-                            },
-                        }}
-                    >
-                        <ArrowForwardIos fontSize="small" sx={{ color: 'black' }} />
-                    </IconButton>
-                </Box>
-            </SectionWrapper>
-        </StyledImageWrapper>
+                        <ArrowButton onClick={() => handleChange('next')} disabled={reviews.length <= 1} $position="right">
+                            <ArrowForwardIos fontSize="small" />
+                        </ArrowButton>
+                    </ReviewCard>
+                </Content>
+            </StyledImageWrapper>
+        </section>
     );
 }
 
 const StyledImageWrapper = styled(ImageWrapper)`
+    height: 750px;
     &::before {
         content: "";
         position: absolute;
@@ -159,21 +105,71 @@ const StyledImageWrapper = styled(ImageWrapper)`
         z-index: 0;
         pointer-events: none;
     }
-`
+`;
 
-const StyledH3 = styled.h3`
-    position: absolute;
-    top: 10%;
-    left: 10vw;
-    color: var(--light-text-color);
-    font-weight: 600;
-    display: inline-block;
-    width: 35%;
-    font-size: clamp(1.8rem, 3vw, 8rem);
-    text-shadow: ${theme.shadow.text};
-    z-index: 1;
-    
+const StyledH3 = styled(MainTitle)`
+    max-width: 670px;
+
     @media (max-width: 768px) {
-        width: 80%;
+        text-align: center;
+        align-items: center;
     }
-`
+`;
+
+const Content = styled(SectionWrapper)`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    gap: 24px;
+`;
+
+const ReviewCard = styled(FlexWrapper)`
+    position: relative;
+    max-width: 500px;
+    min-width: 280px;
+    background-color: var(--light-text-color);
+    border-radius: 10px;
+    padding: clamp(10px, 5vw, 28px);
+    gap: 16px;
+    box-shadow: ${theme.shadow.elements};
+`;
+
+const ReviewText = styled(P)`
+    overflow: hidden;
+    display: block;
+    @media (max-width: 768px) {
+        mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        max-height: 300px;
+    }
+`;
+
+const ArrowButton = styled.button<{ disabled?: boolean; $position: 'left' | 'right' }>`
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    ${({$position}) => $position}: -20px;
+
+    background: var(--main-color);
+    color: var(--light-text-color);
+    border-radius: 50%;
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    cursor: ${({disabled}) => (disabled ? 'default' : 'pointer')};
+    opacity: ${({disabled}) => (disabled ? 0.3 : 1)};
+    transition: 0.2s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: ${theme.shadow.elements};
+
+    &:hover {
+        background-color: var(--accent-color);
+    }
+`;

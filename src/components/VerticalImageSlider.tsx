@@ -183,7 +183,7 @@ const ArrowButton = styled.button<{ disabled?: boolean }>`
     height: 40px;
     cursor: ${({disabled}) => (disabled ? "default" : "pointer")};
     opacity: ${({disabled}) => (disabled ? 0.3 : 1)};
-    transition: 0.2s;
+    transition: 0.2s ease;
 
     &:hover {
         background-color: var(--accent-color);
