@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {ArrowForwardIos} from "@mui/icons-material";
-import {FlexWrapper} from "./FlexWrapper";
+import {FlexWrapper} from "./common/FlexWrapper.ts";
 import {H3Dark, P, theme} from "../styles/theme";
-import {Button} from "./Button";
+import {Button} from "./common/Button.tsx";
 
 interface VerticalImageSliderProps {
     images: {
@@ -25,6 +25,7 @@ interface VerticalImageSliderProps {
     };
 
     children?: React.ReactNode;
+    action?: () => void;
 }
 
 export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
@@ -37,6 +38,7 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
         mainImageSize,
         previewSize,
         children,
+        action,
     }) => {
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -101,7 +103,7 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
                     <FlexWrapper direction="column" gap={theme.gap.small} align="center">
                         <H3Dark>{title}</H3Dark>
                         <StyledP style={{textAlign: "center"}}>{description}</StyledP>
-                        <Button>{buttonText}</Button>
+                        <Button onClick={action}>{buttonText}</Button>
                     </FlexWrapper>
                 </FlexWrapper>
             ) : (
@@ -142,7 +144,7 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
                         <H3Dark>{title}</H3Dark>
                         <StyledP>{description}</StyledP>
                         {children}
-                        <Button>{buttonText}</Button>
+                        <Button onClick={action}>{buttonText}</Button>
                     </FlexWrapper>
                 </FlexWrapper>
             )}

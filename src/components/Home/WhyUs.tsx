@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Button } from "../Button";
-import {FlexWrapper} from "../FlexWrapper.ts";
-import { SectionWrapper } from '../SectionWrapper.ts';
+import { Button } from "../common/Button.tsx";
+import {FlexWrapper} from "../common/FlexWrapper.ts";
+import { SectionWrapper } from '../common/SectionWrapper.ts';
 import {H2Dark, P, Span} from "../../styles/theme.ts";
 
 const whyUsData = [

@@ -1,8 +1,8 @@
 import HousesBg from "../assets/HousesBg.png";
 import { IntroSection } from "../components/IntroSection";
 import {VerticalImageSlider} from "../components/VerticalImageSlider.tsx";
-import {SectionWrapper} from "../components/SectionWrapper.ts";
-import {FlexWrapper} from "../components/FlexWrapper.ts";
+import {SectionWrapper} from "../components/common/SectionWrapper.ts";
+import {FlexWrapper} from "../components/common/FlexWrapper.ts";
 import {P, Span, H3Dark} from "../styles/theme.ts";
 import AccordionUsage from "../components/AccordionUsage.tsx";
 import styled from "styled-components";

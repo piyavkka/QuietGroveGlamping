@@ -5,9 +5,9 @@ import { Autoplay, Pagination, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import styled from "styled-components";
-import { SectionWrapper } from "../SectionWrapper.ts";
+import { SectionWrapper } from "../common/SectionWrapper.ts";
 import { H1 } from "../../styles/theme.ts";
-import { FlexWrapper } from "../FlexWrapper.ts";
+import { FlexWrapper } from "../common/FlexWrapper.ts";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 

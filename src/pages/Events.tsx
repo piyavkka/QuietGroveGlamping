@@ -1,8 +1,11 @@
 import {IntroSection} from "../components/IntroSection.tsx";
 import EventsBg from "../assets/EventsBg.png";
 import {VerticalImageSlider} from "../components/VerticalImageSlider.tsx";
-import {SectionWrapper} from "../components/SectionWrapper.ts";
-import {FlexWrapper} from "../components/FlexWrapper.ts";
+import {SectionWrapper} from "../components/common/SectionWrapper.ts";
+import {FlexWrapper} from "../components/common/FlexWrapper.ts";
+import Overlay from "../components/common/Overlay.tsx";
+import {useState} from "react";
+import FormEvents from "../components/FormEvents.tsx";
 
 const eventsData = [
     {
@@ -46,7 +49,7 @@ const eventsData = [
 
     {
         id: 4,
-        title: "Семейный уикенд",
+        title: "Семейные выходные",
         description: "Проведите время с семьей вдали от городской суеты, наслаждаясь уютом и природой. Наш глэмпинг-отель предлагает комфортное размещение, живописные прогулки, расслабляющий отдых в бане и возможность весело провести время на свежем воздухе. Дети будут в восторге от приключений на природе, а взрослые смогут насладиться покоем и уединением. Здесь каждый найдет занятие по душе, а теплые вечера в кругу семьи у камина или на террасе станут самыми ценными моментами.",
         images: [
             { src: "/src/assets/Events/events16.jpg", alt: "" },
@@ -59,7 +62,7 @@ const eventsData = [
 
     {
         id: 5,
-        title: "Ретрит",
+        title: "Наедине с собой",
         description: "Если вам хочется замедлиться, отвлечься от суеты и посвятить время себе, наш глэмпинг — идеальное место для уединенного отдыха. Здесь нет шума и спешки, только природа, тишина и уютные домики, где можно расслабиться и перезагрузиться. Медитации на свежем воздухе, неспешные прогулки и возможность полностью отвлечься от внешнего мира помогут восстановить баланс и наполниться энергией. Подарите себе время для отдыха, спокойствия и гармонии.",
         images: [
             { src: "/src/assets/Events/events23.jpg", alt: "" },
@@ -72,6 +75,17 @@ const eventsData = [
 ];
 
 function Events() {
+
+    const [showOverlay, setShowOverlay] = useState(false);
+
+    const handleOpenOverlay = () => {
+        setShowOverlay(true);
+    };
+
+    const handleCloseOverlay = () => {
+        setShowOverlay(false);
+    };
+
     return (
         <>
             <IntroSection
@@ -83,16 +97,24 @@ function Events() {
 
             <SectionWrapper >
                 <FlexWrapper direction="column" gap="70px">
-                    {eventsData.map(({ id, title, description, images }) => (
+                    {eventsData.map(({ id, title, description, images}) => (
                         <VerticalImageSlider
                             key={id}
                             images={images}
                             title={title}
                             description={description}
+                            buttonText="запросить бронь"
+                            action={handleOpenOverlay}
                         />
                     ))}
                 </FlexWrapper>
             </SectionWrapper>
+
+            {showOverlay && (
+                <Overlay onClose={handleCloseOverlay}>
+                    <FormEvents/>
+                </Overlay>
+            )}
 
         </>
     );

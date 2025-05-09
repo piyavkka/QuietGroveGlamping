@@ -1,20 +1,20 @@
-import styled from "styled-components";
-import {theme} from "../styles/theme";
 import React from "react";
+import styled from "styled-components";
+import {theme} from "../../styles/theme.ts";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     href?: string;
     children: React.ReactNode;
 }
 
-export const Button = styled(({ href, children, ...props }: ButtonProps) => {
+const RawButton: React.FC<ButtonProps> = ({href, children, ...props}) => {
     if (href) {
         return (
             <a
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ textDecoration: 'none' }}
+                style={{textDecoration: "none"}}
             >
                 <button {...props}>{children}</button>
             </a>
@@ -22,7 +22,9 @@ export const Button = styled(({ href, children, ...props }: ButtonProps) => {
     }
 
     return <button {...props}>{children}</button>;
-})`
+};
+
+export const Button = styled(RawButton)`
     background-color: var(--main-color);
     color: var(--light-text-color);
     padding: 14px 24px;
@@ -32,7 +34,9 @@ export const Button = styled(({ href, children, ...props }: ButtonProps) => {
     width: 260px;
     transition: 0.2s;
     font-size: ${theme.fontSize.button};
-    
+    cursor: pointer;
+    border: none;
+
     &:hover {
         background-color: var(--accent-color);
     }
@@ -40,4 +44,4 @@ export const Button = styled(({ href, children, ...props }: ButtonProps) => {
     @media (max-width: 768px) {
         margin: 0 auto;
     }
-`
+`;

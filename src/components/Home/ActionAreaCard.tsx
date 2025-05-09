@@ -6,14 +6,16 @@ import 'swiper/css/keyboard';
 import {Scrollbar, Keyboard} from 'swiper/modules';
 import styled from 'styled-components';
 import {H2Dark, H3Dark, H4Dark, theme} from '../../styles/theme.ts';
-import {SectionWrapper} from "../SectionWrapper.ts";
+import {SectionWrapper} from "../common/SectionWrapper.ts";
 import {Link} from "react-router-dom";
-import {FlexWrapper} from "../FlexWrapper.ts";
+import {FlexWrapper} from "../common/FlexWrapper.ts";
 
-import {useNavigate} from 'react-router-dom';
+import {  useNavigate } from "react-router-dom";
 
 export default function ActionAreaCard() {
+
     const navigate = useNavigate();
+
     return (
         <section>
             <SectionWrapper>
@@ -36,8 +38,8 @@ export default function ActionAreaCard() {
                 >
 
                     {description.map((card) => (
-                        <SwiperSlideStyled key={card.id}>
-                            <Card onClick={() => navigate(`/entertainment/${card.id}`)}>
+                        <SwiperSlideStyled>
+                            <Card key={card.id} onClick={() => navigate(`/entertainment`)}>
                                 <Img src={card.img} alt={card.alt} />
                                 <H3Dark>{card.title}</H3Dark>
                             </Card>

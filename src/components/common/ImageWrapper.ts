@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {theme} from "../styles/theme.ts";
+import {theme} from "../../styles/theme.ts";
 
 export const ImageWrapper = styled.div`
     width: 100%;
