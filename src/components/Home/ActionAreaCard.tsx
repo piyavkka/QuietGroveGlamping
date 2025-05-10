@@ -10,7 +10,7 @@ import {SectionWrapper} from "../common/SectionWrapper.ts";
 import {Link} from "react-router-dom";
 import {FlexWrapper} from "../common/FlexWrapper.ts";
 
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ActionAreaCard() {
 
@@ -39,8 +39,11 @@ export default function ActionAreaCard() {
 
                     {description.map((card) => (
                         <SwiperSlideStyled>
-                            <Card key={card.id} onClick={() => navigate(`/entertainment`)}>
-                                <Img src={card.img} alt={card.alt} />
+                            <Card key={card.id} onClick={() =>
+                                navigate(`/entertainment#card-${card.id}`, {
+                                    state: { cardId: card.id, preventScroll: true }
+                                })}>
+                                <Img src={card.img} alt={`Entertainment ${card.id}`}/>
                                 <H3Dark>{card.title}</H3Dark>
                             </Card>
                         </SwiperSlideStyled>

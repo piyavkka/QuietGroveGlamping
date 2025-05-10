@@ -42,7 +42,7 @@ const FormCard = styled.form`
     gap: 16px;
     max-width: 600px;
     background-color: var(--light-text-color);
-    padding: 24px;
+    padding: 30px;
     border-radius: 10px;
 `;
 

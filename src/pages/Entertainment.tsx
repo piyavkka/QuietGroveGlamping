@@ -6,11 +6,40 @@ import {FlexWrapper} from "../components/common/FlexWrapper.ts";
 import {H3Dark, P, Span} from "../styles/theme.ts";
 import { description } from '../components/entertainmentData.ts';
 import Overlay from "../components/common/Overlay.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {SliderComponent} from "../components/common/SliderComponent.tsx";
+import {useLocation, useNavigate} from "react-router-dom";
 
 function Entertainment() {
 
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const [selectedCard, setSelectedCard] = useState<null | typeof description[0]>(null);
+
+    useEffect(() => {
+        const state = location.state as { cardId?: number } | null;
+
+        if (state?.cardId) {
+            const foundCard = description.find(card => card.id === state.cardId);
+            if (foundCard) {
+                setSelectedCard(foundCard);
+                navigate('.', { replace: true });
+            }
+        }
+    }, [location.state, navigate]);
+
+    useEffect(() => {
+        if (location.hash) {
+            const anchorId = location.hash.replace('#', '');
+            const el = document.getElementById(anchorId);
+            if (el) {
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+        }
+    }, [location]);
 
     return (
         <>
@@ -24,9 +53,12 @@ function Entertainment() {
             <SectionWrapper>
                 <FlexWrapper gap="clamp(16px, 5vw, 70px)" wrap="wrap" justify="center">
                     {description.map((card) => (
-                        <Card key={card.id} onClick={() => setSelectedCard(card)}>
+                        <Card
+                            key={card.id}
+                            id={`card-${card.id}`}
+                            onClick={() => setSelectedCard(card)}>
                             <FlexWrapper direction="column" gap="20px" align="center">
-                                <Img src={card.img} alt={card.alt}/>
+                                <Img src={card.img} alt={`Entertainment ${card.id}`}/>
                                 <H3Dark>{card.title}</H3Dark>
                                 <P lang="ru">{card.text}</P>
                                 <Span>{card.price}</Span>
@@ -40,9 +72,10 @@ function Entertainment() {
                 <Overlay onClose={() => setSelectedCard(null)}>
                     <SelectedCard>
                         <FlexWrapper direction="column" gap="20px" align="center">
-                            <Img src={selectedCard.img} alt={selectedCard.alt}/>
                             <H3Dark>{selectedCard.title}</H3Dark>
+                            <SliderComponent images={selectedCard.images} height="250px"/>
                             <P lang="ru">{selectedCard.text}</P>
+                            <P lang="ru">{selectedCard.description}</P>
                             <Span>{selectedCard.price}</Span>
                         </FlexWrapper>
                     </SelectedCard>
@@ -76,7 +109,7 @@ const Img = styled.img`
 
 const SelectedCard = styled.div`
     border: 1px solid lightgray;
-    padding: 10px;
+    padding: 16px;
     border-radius: 10px;
     cursor: pointer;
     background-color: white;

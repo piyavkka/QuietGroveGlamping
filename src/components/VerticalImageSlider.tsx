@@ -5,6 +5,7 @@ import {ArrowForwardIos} from "@mui/icons-material";
 import {FlexWrapper} from "./common/FlexWrapper.ts";
 import {H3Dark, P, theme} from "../styles/theme";
 import {Button} from "./common/Button.tsx";
+import Overlay from "./common/Overlay.tsx";
 
 interface VerticalImageSliderProps {
     images: {
@@ -83,12 +84,21 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
 
     const visiblePreviews = images.slice(startIndex, startIndex + visibleCount);
 
+    const [modalImage, setModalImage] = useState<string | null>(null);
+
+    const openModal = (src: string) => setModalImage(src);
+    const closeModal = () => setModalImage(null);
+
     return (
         <>
             {isMobile ? (
                 //МОБИЛЬНАЯ ВЕРСИЯ
                 <FlexWrapper direction="column" gap={theme.gap.small} align="center">
-                    <MainImage src={images[currentIndex].src} alt={images[currentIndex].alt}/>
+                    <MainImage
+                        src={images[currentIndex].src}
+                        alt={images[currentIndex].alt}
+                        onClick={() => openModal(images[currentIndex].src)}
+                        style={{ cursor: "pointer" }}/>
 
                     <FlexWrapper justify="center" gap={theme.gap.small}>
                         <ArrowButton onClick={handleScrollUp} disabled={currentIndex === 0}>
@@ -137,7 +147,12 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
                         <MainImage
                             src={images[currentIndex].src}
                             alt={images[currentIndex].alt}
-                            style={mainImageSize ? { width: mainImageSize.width, height: mainImageSize.height } : {}}/>
+                            style={{
+                                ...(mainImageSize ? { width: mainImageSize.width, height: mainImageSize.height } : {}),
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => openModal(images[currentIndex].src)}
+                            />
                     </FlexWrapper>
 
                     <FlexWrapper direction="column" gap={theme.gap.small}>
@@ -147,6 +162,21 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
                         <Button onClick={action}>{buttonText}</Button>
                     </FlexWrapper>
                 </FlexWrapper>
+            )}
+
+            {modalImage && (
+                <Overlay onClose={closeModal}>
+                    <img
+                        src={modalImage}
+                        alt="Full size"
+                        style={{
+                            maxWidth: "90vw",
+                            maxHeight: "90vh",
+                            borderRadius: "10px",
+                            display: "block",
+                        }}
+                    />
+                </Overlay>
             )}
         </>
     );

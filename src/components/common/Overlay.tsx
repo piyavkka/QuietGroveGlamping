@@ -45,10 +45,10 @@ const ModalContent = styled.div`
 
 const CloseButton = styled.button`
     position: absolute;
-    top: -30px;
-    right: -30px;
+    top: 5px;
+    right: 5px;
     background: transparent;
-    color: var(--light-text-color);
+    color: var(--main-color);
     transition: opacity 0.2ms;
 
     &:hover {
