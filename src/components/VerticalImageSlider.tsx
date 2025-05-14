@@ -8,10 +8,7 @@ import {Button} from "./common/Button.tsx";
 import Overlay from "./common/Overlay.tsx";
 
 interface VerticalImageSliderProps {
-    images: {
-        src: string;
-        alt: string;
-    }[];
+    images: string[];
     title: string;
     description: string;
     buttonText?: string;
@@ -41,118 +38,113 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
         children,
         action,
     }) => {
-
     const [currentIndex, setCurrentIndex] = useState(0);
     const [startIndex, setStartIndex] = useState(0);
-
     const [isMobile, setIsMobile] = useState(false);
+    const [modalImage, setModalImage] = useState<string | null>(null);
 
     useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
         handleResize();
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
     const canScrollUp = isMobile ? currentIndex > 0 : startIndex > 0;
-    const canScrollDown = isMobile ? currentIndex < images.length - 1 : startIndex + visibleCount < images.length;
-
+    const canScrollDown = isMobile
+        ? currentIndex < images.length - 1
+        : startIndex + visibleCount < images.length;
 
     const handleScrollUp = () => {
         if (isMobile) {
-            setCurrentIndex(prev => Math.max(prev - 1, 0));
+            setCurrentIndex((prev) => Math.max(prev - 1, 0));
         } else {
-            setStartIndex(prev => Math.max(prev - 1, 0));
+            setStartIndex((prev) => Math.max(prev - 1, 0));
         }
     };
 
     const handleScrollDown = () => {
         if (isMobile) {
-            setCurrentIndex(prev => Math.min(prev + 1, images.length - 1));
+            setCurrentIndex((prev) => Math.min(prev + 1, images.length - 1));
         } else {
-            setStartIndex(prev => {
-                const maxStartIndex = images.length - visibleCount;
-                return Math.min(prev + 1, maxStartIndex);
-            });
+            const maxStartIndex = images.length - visibleCount;
+            setStartIndex((prev) => Math.min(prev + 1, maxStartIndex));
         }
     };
 
-
     const handleSelectImage = (index: number) => setCurrentIndex(index);
-
-    const visiblePreviews = images.slice(startIndex, startIndex + visibleCount);
-
-    const [modalImage, setModalImage] = useState<string | null>(null);
-
     const openModal = (src: string) => setModalImage(src);
     const closeModal = () => setModalImage(null);
+
+    const visiblePreviews = images.slice(startIndex, startIndex + visibleCount);
 
     return (
         <>
             {isMobile ? (
-                //МОБИЛЬНАЯ ВЕРСИЯ
                 <FlexWrapper direction="column" gap={theme.gap.small} align="center">
                     <MainImage
-                        src={images[currentIndex].src}
-                        alt={images[currentIndex].alt}
-                        onClick={() => openModal(images[currentIndex].src)}
-                        style={{ cursor: "pointer" }}/>
+                        src={images[currentIndex]}
+                        alt={`Image ${currentIndex}`}
+                        onClick={() => openModal(images[currentIndex])}
+                        style={{ cursor: "pointer" }}
+                    />
 
                     <FlexWrapper justify="center" gap={theme.gap.small}>
                         <ArrowButton onClick={handleScrollUp} disabled={currentIndex === 0}>
-                            <ArrowBackIosNewIcon fontSize="small"/>
+                            <ArrowBackIosNewIcon fontSize="small" />
                         </ArrowButton>
-
                         <ArrowButton onClick={handleScrollDown} disabled={currentIndex === images.length - 1}>
-                            <ArrowForwardIos fontSize="small"/>
+                            <ArrowForwardIos fontSize="small" />
                         </ArrowButton>
                     </FlexWrapper>
 
                     <FlexWrapper direction="column" gap={theme.gap.small} align="center">
                         <H3Dark>{title}</H3Dark>
-                        <StyledP style={{textAlign: "center"}}>{description}</StyledP>
+                        <StyledP style={{ textAlign: "center" }}>{description}</StyledP>
                         <Button onClick={action}>{buttonText}</Button>
                     </FlexWrapper>
                 </FlexWrapper>
             ) : (
-                //ДЕСКТОПНАЯ ВЕРСИЯ
                 <FlexWrapper gap={theme.gap.small}>
                     <FlexWrapper align="center" gap={theme.gap.small}>
                         <FlexWrapper direction="column" align="center" gap={theme.gap.small}>
                             <ArrowButton onClick={handleScrollUp} disabled={!canScrollUp}>
-                                <ArrowBackIosNewIcon fontSize="small" sx={{transform: 'rotate(90deg)'}}/>
+                                <ArrowBackIosNewIcon fontSize="small" sx={{ transform: "rotate(90deg)" }} />
                             </ArrowButton>
 
                             {visiblePreviews.map((img, index) => {
                                 const actualIndex = startIndex + index;
                                 return (
                                     <PreviewImage
-                                        key={img.src}
-                                        src={img.src}
-                                        alt={img.alt}
+                                        key={img}
+                                        src={img}
+                                        alt={`Image ${actualIndex}`}
                                         isActive={actualIndex === currentIndex}
                                         onClick={() => handleSelectImage(actualIndex)}
-                                        style={previewSize ? { width: previewSize.width, height: previewSize.height } : {}}
+                                        style={
+                                            previewSize
+                                                ? { width: previewSize.width, height: previewSize.height }
+                                                : {}
+                                        }
                                     />
                                 );
                             })}
 
                             <ArrowButton onClick={handleScrollDown} disabled={!canScrollDown}>
-                                <ArrowForwardIos fontSize="small" sx={{transform: 'rotate(90deg)'}}/>
+                                <ArrowForwardIos fontSize="small" sx={{ transform: "rotate(90deg)" }} />
                             </ArrowButton>
                         </FlexWrapper>
 
                         <MainImage
-                            src={images[currentIndex].src}
-                            alt={images[currentIndex].alt}
-                            style={{
-                                ...(mainImageSize ? { width: mainImageSize.width, height: mainImageSize.height } : {}),
-                                cursor: 'pointer'
-                            }}
-                            onClick={() => openModal(images[currentIndex].src)}
-                            />
+                            src={images[currentIndex]}
+                            alt={`Image ${currentIndex}`}
+                            style={
+                                mainImageSize
+                                    ? { width: mainImageSize.width, height: mainImageSize.height, cursor: "pointer" }
+                                    : { cursor: "pointer" }
+                            }
+                            onClick={() => openModal(images[currentIndex])}
+                        />
                     </FlexWrapper>
 
                     <FlexWrapper direction="column" gap={theme.gap.small}>
@@ -181,6 +173,7 @@ export const VerticalImageSlider: React.FC<VerticalImageSliderProps> = (
         </>
     );
 };
+
 
 const PreviewImage = styled.img<{ isActive: boolean }>`
     width: 150px;
