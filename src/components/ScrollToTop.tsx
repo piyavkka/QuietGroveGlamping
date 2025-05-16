@@ -1,12 +1,16 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
+import {useEffect} from "react";
 
 const ScrollToTop = () => {
-    const { pathname } = useLocation();
+    const location = useLocation();
 
     useEffect(() => {
+        const state = location.state as { preventScroll?: boolean } | null;
+
+        if (location.hash || state?.preventScroll) return;
+
         window.scrollTo(0, 0);
-    }, [pathname]);
+    }, [location]);
 
     return null;
 };

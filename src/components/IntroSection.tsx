@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import {H1Light, H2Light} from "../styles/theme.ts";
-import {ImageWrapper} from "./ImageWrapper.ts";
+import {ImageWrapper} from "./common/ImageWrapper.ts";
 
 interface IntroSectionProps {
     src: string;

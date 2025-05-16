@@ -1,77 +1,92 @@
 import {IntroSection} from "../components/IntroSection.tsx";
 import EventsBg from "../assets/EventsBg.png";
 import {VerticalImageSlider} from "../components/VerticalImageSlider.tsx";
-import {SectionWrapper} from "../components/SectionWrapper.ts";
-import {FlexWrapper} from "../components/FlexWrapper.ts";
+import {SectionWrapper} from "../components/common/SectionWrapper.ts";
+import {FlexWrapper} from "../components/common/FlexWrapper.ts";
+import Overlay from "../components/common/Overlay.tsx";
+import {useState} from "react";
+import FormEvents from "../components/FormEvents.tsx";
 
 const eventsData = [
     {
         id: 1,
         title: "Девичник",
-        description: "Проведите незабываемый девичник в окружении природы, где комфорт сочетается с атмосферой уюта и расслабления. Уединенные стильные домики, вечер у костра, спа-процедуры в бане с чаном и звездное небо создадут особенное настроение. Гостям доступен уютный лаунж-пространство для дружеских посиделок, фотозоны в живописных местах и возможность организовать пикник или ужин на террасе.",
+        description: `Мы полностью организуем атмосферный девичник на природе: подберём уютное жильё, оформим фотозоны, украсим домики и зону для отдыха. Предложим программу с банными процедурами, чаном, ужином на террасе и лаунжем у костра. По желанию — организация мастер-классов, спа, сервировка пикника или выездной фотосессии. Мы поможем продумать сценарий и позаботимся о всех деталях. Вам останется только наслаждаться моментом вместе с подругами.\n
+Мы создадим праздник, где каждая деталь — от пледа до свечей — будет подчёркивать заботу и стиль. Девичник получится душевным, тёплым и таким, о котором вспоминают с улыбкой. Наши координаторы всегда на месте и готовы решать любые вопросы. Атмосфера уюта, приватности и природной красоты гарантирована.`,
         images: [
-            { src: "/src/assets/Events/events1.jpg", alt: "" },
-            { src: "/src/assets/Events/events2.jpg", alt: "" },
-            { src: "/src/assets/Events/events3.jpg", alt: "" },
-            { src: "/src/assets/Events/events4.jpg", alt: "" },
-            { src: "/src/assets/Events/events5.jpg", alt: "" },
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239775/events1_nh9eqs.webp",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239778/events2_ldkanz.webp",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239782/events3_rgzq7w.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239787/events4_g1gvby.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239791/events5_y4r9hi.jpg"
         ],
     },
-
     {
         id: 2,
         title: "Годовщина",
-        description: "Отпразднуйте годовщину в атмосфере уюта и романтики, наслаждаясь природой и комфортом. Мы позаботимся о каждом детали, создавая уникальную обстановку: ужин на террасе при свечах, теплый чан под звездным небом, декор в ваших любимых оттенках и уединение в стильном домике. По вашему пожеланию организуем фотосессию, пикник на берегу или завтрак с панорамным видом. Независимо от формата, этот день станет особенным и наполненным теплыми моментами.",
+        description: `Мы с радостью организуем годовщину по индивидуальному сценарию: романтический ужин при свечах, тёплый чан под звёздами, декор в любимых оттенках и уют в каждом моменте. Позаботимся о музыке, сервировке, свечах, тёплых пледах и мелочах, которые создают атмосферу. Мы предлагаем разные пакеты — от минимального оформления до полного сопровождения. Всё подстраивается под ваши пожелания.\n
+Также предложим услуги фотографа, завтрак на террасе с панорамным видом и вечернюю прогулку с сюрпризом. Ваш праздник будет наполнен вниманием и эмоциями. Команда глэмпинга координирует все процессы, чтобы вы чувствовали только радость. Этот день останется в памяти как один из самых нежных и тёплых.`,
         images: [
-            { src: "/src/assets/Events/events6.jpg", alt: "" },
-            { src: "/src/assets/Events/events7.jpg", alt: "" },
-            { src: "/src/assets/Events/events8.jpg", alt: "" },
-            { src: "/src/assets/Events/events9.jpg", alt: "" },
-            { src: "/src/assets/Events/events10.jpg", alt: "" },
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239795/events6_jeo8cw.webp",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239799/events7_u4jich.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239803/events8_btjrta.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239808/events9_i99xuq.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239812/events10_mb5xus.jpg"
         ],
     },
-
     {
         id: 3,
         title: "День рождения",
-        description: "Отметьте день рождения в уютной атмосфере загородного отдыха, наслаждаясь природой и комфортом. Мы организуем праздник по вашим пожеланиям: стильное оформление, ужин на террасе, уютную зону для отдыха у костра и развлекательную программу. Гости смогут провести время в комфортных домиках, попробовать местные угощения и насладиться теплой атмосферой. Этот день будет наполнен радостью, уютом и незабываемыми моментами.",
+        description: `Мы организуем день рождения на природе — с декором, зонами отдыха, вкусной едой и уютной атмосферой. Возьмём на себя всё: оформление, выездную кухню или кейтеринг, развлечения, музыку, фотосъёмку и комфортное размещение гостей. Есть варианты для любого возраста и формата — от тихого вечера до весёлой компании. У нас всё предусмотрено для детских и взрослых праздников.\n
+Всё под ключ: от первого звонка до свечей на торте. Вам остаётся только наслаждаться праздником и природой вокруг. Мы оформим индивидуальный сценарий праздника. А наши ведущие, фотографы и повара сделают день по-настоящему особенным.`,
         images: [
-            { src: "/src/assets/Events/events11.jpg", alt: "" },
-            { src: "/src/assets/Events/events12.jpg", alt: "" },
-            { src: "/src/assets/Events/events13.jpg", alt: "" },
-            { src: "/src/assets/Events/events14.jpg", alt: "" },
-            { src: "/src/assets/Events/events15.jpg", alt: "" },
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239816/events11_p8rmwa.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239821/events12_lulrza.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239825/events13_epp1fg.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239829/events14_yz9u8e.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239834/events15_zgafu3.jpg"
         ],
     },
-
     {
         id: 4,
-        title: "Семейный уикенд",
-        description: "Проведите время с семьей вдали от городской суеты, наслаждаясь уютом и природой. Наш глэмпинг-отель предлагает комфортное размещение, живописные прогулки, расслабляющий отдых в бане и возможность весело провести время на свежем воздухе. Дети будут в восторге от приключений на природе, а взрослые смогут насладиться покоем и уединением. Здесь каждый найдет занятие по душе, а теплые вечера в кругу семьи у камина или на террасе станут самыми ценными моментами.",
+        title: "Семейные выходные",
+        description: `Мы поможем провести тёплые семейные выходные: подберём подходящие домики, организуем детскую анимацию, пешие маршруты, ужин на террасе и активности на свежем воздухе. Вечером — тёплый костёр, пледы, какао и настольные игры. Предусмотрим всё: от удобных кроватей до детских стульчиков. Даже если вы с малышами — будет комфортно.\n
+Если вы хотите сохранить эти моменты — предложим семейную фотосессию в красивых местах глэмпинга. Мы делаем семейный отдых лёгким и продуманным. В меню — блюда, подходящие и детям, и взрослым. А наша команда всегда рядом, чтобы отдых прошёл без забот.`,
         images: [
-            { src: "/src/assets/Events/events16.jpg", alt: "" },
-            { src: "/src/assets/Events/events17.jpg", alt: "" },
-            { src: "/src/assets/Events/events18.jpg", alt: "" },
-            { src: "/src/assets/Events/events19.jpg", alt: "" },
-            { src: "/src/assets/Events/events20.jpg", alt: "" },
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239838/events16_hekxjy.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239842/events17_cjryn5.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239847/events18_ixaugy.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239851/events19_oejaao.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239856/events20_dxo0yp.jpg"
         ],
     },
-
     {
         id: 5,
-        title: "Ретрит",
-        description: "Если вам хочется замедлиться, отвлечься от суеты и посвятить время себе, наш глэмпинг — идеальное место для уединенного отдыха. Здесь нет шума и спешки, только природа, тишина и уютные домики, где можно расслабиться и перезагрузиться. Медитации на свежем воздухе, неспешные прогулки и возможность полностью отвлечься от внешнего мира помогут восстановить баланс и наполниться энергией. Подарите себе время для отдыха, спокойствия и гармонии.",
+        title: "Наедине с собой",
+        description: `Мы создадим условия для полного восстановления: тишина, уют, домик с видом, горячий чан и прогулки наедине с природой. Организуем доставку еды, комфортное размещение, ритуалы для отдыха — от ароматерапии до спа-программ. Вам не придётся заботиться ни о чём — всё включено. Просто приезжайте и отдыхайте.\n
+По желанию можно добавить йогу, медитации, арт-терапию или просто тишину без телефона. Мы подстроим формат под ваш ритм и сделаем отдых действительно заботливым. Наши программы направлены на восстановление внутреннего ресурса. Вы вернётесь домой полными сил и вдохновения.`,
         images: [
-            { src: "/src/assets/Events/events23.jpg", alt: "" },
-            { src: "/src/assets/Events/events21.jpg", alt: "" },
-            { src: "/src/assets/Events/events22.jpg", alt: "" },
-            { src: "/src/assets/Events/events24.jpg", alt: "" },
-            { src: "/src/assets/Events/events25.jpg", alt: "" },
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239860/events21_sj2zyp.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239865/events22_fdxkc7.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239869/events23_z9c828.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239874/events24_orc9s4.jpg",
+            "https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747239878/events25_ghnwij.jpg"
         ],
     },
 ];
 
 function Events() {
+
+    const [showOverlay, setShowOverlay] = useState(false);
+
+    const handleOpenOverlay = () => {
+        setShowOverlay(true);
+    };
+
+    const handleCloseOverlay = () => {
+        setShowOverlay(false);
+    };
+
     return (
         <>
             <IntroSection
@@ -83,16 +98,24 @@ function Events() {
 
             <SectionWrapper >
                 <FlexWrapper direction="column" gap="70px">
-                    {eventsData.map(({ id, title, description, images }) => (
+                    {eventsData.map(({ id, title, description, images}) => (
                         <VerticalImageSlider
                             key={id}
                             images={images}
                             title={title}
                             description={description}
+                            buttonText="запросить бронь"
+                            action={handleOpenOverlay}
                         />
                     ))}
                 </FlexWrapper>
             </SectionWrapper>
+
+            {showOverlay && (
+                <Overlay onClose={handleCloseOverlay}>
+                    <FormEvents/>
+                </Overlay>
+            )}
 
         </>
     );

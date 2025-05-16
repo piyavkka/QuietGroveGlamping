@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import {P, theme} from "../styles/theme.ts";
+import {P, Question, theme} from "../styles/theme.ts";
 
 const faq = [
     {
@@ -83,9 +83,9 @@ function AccordionItemComponent(
     }, [isOpen]);
 
     return (
-        <AccordionItem>
+        <div>
             <AccordionQuestion onClick={onClick}>
-                {item.question}
+                <Question>{item.question}</Question>
                 {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </AccordionQuestion>
             <AccordionAnswerWrapper height={height} isOpen={isOpen}>
@@ -93,38 +93,38 @@ function AccordionItemComponent(
                     <StyledP>{item.answer}</StyledP>
                 </div>
             </AccordionAnswerWrapper>
-        </AccordionItem>
+        </div>
     );
 }
 
 const AccordionContainer = styled.div`
     max-width: 1010px;
-`;
-
-const AccordionItem = styled.div`
-    border-bottom: 2px solid var(--main-color);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 `;
 
 const AccordionQuestion = styled.button`
     width: 100%;
-    padding: ${theme.padding.small};
-    background: rgba(142, 160, 118, 0.45);
-    text-align: left;
-    font-size: ${theme.fontSize.P};
+    padding: 16px 24px;
+    background: rgba(173, 195, 151, 0.82);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 28px;
 `;
 
 const AccordionAnswerWrapper = styled.div<{ height: number; isOpen: boolean }>`
-    height: ${({ height }) => height}px;
-    transition: height 0.3s ease;
+    height: ${({height}) => height}px;
+    margin-top: ${({isOpen}) => (isOpen ? '12px' : '0')};
+    opacity: ${({isOpen}) => (isOpen ? 1 : 0)};
+    transition: all 0.3s ease;
     overflow: hidden;
-    background-color: white;
+    background-color: ${theme.fontColor.light};
+    border-radius: 28px;
 `;
 
 const StyledP = styled(P)`
-    padding: ${theme.padding.small};
+    padding: 16px 24px;
     text-align: left;
-    white-space: pre-line;
 `;

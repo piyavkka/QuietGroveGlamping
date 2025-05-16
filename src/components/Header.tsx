@@ -2,9 +2,9 @@ import {useState} from "react";
 import styled from "styled-components";
 import logo from '/src/assets/logo.png';
 import {theme} from "../styles/theme.ts";
-import { SmartLink } from "./SmartLink.tsx";
-import {FlexWrapper} from "./FlexWrapper.ts";
-import {Button} from "./Button";
+import { SmartLink } from "./common/SmartLink.tsx";
+import {FlexWrapper} from "./common/FlexWrapper.ts";
+import {Button} from "./common/Button.tsx";
 
 import { SiVk } from "react-icons/si";
 import { FaTelegram } from "react-icons/fa";
@@ -76,7 +76,7 @@ export const Header = () => {
 const StyledHeader= styled.header`
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1000;
     width: 100%;
     box-shadow: ${theme.shadow.elements};
 `

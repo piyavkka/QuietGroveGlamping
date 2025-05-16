@@ -1,13 +1,21 @@
+import styled from "styled-components";
+import { P } from "../styles/theme";
+import {SectionWrapper} from "./common/SectionWrapper.ts";
 
 
 function Footer() {
     return (
-        <footer className="footer">
-            <div className="footer-bottom">
-                <p>© 2025 Quiet Grove. Все права защищены.</p>
-            </div>
-        </footer>
+        <FooterWrapper>
+            <SectionWrapper>
+                <P style={{textAlign: "center"}}>© 2025 Quiet Grove. Все права защищены.</P>
+            </SectionWrapper>
+        </FooterWrapper>
     );
 }
 
 export default Footer;
+
+export const FooterWrapper = styled.footer`
+    width: 100%;
+    background-color: var(--light-text-color);
+`

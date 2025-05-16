@@ -8,7 +8,7 @@ export const theme = {
     },
 
     fontColor: {
-        main: '#000000',
+        main: '#192019',
         accent: '#95b73c',
         light: '#f5f2ec',
         additional: '#8ea076',
@@ -40,14 +40,14 @@ export const H3Dark = styled.h3`
     color: ${theme.fontColor.main};
     font-size: clamp(1rem, 5vw, 1.5rem);
     font-weight: ${theme.fontWeight.bold};
-`
+`;
 export const H2Light = styled.h2`
     color: ${theme.fontColor.light};
     font-size: clamp(1.5rem, 5vw, 1rem);
     text-align: left;
     font-weight: ${theme.fontWeight.medium};
     text-shadow: ${theme.shadow.text};
-`
+`;
 
 export const H2Dark = styled.h2`
     color: ${theme.fontColor.main};
@@ -57,14 +57,14 @@ export const H2Dark = styled.h2`
     @media (max-width: 768px)  {
         text-align: center;
     }
-`
+`;
 
 export const H4Dark = styled.h4`
     color: ${theme.fontColor.main};
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     font-weight: ${theme.fontWeight.medium};
     max-width: 760px;
-`
+`;
 
 export const MainTitle = styled.h2`
     color: ${theme.fontColor.light};
@@ -74,7 +74,7 @@ export const MainTitle = styled.h2`
     text-transform: uppercase;
     text-shadow: ${theme.shadow.text};
     max-width: 1100px;
-`
+`;
 
 export const H1 = styled.h1`
     font-size: clamp(1.5rem, 5vw, 2rem);
@@ -83,7 +83,7 @@ export const H1 = styled.h1`
     font-weight: ${theme.fontWeight.medium};
     margin-bottom: 40px;
     max-width: 800px;
-`
+`;
 
 export const H1Light = styled.h1`
     color: ${theme.fontColor.light};
@@ -92,7 +92,7 @@ export const H1Light = styled.h1`
     font-weight: ${theme.fontWeight.bold};
     text-transform: uppercase;
     text-shadow: ${theme.shadow.text};
-`
+`;
 export const P = styled.p`
     color: ${theme.fontColor.main};
     hyphens: auto;
@@ -100,8 +100,35 @@ export const P = styled.p`
     line-height: 140%;
     font-size: ${theme.fontSize.P};
     white-space: pre-line;
-`
+`;
+
+export const Question = styled.h5`
+    color: ${theme.fontColor.main};
+    font-size: 1.2rem;
+    font-weight: ${theme.fontWeight.semibold};
+    text-align: left;
+`;
+
 export const Span = styled.span`
     font-weight: ${theme.fontWeight.bold};
     font-size: 1.2rem;
-`
+    color: ${theme.fontColor.main};
+`;
+
+export const Input = styled.input`
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: ${theme.fontSize.button};
+    font-weight: ${theme.fontWeight.semibold};
+    transition: 0.2s ease;
+
+    &:hover {
+        border: 2px solid var(--main-color);
+    }
+
+    &:focus {
+        outline: none;
+        border: 2px solid var(--main-color);
+    }
+`;

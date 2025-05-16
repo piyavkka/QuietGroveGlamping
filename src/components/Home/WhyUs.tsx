@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { Button } from "../Button";
-import {FlexWrapper} from "../FlexWrapper.ts";
-import { SectionWrapper } from '../SectionWrapper.ts';
-import {H2Dark, P, Span} from "../../styles/theme.ts";
+import { Button } from "../common/Button.tsx";
+import {FlexWrapper} from "../common/FlexWrapper.ts";
+import { SectionWrapper } from '../common/SectionWrapper.ts';
+import {H2Dark, P, Span, theme} from "../../styles/theme.ts";
 
 const whyUsData = [
     {
@@ -16,12 +16,12 @@ const whyUsData = [
 ];
 
 const advantagesData = [
-    { icon: "/src/assets/Home/image.svg", title: "Кухня" },
-    { icon: "/src/assets/Home/image-1.svg", title: "Ванная комната" },
-    { icon: "/src/assets/Home/image-2.svg", title: "Бельё" },
-    { icon: "/src/assets/Home/image-3.svg", title: "Банный комплекс" },
-    { icon: "/src/assets/Home/image-4.svg", title: "Мангал" },
-    { icon: "/src/assets/Home/image-5.svg", title: "Развлечения" },
+    { icon: "/src/assets/Home/image1.png", title: "Кухня" },
+    { icon: "/src/assets/Home/image2.png", title: "Ванная комната" },
+    { icon: "/src/assets/Home/image3.png", title: "Бельё" },
+    { icon: "/src/assets/Home/image4.png", title: "Банный комплекс" },
+    { icon: "/src/assets/Home/image5.png", title: "Мангал" },
+    { icon: "/src/assets/Home/image6.png", title: "Развлечения" },
 ];
 
 export default function WhyUs() {
@@ -85,16 +85,19 @@ const Advantages = styled(FlexWrapper)`
     .icon {
         width: 52px;
         height: 52px;
+        color: ${theme.fontColor.main};
     }
 
     h4 {
         font-weight: 500;
+        color: ${theme.fontColor.main};
     }
 
     h3 {
         font-size: clamp(1rem, 5vw, 1.4rem);
         font-weight: 500;
         text-align: center;
+        color: ${theme.fontColor.main};
     }
     
     @media (max-width: 768px) {
