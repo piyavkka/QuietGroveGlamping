@@ -8,7 +8,7 @@ export const theme = {
     },
 
     fontColor: {
-        main: '#000000',
+        main: '#192019',
         accent: '#95b73c',
         light: '#f5f2ec',
         additional: '#8ea076',
@@ -102,9 +102,17 @@ export const P = styled.p`
     white-space: pre-line;
 `;
 
+export const Question = styled.h5`
+    color: ${theme.fontColor.main};
+    font-size: 1.2rem;
+    font-weight: ${theme.fontWeight.semibold};
+    text-align: left;
+`;
+
 export const Span = styled.span`
     font-weight: ${theme.fontWeight.bold};
     font-size: 1.2rem;
+    color: ${theme.fontColor.main};
 `;
 
 export const Input = styled.input`

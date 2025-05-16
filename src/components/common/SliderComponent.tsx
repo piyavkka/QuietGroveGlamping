@@ -59,8 +59,8 @@ export const SliderComponent = ({ images, height = "600px" }: SliderComponentPro
                         src={modalImage}
                         alt="Full size"
                         style={{
-                            maxWidth: "90vw",
-                            maxHeight: "90vh",
+                            maxWidth: "1100px",
+                            maxHeight: "800px",
                             borderRadius: "10px",
                             display: "block",
                         }}

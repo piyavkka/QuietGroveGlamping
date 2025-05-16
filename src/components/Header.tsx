@@ -76,7 +76,7 @@ export const Header = () => {
 const StyledHeader= styled.header`
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1000;
     width: 100%;
     box-shadow: ${theme.shadow.elements};
 `

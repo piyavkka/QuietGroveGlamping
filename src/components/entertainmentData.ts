@@ -16,17 +16,17 @@ export const description = [
     },
     {
         id: 2,
-        img: 'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747235095/card2_klw2gw.png',
-        title: 'Баня с чаном',
-        text: 'Расслабьтесь и восстановите силы в уютной бане с горячим чаном под открытым небом. Пар, аромат натурального дерева и теплая вода создадут атмосферу полного отдыха, а окружающая природа добавит ощущение гармонии и уединения.',
-        price: 'от 3 000 / в сутки',
-        description: 'В распоряжении гостей традиционная русская баня и чан на открытой площадке. Подойдёт как для парного отдыха, так и для дружеской компании до 6 человек. Отлично сочетается с отдыхом после прогулок и активных развлечений.',
+        img: 'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747326073/a3b1d45c-1a88-45a5-b841-767c23dd96cc.png',
+        title: 'Фотограф',
+        text: 'Сохраните лучшие моменты вашего отдыха с помощью профессиональной фотосессии. Уют природы, свет заката и ваша искренняя улыбка — идеальный рецепт красивых кадров. Сохраните прекрасные воспоминания о проведённом времени.',
+        price: 'от 2 500 / час',
+        description: 'Услуга профессионального фотографа для индивидуальных, парных или семейных фотосессий на территории глэмпинга. Возможна съёмка в доме, у бани, на фоне природы или во время активных развлечений.',
         images: [
-            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747235095/card2_klw2gw.png',
-            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747235730/images6_evutmy.jpg',
-            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747235732/images8_nbugx3.webp',
-            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747235732/images7_zcedmz.jpg',
-            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747235729/images5_vjz2jd.jpg'
+            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747326073/a3b1d45c-1a88-45a5-b841-767c23dd96cc.png',
+            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747326317/a9dbff94-b0f5-4974-9c49-b8679e0ffc38.png',
+            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747326474/559f8efe-1e04-4d38-8317-c0fd943b5364.png',
+            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747326547/ec6dbbf8-bd9c-4349-ad20-8e0caa1dff10.png',
+            'https://res.cloudinary.com/dxmp5yjmb/image/upload/v1747326640/c2fd09d3-e2a7-4d9a-b5ee-caf6d2b2e35d.png'
         ],
     },
     {
