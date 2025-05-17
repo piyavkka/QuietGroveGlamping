@@ -19,9 +19,10 @@ const Form = styled(FlexWrapper)`
         border-radius: 10px;
         padding: 24px 36px;
         box-shadow: ${theme.shadow.elements};
-
+        width: 100%;
+    
         @media (max-width: 768px) {
-                gap: 24px;
-                justify-content: center;
+            gap: 24px;
+            justify-content: center;
         }
 `;

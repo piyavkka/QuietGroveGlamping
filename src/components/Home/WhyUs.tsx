@@ -71,7 +71,8 @@ const WhyUsText = styled(FlexWrapper)`
 `
 
 const Advantages = styled(FlexWrapper)`
-    padding: 20px;
+    padding: 14px 24px;
+    border: 1px solid var(--elem-color);
     background-color: var(--light-text-color);
     border-radius: 10px;
     flex: 0 0 auto;

@@ -1,10 +1,10 @@
 import house1 from "../assets/Home/house1.jpg";
-import {IntroSection} from "../components/IntroSection.tsx";
+import {IntroSection} from "../components/common/IntroSection.tsx";
 import {SectionWrapper} from "../components/common/SectionWrapper.ts";
 import styled from "styled-components";
 import {FlexWrapper} from "../components/common/FlexWrapper.ts";
 import {H3Dark, P, Span} from "../styles/theme.ts";
-import { description } from '../components/entertainmentData.ts';
+import { description } from '../components/Data/entertainmentData.ts';
 import Overlay from "../components/common/Overlay.tsx";
 import {useEffect, useState} from "react";
 import {SliderComponent} from "../components/common/SliderComponent.tsx";

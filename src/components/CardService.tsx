@@ -23,14 +23,15 @@ export const CardService = ({ title, description, icon, price }: CardServiceProp
 };
 
 const Card = styled(FlexWrapper)`
-  background-color: ${theme.fontColor.light};
-  padding: 14px 24px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 410px;
+    background-color: ${theme.fontColor.light};
+    padding: 14px 24px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 410px;
+    border: 1px solid var(--elem-color);
 `;
 
 const Icon = styled.img`
-  width: 40px;
-  height: 40px;
+    width: 40px;
+    height: 40px;
 `;

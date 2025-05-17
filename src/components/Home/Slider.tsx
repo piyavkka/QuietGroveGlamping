@@ -5,9 +5,9 @@ import {SliderComponent} from "../common/SliderComponent.tsx";
 
 const images = [
     "/src/assets/Home/house1.jpg",
-    "/src/assets/Home/house2.jpg",
+    "/src/assets/Home/house6.jpg",
     "/src/assets/Home/house3.jpg",
-    "/src/assets/Home/house4.jpg",
+    "/src/assets/Home/house7.jpg",
     "/src/assets/Home/house5.jpg",
 ];
 

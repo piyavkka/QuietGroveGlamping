@@ -6,7 +6,7 @@ import Entertainment from './pages/Entertainment';
 import Events from './pages/Events';
 import {Header} from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/common/ScrollToTop.tsx";
 
 function App() {
     return (

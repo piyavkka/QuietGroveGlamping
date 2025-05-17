@@ -1,16 +1,16 @@
 import {useState} from "react";
-import {IntroSection} from "../components/IntroSection.tsx";
-import BathBg from "../assets/BathBg.png";
+import {IntroSection} from "../components/common/IntroSection.tsx";
+import BathBg from "../assets/BathBg.jpg";
 import {SectionWrapper} from "../components/common/SectionWrapper.ts";
 import {SliderComponent} from "../components/common/SliderComponent.tsx";
-import {bathServices, features, fillOptions, images} from "../components/BathData.ts";
+import {bathServices, description, features, fillOptions, images} from "../components/Data/BathData.ts";
 import styled from "styled-components";
 import {FlexWrapper} from "../components/common/FlexWrapper.ts";
-import {Button} from "../components/common/Button.tsx";
 import {H2Dark, P, Span, theme} from "../styles/theme.ts";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import {CardService} from "../components/CardService.tsx";
+import {Button} from "../components/common/Button.tsx";
 
 function BathComplex() {
 
@@ -31,13 +31,13 @@ function BathComplex() {
 
             <SectionWrapper>
                 <FlexWrapper direction="column" gap="clamp(15px, 5vw, 80px)">
-                    <FlexWrapper gap="24px" wrap="wrap">
+                    <FlexWrapper gap="24px" wrap="wrap" justify="space-between">
+
                         <SliderContainer direction="column" gap="24px">
-                            <SliderComponent images={images} height="430px"/>
-                            <Card>
-                                Баня доступна только при заселении в любой из домов. Подробную
-                                информацию можете посмотреть на этапе бронирования
-                            </Card>
+                            <SliderComponent images={images} height="400px"/>
+                            <InfoBanner>
+                                <P><strong>Внимание:</strong> баня, чан и дополнительные услуги доступны только при заселении в один из домов. Подробную информацию можно посмотреть на этапе бронирования.</P>
+                            </InfoBanner>
                         </SliderContainer>
 
                         <StyledWrapper direction="column" gap="24px">
@@ -53,22 +53,28 @@ function BathComplex() {
                                     <li key={index}>{item}</li>
                                 ))}
                             </FeatureList>
-                            <Span>от 2500 / час</Span>
-                            <Button>выбрать даты</Button>
+                            <Span>Аренда от 2 часов, цена: от 2500 / час</Span>
                         </StyledWrapper>
                     </FlexWrapper>
 
-                    <FlexWrapper gap="24px" wrap="wrap">
-                        <FlexWrapper direction="column" gap="24px" style={{maxWidth: '850px'}}>
+                    <FlexWrapper justify="space-between" gap="24px" wrap="wrap">
+                        <FlexWrapper direction="column" gap="24px" style={{maxWidth: '800px'}}>
                             <H2Dark>Горячий чан под открытым небом</H2Dark>
                             <P>
                                 Расслабьтесь в горячем чане на свежем воздухе. В наличии —
-                                наполнения с травами, уточками, хвойными ароматами и морской солью.
+                                наполнения с травами, уточками, хвойными и цитрусовыми ароматами.
                                 Каждый сеанс — это уникальный ритуал восстановления и уюта.
                             </P>
 
+                            <FeatureList>
+                                {description.map((item, index) => (
+                                    <li key={index}>{item}</li>
+                                ))}
+                            </FeatureList>
+
                             <P>{selectedOption?.description}</P>
                             <Span>Цена: {selectedOption?.price} / час</Span>
+                            <Button>Выбрать даты</Button>
                         </FlexWrapper>
                         <FlexWrapper direction="column" gap="12px">
                             <DropdownWrapper>
@@ -123,20 +129,20 @@ function BathComplex() {
 
 export default BathComplex;
 
+const InfoBanner = styled.div`
+    background-color: ${theme.fontColor.light};
+    padding: 14px 24px;
+    border-radius: 10px;
+    border: 1px solid var(--elem-color);
+`;
+
 const SliderContainer = styled(FlexWrapper)`
     max-width: 700px;
     min-width: 0;
 `;
 
 const StyledWrapper = styled(FlexWrapper)`
-    max-width: 500px;
-`;
-
-const Card = styled.div`
-    background-color: #b4b198;
-    border-radius: 10px;
-    padding: 24px;
-    text-align: center;
+    max-width: 520px;
 `;
 
 const FeatureList = styled.ul`
@@ -160,7 +166,7 @@ const DropdownWrapper = styled.div`
 const DropdownButton = styled.button`
     background-color: ${theme.fontColor.additional};
     padding: 14px 24px;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
 `;
