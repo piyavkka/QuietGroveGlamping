@@ -1,28 +1,185 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "../common/Button.tsx";
-import {Input, theme } from "../../styles/theme";
-import {FlexWrapper} from "../common/FlexWrapper.ts";
+import { theme } from "../../styles/theme";
+import { Add, Remove } from "@mui/icons-material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { ru as ruLocale } from "date-fns/locale";
+import TextField from "@mui/material/TextField";
+import { format, addDays, isAfter } from "date-fns";
+
+const StyledTextField = styled(TextField)`
+    & .MuiInputBase-root {
+        background-color: var(--light-text-color);
+    }
+
+    & .MuiOutlinedInput-input {
+        padding: 14px 24px;
+    }
+`;
+
+const GuestField = styled(StyledTextField)`
+    width: 70px;
+
+    & .MuiOutlinedInput-input {
+        padding: 10px 24px;
+        text-align: center;
+        -moz-appearance: textfield;
+    }
+
+    & .MuiOutlinedInput-input::-webkit-outer-spin-button,
+    & .MuiOutlinedInput-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+`;
+
+const datePickerCommon = {
+    enableAccessibleFieldDOMStructure: false as const,
+    slots: { textField: StyledTextField },
+    slotProps: { textField: { fullWidth: true, required: true } },
+};
 
 export default function Reservation() {
-        return (
-            <Form align="center" justify="space-between" wrap="wrap" gap="12px">
-                    <Input placeholder="заезд"/>
-                    <Input placeholder="выезд"/>
-                    <Input placeholder="гости"/>
-                    <Button>найти</Button>
+    const [checkIn, setCheckIn]   = useState<Date | null>(null);
+    const [checkOut, setCheckOut] = useState<Date | null>(null);
+    const [guestsCount, setGuestsCount] = useState(2);
+
+    const handleGuestsChange = (delta: number) =>
+        setGuestsCount(prev => Math.min(30, Math.max(1, prev + delta)));
+
+    const handleGuestsInput = (e: React.ChangeEvent<HTMLInputElement>) =>
+        setGuestsCount(Math.min(30, Math.max(1, Number(e.target.value))));
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!checkIn || !checkOut) return;
+
+        console.log("Данные:", {
+            checkIn : format(checkIn , "yyyy-MM-dd"),
+            checkOut: format(checkOut, "yyyy-MM-dd"),
+            guestsCount,
+        });
+    };
+
+    return (
+        <LocalizationProvider
+            dateAdapter={AdapterDateFns}
+            adapterLocale={ruLocale}
+        >
+            <Form onSubmit={handleSubmit}>
+                <FieldGroup>
+                    <Label htmlFor="check-in">Дата заезда</Label>
+                    <DatePicker
+                        value={checkIn}
+                        onChange={newDate => {
+                            setCheckIn(newDate);
+                            if (checkOut && newDate && !isAfter(checkOut, newDate)) {
+                                setCheckOut(null);
+                            }
+                        }}
+                        disablePast
+                        {...datePickerCommon}
+                    />
+                </FieldGroup>
+
+                <FieldGroup>
+                    <Label htmlFor="check-out">Дата выезда</Label>
+                    <DatePicker
+                        value={checkOut}
+                        onChange={setCheckOut}
+                        minDate={checkIn ? addDays(checkIn, 1) : addDays(new Date(), 1)}
+                        disabled={!checkIn}
+                        {...datePickerCommon}
+                    />
+                </FieldGroup>
+
+                <GuestGroup>
+                    <Label htmlFor="guests">Количество гостей</Label>
+                    <GuestWrapper>
+                        <IconBtn type="button" onClick={() => handleGuestsChange(-1)}>
+                            <Remove/>
+                        </IconBtn>
+
+                        <GuestField
+                            type="number"
+                            value={guestsCount}
+                            onChange={handleGuestsInput}
+                            required
+                            onInvalid={e =>
+                                (e.currentTarget as HTMLInputElement).setCustomValidity(
+                                    "Укажите количество гостей от 1 до 30"
+                                )
+                            }
+                            onInput={e =>
+                                (e.currentTarget as HTMLInputElement).setCustomValidity("")
+                            }
+                        />
+
+                        <IconBtn type="button" onClick={() => handleGuestsChange(1)}>
+                            <Add />
+                        </IconBtn>
+                    </GuestWrapper>
+                </GuestGroup>
+
+                <Button type="submit">найти</Button>
             </Form>
-        );
+        </LocalizationProvider>
+    );
 }
 
-const Form = styled(FlexWrapper)`
-        background-color: var(--elem-color);
-        border-radius: 10px;
-        padding: 24px 36px;
-        box-shadow: ${theme.shadow.elements};
-        width: 100%;
-    
-        @media (max-width: 768px) {
-            gap: 24px;
-            justify-content: center;
+const Form = styled.form`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    background-color: var(--elem-color);
+    border-radius: 10px;
+    padding: 24px 56px;
+    box-shadow: ${theme.shadow.elements};
+    width: 100%;
+
+    @media (max-width: 768px) {
+        gap: 24px;
+        justify-content: center;
+    }
+`;
+
+const FieldGroup = styled.div`
+    max-width: 280px;
+`;
+
+const GuestGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const Label = styled.label`
+    font-weight: ${theme.fontWeight.medium};
+`;
+
+const GuestWrapper = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const IconBtn = styled.button`
+    background: none;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        font-size: 30px;
+        color: var(--main-color);
+        transition: 0.2s;
+
+        &:hover {
+            color: var(--accent-color);
         }
+    }
 `;

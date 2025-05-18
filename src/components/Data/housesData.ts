@@ -14,8 +14,8 @@ export const housesData = [
         ],
         timeFirst: "14:00",
         timeSecond: "11:00",
-        people: "15",
-        cost: "15 000",
+        people: 15,
+        cost: 15000,
     },
     {
         id: 2,
@@ -32,8 +32,8 @@ export const housesData = [
         ],
         timeFirst: "14:00",
         timeSecond: "11:00",
-        people: "8",
-        cost: "10 000",
+        people: 8,
+        cost: 10000,
     },
     {
         id: 3,
@@ -50,7 +50,7 @@ export const housesData = [
         ],
         timeFirst: "14:00",
         timeSecond: "11:00",
-        people: "4",
-        cost: "8 000",
+        people: 4,
+        cost: 8000,
     },
 ];
