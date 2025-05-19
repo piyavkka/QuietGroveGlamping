@@ -8,6 +8,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ru as ruLocale } from "date-fns/locale";
 import TextField from "@mui/material/TextField";
 import { format, addDays, isAfter } from "date-fns";
+import {FlexWrapper} from "../common/FlexWrapper.ts";
 
 const StyledTextField = styled(TextField)`
     & .MuiInputBase-root {
@@ -94,9 +95,9 @@ export default function Reservation() {
                     />
                 </FieldGroup>
 
-                <GuestGroup>
+                <FlexWrapper direction="column" align="center">
                     <Label htmlFor="guests">Количество гостей</Label>
-                    <GuestWrapper>
+                    <FlexWrapper align="center">
                         <IconBtn type="button" onClick={() => handleGuestsChange(-1)}>
                             <Remove/>
                         </IconBtn>
@@ -106,21 +107,13 @@ export default function Reservation() {
                             value={guestsCount}
                             onChange={handleGuestsInput}
                             required
-                            onInvalid={e =>
-                                (e.currentTarget as HTMLInputElement).setCustomValidity(
-                                    "Укажите количество гостей от 1 до 30"
-                                )
-                            }
-                            onInput={e =>
-                                (e.currentTarget as HTMLInputElement).setCustomValidity("")
-                            }
                         />
 
                         <IconBtn type="button" onClick={() => handleGuestsChange(1)}>
                             <Add />
                         </IconBtn>
-                    </GuestWrapper>
-                </GuestGroup>
+                    </FlexWrapper>
+                </FlexWrapper>
 
                 <Button type="submit">найти</Button>
             </Form>
@@ -151,19 +144,8 @@ const FieldGroup = styled.div`
     max-width: 280px;
 `;
 
-const GuestGroup = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
 const Label = styled.label`
     font-weight: ${theme.fontWeight.medium};
-`;
-
-const GuestWrapper = styled.div`
-    display: flex;
-    align-items: center;
 `;
 
 const IconBtn = styled.button`

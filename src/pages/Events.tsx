@@ -6,6 +6,8 @@ import {FlexWrapper} from "../components/common/FlexWrapper.ts";
 import Overlay from "../components/common/Overlay.tsx";
 import {useState} from "react";
 import FormEvents from "../components/FormEvents.tsx";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const eventsData = [
     {
@@ -78,13 +80,14 @@ const eventsData = [
 function Events() {
 
     const [showOverlay, setShowOverlay] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
-    const handleOpenOverlay = () => {
-        setShowOverlay(true);
-    };
+    const handleOpenOverlay = () => setShowOverlay(true);
+    const handleCloseOverlay = () => setShowOverlay(false);
 
-    const handleCloseOverlay = () => {
+    const handleFormSubmitted = () => {
         setShowOverlay(false);
+        setShowSuccess(true);
     };
 
     return (
@@ -113,10 +116,24 @@ function Events() {
 
             {showOverlay && (
                 <Overlay onClose={handleCloseOverlay}>
-                    <FormEvents/>
+                    <FormEvents onSubmitted={handleFormSubmitted}/>
                 </Overlay>
             )}
 
+            <Snackbar
+                open={showSuccess}
+                autoHideDuration={6000}
+                onClose={() => setShowSuccess(false)}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={() => setShowSuccess(false)}
+                    severity="success"
+                    sx={{ width: "100%" }}
+                >
+                    Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
+                </Alert>
+            </Snackbar>
         </>
     );
 }

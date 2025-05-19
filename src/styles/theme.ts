@@ -114,22 +114,3 @@ export const Span = styled.span`
     font-size: 1.2rem;
     color: ${theme.fontColor.main};
 `;
-
-export const Input = styled.input`
-    border: 2px solid transparent;
-    border-radius: 5px;
-    padding: 12px;
-    font-size: ${theme.fontSize.button};
-    font-weight: ${theme.fontWeight.semibold};
-    transition: 0.2s ease;
-    width: 180px;
-    box-sizing: border-box;
-
-    &:hover {
-        border: 2px solid var(--main-color);
-    }
-    &:focus {
-        outline: none;
-        border: 2px solid var(--main-color);
-    }
-`;
