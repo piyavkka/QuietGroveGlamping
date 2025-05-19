@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -8,7 +9,9 @@ interface OverlayProps {
 }
 
 const Overlay: React.FC<OverlayProps> = ({ children, onClose }) => {
-    return (
+    if (typeof document === "undefined") return null;
+
+    return ReactDOM.createPortal(
         <OverlayWrapper onClick={onClose}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
                 <CloseButton onClick={onClose}>
@@ -16,7 +19,8 @@ const Overlay: React.FC<OverlayProps> = ({ children, onClose }) => {
                 </CloseButton>
                 {children}
             </ModalContent>
-        </OverlayWrapper>
+        </OverlayWrapper>,
+        document.body
     );
 };
 
@@ -24,22 +28,19 @@ export default Overlay;
 
 const OverlayWrapper = styled.div`
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;                
     background: rgba(0, 0, 0, 0.6);
     z-index: 1000;
 
     display: flex;
-    align-items: center;    
+    align-items: center;
     justify-content: center;
 `;
 
 const ModalContent = styled.div`
     position: relative;
-    width: fit-content;
     max-width: 1440px;
+    width: fit-content;
     margin: 0 auto;
 `;
 
@@ -49,7 +50,6 @@ const CloseButton = styled.button`
     right: 5px;
     background: transparent;
     color: var(--main-color);
-    transition: opacity 0.2ms;
 
     &:hover {
         opacity: 0.5;

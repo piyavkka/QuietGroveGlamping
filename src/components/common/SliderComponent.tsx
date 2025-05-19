@@ -12,6 +12,7 @@ import Overlay from "./Overlay.tsx";
 type SliderComponentProps = {
     images: string[];
     height?: string;
+    autoplay?: boolean;
 };
 
 function useIsMobile(breakpoint = 768) {
@@ -29,7 +30,13 @@ function useIsMobile(breakpoint = 768) {
     return isMobile;
 }
 
-export const SliderComponent = ({images, height = "600px"}: SliderComponentProps) => {
+export const SliderComponent = (
+    {
+        images,
+        height = "600px",
+        autoplay = true,
+    }: SliderComponentProps) => {
+
     const swiperRef = useRef<SwiperType | null>(null);
     const [modalImage, setModalImage] = useState<string | null>(null);
 
@@ -37,19 +44,24 @@ export const SliderComponent = ({images, height = "600px"}: SliderComponentProps
     const openModal = (src: string) => !isMobile && setModalImage(src);
     const closeModal = () => setModalImage(null);
 
+    // если autoplay = false, передаём false; иначе — объект с настройкой задержки
+    const autoplayConfig = autoplay
+        ? { delay: 10000, disableOnInteraction: false }
+        : false;
+
     return (
         <SliderWrapper>
             <ArrowButton className="prev" onClick={() => swiperRef.current?.slidePrev()}>
-                <ArrowBackIosNewIcon fontSize="small"/>
+                <ArrowBackIosNewIcon fontSize="small" />
             </ArrowButton>
 
             <StyledSwiper
                 $height={height}
                 modules={[Autoplay, Pagination, Keyboard]}
-                pagination={{clickable: true}}
-                autoplay={{delay: 10000}}
-                keyboard={{enabled: true}}
-                loop={true}
+                pagination={{ clickable: true }}
+                autoplay={autoplayConfig}          // ← здесь
+                keyboard={{ enabled: true }}
+                loop
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
             >
                 {images.map((src, index) => (
@@ -58,16 +70,14 @@ export const SliderComponent = ({images, height = "600px"}: SliderComponentProps
                             src={src}
                             alt={`Slide ${index + 1}`}
                             onClick={() => openModal(src)}
-                            style={{
-                                cursor: isMobile ? "default" : "pointer",
-                            }}
+                            style={{ cursor: isMobile ? "default" : "pointer" }}
                         />
                     </SwiperSlide>
                 ))}
             </StyledSwiper>
 
             <ArrowButton className="next" onClick={() => swiperRef.current?.slideNext()}>
-                <ArrowForwardIosIcon fontSize="small"/>
+                <ArrowForwardIosIcon fontSize="small" />
             </ArrowButton>
 
             {!isMobile && modalImage && (
@@ -84,7 +94,6 @@ export const SliderComponent = ({images, height = "600px"}: SliderComponentProps
                     />
                 </Overlay>
             )}
-
         </SliderWrapper>
     );
 };

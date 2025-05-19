@@ -53,6 +53,7 @@ export const Header = () => {
                     <li><NavLink to="/entertainment" onClick={() => setIsOpen(false)}>Развлечения</NavLink></li>
                     <li><NavLink to="/events" onClick={() => setIsOpen(false)}>Мероприятия</NavLink></li>
                     <li><NavLink to="/bath-complex" onClick={() => setIsOpen(false)}>Банный комплекс</NavLink></li>
+                    <li><NavLink to="/reservation" onClick={() => setIsOpen(false)}>reservation</NavLink></li>
                 </NavList>
 
                 {isOpen && (

@@ -73,7 +73,7 @@ function Entertainment() {
                     <SelectedCard>
                         <FlexWrapper direction="column" gap="20px" align="center">
                             <H3Dark>{selectedCard.title}</H3Dark>
-                            <SliderComponent images={selectedCard.images} height="250px"/>
+                            <SliderComponent images={selectedCard.images} autoplay={false} height="250px"/>
                             <P lang="ru">{selectedCard.text}</P>
                             <P lang="ru">{selectedCard.description}</P>
                             <Span>{selectedCard.price ? `от ${selectedCard.price} / за человека` : 'бесплатно'}</Span>
