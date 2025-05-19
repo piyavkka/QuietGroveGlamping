@@ -58,4 +58,4 @@ const StyledH2 = styled(H2Light)`
     display: inline-block;
     max-width: 1000px;
     margin-top: 1rem;
-`
+`;

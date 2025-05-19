@@ -52,4 +52,4 @@ const StyledH3Dark = styled(H3Dark)`
     @media (max-width: 768px) {
         text-align: center;
     }
-`
+`;

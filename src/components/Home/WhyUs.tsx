@@ -34,7 +34,7 @@ export default function WhyUs() {
                         {whyUsData.map((item, index) => (
                             <P key={index}>{item.text}</P>
                         ))}
-                        <Span>От 8 000 /сутки</Span>
+                        <Span>От 8000 / сутки</Span>
                         <Button>Забронировать</Button>
                     </WhyUsText>
 
@@ -68,7 +68,7 @@ const WhyUsText = styled(FlexWrapper)`
         align-items: center;
         border: none;
     }
-`
+`;
 
 const Advantages = styled(FlexWrapper)`
     padding: 14px 24px;
@@ -104,9 +104,9 @@ const Advantages = styled(FlexWrapper)`
     @media (max-width: 768px) {
         width: 100%;
     }
-`
+`;
 
 const AdvantagesList = styled(FlexWrapper)`
     width: fit-content; 
     margin: 0 auto;
-`
+`;

@@ -23,7 +23,7 @@ export default function MainSection(){
 const Section = styled.section`
     background-color: var(--main-color);
     width: 100%;
-`
+`;
 
 const StyledImageWrapper = styled(ImageWrapper)`
     &::before {
@@ -37,7 +37,7 @@ const StyledImageWrapper = styled(ImageWrapper)`
         z-index: 0;
         pointer-events: none;
     }
-`
+`;
 
 const Content = styled(SectionWrapper)`
     position: absolute;
@@ -48,4 +48,4 @@ const Content = styled(SectionWrapper)`
     flex-direction: column;
     justify-content: flex-end;
     gap: 24px;
-`
+`;

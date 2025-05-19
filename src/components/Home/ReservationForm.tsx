@@ -41,7 +41,7 @@ const datePickerCommon = {
     slotProps: { textField: { fullWidth: true, required: true } },
 };
 
-export default function Reservation() {
+export default function ReservationForm() {
     const [checkIn, setCheckIn]   = useState<Date | null>(null);
     const [checkOut, setCheckOut] = useState<Date | null>(null);
     const [guestsCount, setGuestsCount] = useState(2);

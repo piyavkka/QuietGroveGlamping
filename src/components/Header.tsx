@@ -26,13 +26,17 @@ export const Header = () => {
 
                     <StyledFlexWrapper>
                         <StyledSmartLink to="https://t.me/yourchannel"><FaTelegram/></StyledSmartLink>
-                        <StyledSmartLink to="tel:+79867427080">
+                        <StyledSmartLink
+                            to="tel:+79867427080"
+                            data-mobile-visible
+                            data-no-gap
+                        >
                             <MdOutlinePhoneIphone/>
                             <Span>+7 (986) 742 70 80</Span>
                         </StyledSmartLink>
 
                         <StyledSmartLink to="https://vk.com"><SiVk/></StyledSmartLink>
-                        <StyledSmartLink to="https://t.me/yourchannel">
+                        <StyledSmartLink to="https://yandex.ru/maps/11079/nizhny-novgorod-oblast'/house/2_ya_ilyinogorskaya_ulitsa_77/YEsYfwFgTEMEQFtsfX5zcHhqbQ==/?ll=42.959843%2C56.221208&z=16.17">
                             <FaLocationDot/>
                             <Span>Нижегородская область,<br />посёлок Ильиногорск</Span>
                         </StyledSmartLink>
@@ -79,12 +83,12 @@ const StyledHeader= styled.header`
     z-index: 1000;
     width: 100%;
     box-shadow: ${theme.shadow.elements};
-`
+`;
 
 const HeaderWrapper = styled.div`
     height: 50px;
     background-color: var(--main-color);
-`
+`;
 
 const Container = styled.div`
     padding: 0 clamp(15px, 5vw, 80px);
@@ -94,24 +98,23 @@ const Container = styled.div`
     align-items: center;
     display: flex;
     justify-content: space-between;
-`
+`;
 
 const Img = styled.img`
     border-radius: 50%;
     width: 36px;
     height: 36px;
-`
+`;
 
 const StyledFlexWrapper = styled(FlexWrapper)`
     gap: ${theme.gap.small};
 
     @media (max-width: 768px) {
-        svg,
-        span {
+        a:not([data-mobile-visible]) {
             display: none;
         }
     }
-`
+`;
 
 const StyledSmartLink = styled(SmartLink)`
     color: ${theme.fontColor.main};
@@ -119,6 +122,10 @@ const StyledSmartLink = styled(SmartLink)`
     align-items: center;
     gap: ${theme.gap.icons};
     transition: 0.2s ease;
+
+    &[data-no-gap] {
+        gap: 0;
+    }
 
     svg {
         width: 26px;
@@ -128,16 +135,16 @@ const StyledSmartLink = styled(SmartLink)`
     &:hover {
         color: ${theme.fontColor.additional};
     }
-`
+`;
 
 const Span = styled.span`
     font-weight: ${theme.fontWeight.semibold};
-`
+`;
 
 const LogoSpan = styled.span`
     font-size: ${theme.fontSize.logo};
     font-weight: ${theme.fontWeight.bold};
-`
+`;
 
 const Navigation = styled.nav<{ isOpen?: boolean }>`
     height: 40px;
@@ -153,7 +160,7 @@ const Navigation = styled.nav<{ isOpen?: boolean }>`
         transform: ${({ isOpen }) => (isOpen ? "translateX(-100%)" : "translateX(0)")};
         transition: transform 0.3s linear;
     }
-`
+`;
 
 const NavList = styled.ul`
     display: flex;
@@ -172,7 +179,7 @@ const NavList = styled.ul`
         flex-direction: column;
         justify-content: space-evenly;
     }
-`
+`;
 
 const NavLink = styled(SmartLink)`
     color: ${theme.fontColor.main};
@@ -186,7 +193,7 @@ const NavLink = styled(SmartLink)`
     &:hover {
         color: ${theme.fontColor.light};
     }
-`
+`;
 
 const MenuToggleButton = styled.button`
     display: none;
@@ -200,7 +207,7 @@ const MenuToggleButton = styled.button`
             height: 28px;
         }
     }
-`
+`;
 
 const MobileContacts = styled(FlexWrapper)`
     display: none;
@@ -210,10 +217,10 @@ const MobileContacts = styled(FlexWrapper)`
         gap: ${theme.gap.small};
         padding: 0 clamp(15px, 5vw, 80px);
     }
-`
+`;
 
 const MobileLink = styled(StyledSmartLink)`
     &:hover{
         color: ${theme.fontColor.light};
     }
-`
+`;

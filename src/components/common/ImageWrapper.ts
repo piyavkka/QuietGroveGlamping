@@ -9,4 +9,4 @@ export const ImageWrapper = styled.div`
     overflow: hidden;
     position: relative;
     box-shadow: ${theme.shadow.elements};
-`
+`;

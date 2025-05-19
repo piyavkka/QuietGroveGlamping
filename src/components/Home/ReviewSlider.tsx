@@ -78,7 +78,7 @@ export default function ReviewSlider() {
 
                                 <ReviewText lang="ru">{reviews[index].text}</ReviewText>
 
-                                <Button href="https://perfect-housewife.ru/">Читать ещё отзывы</Button>
+                                <Button href="#">Читать ещё отзывы</Button>
                             </FlexWrapper>
                         </Fade>
 

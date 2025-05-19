@@ -1,4 +1,4 @@
-export { default as Reservation } from './Reservation';
+export { default as Reservation } from './ReservationForm.tsx';
 export { default as Slider } from './Slider';
 export { default as ActionAreaCard } from './ActionAreaCard';
 export { default as ReviewSlider } from './ReviewSlider';
