@@ -16,7 +16,7 @@ export const theme = {
 
     fontSize: {
         logo: 'clamp(1rem, 2vw, 2rem)',
-        P: 'clamp(0.8rem, 5vw, 1rem)',
+        P: 'clamp(0.9rem, 2vw, 1rem)',
         button: '16px',
     },
 

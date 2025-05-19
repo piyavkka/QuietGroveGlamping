@@ -61,7 +61,7 @@ function Entertainment() {
                                 <Img src={card.img} alt={`Entertainment ${card.id}`}/>
                                 <H3Dark>{card.title}</H3Dark>
                                 <P lang="ru">{card.text}</P>
-                                <Span>{card.price}</Span>
+                                <Span>{card.price ? `от ${card.price} / за человека` : 'бесплатно'}</Span>
                             </FlexWrapper>
                         </Card>
                     ))}
@@ -76,7 +76,8 @@ function Entertainment() {
                             <SliderComponent images={selectedCard.images} height="250px"/>
                             <P lang="ru">{selectedCard.text}</P>
                             <P lang="ru">{selectedCard.description}</P>
-                            <Span>{selectedCard.price}</Span>
+                            <Span>{selectedCard.price ? `от ${selectedCard.price} / за человека` : 'бесплатно'}</Span>
+                            <StyledP>*Только для гостей с действующим бронированием*</StyledP>
                         </FlexWrapper>
                     </SelectedCard>
                 </Overlay>
@@ -114,5 +115,10 @@ const SelectedCard = styled.div`
     cursor: pointer;
     background-color: white;
     max-width: 480px;
-    height: 680px;
+    width: min(480px, calc(100vw - 48px));
+`;
+
+const StyledP = styled(P)`
+    color: gray;
+    font-size: 14px;
 `;

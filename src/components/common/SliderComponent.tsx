@@ -1,11 +1,11 @@
-import {useRef, useState} from "react";
-import type { Swiper as SwiperType } from "swiper";
+import {useRef, useEffect, useState} from "react";
+import type {Swiper as SwiperType} from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Autoplay, Keyboard, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import {Autoplay, Keyboard, Pagination} from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
 import styled from "styled-components";
 import Overlay from "./Overlay.tsx";
 
@@ -14,26 +14,41 @@ type SliderComponentProps = {
     height?: string;
 };
 
-export const SliderComponent = ({ images, height = "600px" }: SliderComponentProps) => {
+function useIsMobile(breakpoint = 768) {
+    const [isMobile, setIsMobile] = useState(
+        typeof window !== "undefined" && window.innerWidth <= breakpoint
+    );
+
+    useEffect(() => {
+        const onResize = () =>
+            setIsMobile(window.innerWidth <= breakpoint);
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, [breakpoint]);
+
+    return isMobile;
+}
+
+export const SliderComponent = ({images, height = "600px"}: SliderComponentProps) => {
     const swiperRef = useRef<SwiperType | null>(null);
     const [modalImage, setModalImage] = useState<string | null>(null);
 
-    const openModal = (src: string) => setModalImage(src);
+    const isMobile = useIsMobile();
+    const openModal = (src: string) => !isMobile && setModalImage(src);
     const closeModal = () => setModalImage(null);
-
 
     return (
         <SliderWrapper>
             <ArrowButton className="prev" onClick={() => swiperRef.current?.slidePrev()}>
-                <ArrowBackIosNewIcon fontSize="small" />
+                <ArrowBackIosNewIcon fontSize="small"/>
             </ArrowButton>
 
             <StyledSwiper
                 $height={height}
                 modules={[Autoplay, Pagination, Keyboard]}
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 10000 }}
-                keyboard={{ enabled: true }}
+                pagination={{clickable: true}}
+                autoplay={{delay: 10000}}
+                keyboard={{enabled: true}}
                 loop={true}
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
             >
@@ -43,17 +58,19 @@ export const SliderComponent = ({ images, height = "600px" }: SliderComponentPro
                             src={src}
                             alt={`Slide ${index + 1}`}
                             onClick={() => openModal(src)}
-                            style={{ cursor: "pointer" }}
+                            style={{
+                                cursor: isMobile ? "default" : "pointer",
+                            }}
                         />
                     </SwiperSlide>
                 ))}
             </StyledSwiper>
 
             <ArrowButton className="next" onClick={() => swiperRef.current?.slideNext()}>
-                <ArrowForwardIosIcon fontSize="small" />
+                <ArrowForwardIosIcon fontSize="small"/>
             </ArrowButton>
 
-            {modalImage && (
+            {!isMobile && modalImage && (
                 <Overlay onClose={closeModal}>
                     <img
                         src={modalImage}
@@ -73,42 +90,42 @@ export const SliderComponent = ({ images, height = "600px" }: SliderComponentPro
 };
 
 const StyledSwiper = styled(Swiper)<{ $height: string }>`
-  width: 100%;
-  height: ${({ $height }) => $height};
-  border-radius: 10px;
-  position: relative;
-
-  img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: inherit;
-  }
+    height: ${({$height}) => $height};
+    border-radius: 10px;
+    position: relative;
 
-  .swiper-pagination-bullets {
-    bottom: 10px;
-  }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+    }
 
-  .swiper-pagination-bullet {
-    background-color: white;
-    opacity: 0.6;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
+    .swiper-pagination-bullets {
+        bottom: 10px;
+    }
 
-  .swiper-pagination-bullet:hover {
-    transform: scale(1.3);
-    opacity: 1;
-  }
+    .swiper-pagination-bullet {
+        background-color: white;
+        opacity: 0.6;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
 
-  .swiper-pagination-bullet-active {
-    background-color: white;
-    opacity: 1;
-    transform: scale(1.4);
-  }
+    .swiper-pagination-bullet:hover {
+        transform: scale(1.3);
+        opacity: 1;
+    }
 
-  @media (max-width: 768px) {
-    height: 200px;
-  }
+    .swiper-pagination-bullet-active {
+        background-color: white;
+        opacity: 1;
+        transform: scale(1.4);
+    }
+
+    @media (max-width: 768px) {
+        height: 200px;
+    }
 `;
 
 const SliderWrapper = styled.div`
@@ -131,7 +148,7 @@ const ArrowButton = styled.button<{ disabled?: boolean }>`
     padding: 10px;
     width: 40px;
     height: 40px;
-    cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
+    cursor: ${({disabled}) => (disabled ? "default" : "pointer")};
     opacity: 0;
     transition: opacity 0.3s, background-color 0.2s;
 

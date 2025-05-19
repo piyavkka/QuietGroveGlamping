@@ -153,6 +153,7 @@ const FeatureList = styled.ul`
     li {
         margin-bottom: 8px;
         color: ${theme.fontColor.main};
+        font-size: ${theme.fontSize.P};
     }
 `;
 
