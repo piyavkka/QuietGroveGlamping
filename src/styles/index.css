@@ -4,7 +4,9 @@
   --add-color: #8ea076;
   --accent-color: #2c352a;
   --light-text-color: #f5f2ec;
+  --light-elem-color: rgba(245, 242, 236, 0.29);
   --elem-color: #b4b198;
+  --white-color: #fff;
 }
 
 *,

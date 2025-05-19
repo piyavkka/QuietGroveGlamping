@@ -1,4 +1,4 @@
-import {description} from '../entertainmentData.ts';
+import {description} from '../Data/entertainmentData.ts';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -77,12 +77,12 @@ const Card = styled.div`
     &:hover {
         background-color: #f0f0f0;
     }
-`
+`;
 
 const Img = styled.img`
     border-radius: 10px;
     height: 250px;
-`
+`;
 
 const StyledLink = styled(Link)`
     color: ${theme.fontColor.main};
@@ -94,4 +94,4 @@ const StyledLink = styled(Link)`
     &:hover {
         opacity: 0.5;
     }
-`
+`;

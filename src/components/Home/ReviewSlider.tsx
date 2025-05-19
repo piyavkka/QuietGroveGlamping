@@ -78,7 +78,7 @@ export default function ReviewSlider() {
 
                                 <ReviewText lang="ru">{reviews[index].text}</ReviewText>
 
-                                <Button href="https://perfect-housewife.ru/">Читать ещё отзывы</Button>
+                                <Button href="#">Читать ещё отзывы</Button>
                             </FlexWrapper>
                         </Fade>
 
@@ -132,6 +132,7 @@ const ReviewCard = styled(FlexWrapper)`
     max-width: 500px;
     min-width: 280px;
     background-color: var(--light-text-color);
+    border: 1px solid var(--elem-color);
     border-radius: 10px;
     padding: clamp(10px, 5vw, 28px);
     gap: 16px;

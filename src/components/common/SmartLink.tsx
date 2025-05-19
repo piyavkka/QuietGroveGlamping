@@ -6,15 +6,23 @@ type Props = {
     children: React.ReactNode;
     className?: string;
     onClick?: () => void;
-};
 
-export const SmartLink: React.FC<Props> = ({ to, children, className, onClick }) => {
+} & React.HTMLAttributes<HTMLElement>;
+
+export const SmartLink: React.FC<Props> = (
+    {
+        to,
+        children,
+        className,
+        onClick,
+        ...rest
+    }) => {
     const location = useLocation();
     const isExternal = /^https?:\/\//.test(to);
     const isTel = /^tel:/.test(to);
     const isActive = location.pathname === to;
 
-    const handleClick = onClick ? onClick : undefined; // безопасная проверка
+    const handleClick = onClick ?? undefined;
 
     if (isExternal || isTel) {
         return (
@@ -24,6 +32,7 @@ export const SmartLink: React.FC<Props> = ({ to, children, className, onClick })
                 target={isExternal ? "_blank" : undefined}
                 rel={isExternal ? "noopener noreferrer" : undefined}
                 onClick={handleClick}
+                {...rest}
             >
                 {children}
             </a>
@@ -36,6 +45,7 @@ export const SmartLink: React.FC<Props> = ({ to, children, className, onClick })
             className={className}
             aria-current={isActive ? "page" : undefined}
             onClick={handleClick}
+            {...rest}
         >
             {children}
         </Link>

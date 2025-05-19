@@ -6,7 +6,8 @@ import Entertainment from './pages/Entertainment';
 import Events from './pages/Events';
 import {Header} from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
-import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTop from "./components/common/ScrollToTop.tsx";
+import Reservation from "./pages/Reservation.tsx";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/bath-complex" element={<BathComplex />} />
                     <Route path="/entertainment" element={<Entertainment />} />
                     <Route path="/events" element={<Events />} />
+                    <Route path="/reservation" element={<Reservation />} />
                 </Routes>
             </main>
 

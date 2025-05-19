@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {ArrowForwardIos} from "@mui/icons-material";
-import {FlexWrapper} from "./common/FlexWrapper.ts";
-import {H3Dark, P, theme} from "../styles/theme";
-import {Button} from "./common/Button.tsx";
-import Overlay from "./common/Overlay.tsx";
+import {FlexWrapper} from "./FlexWrapper.ts";
+import {H3Dark, P, theme} from "../../styles/theme.ts";
+import {Button} from "./Button.tsx";
+import Overlay from "./Overlay.tsx";
 
 interface VerticalImageSliderProps {
     images: string[];

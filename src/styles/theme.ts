@@ -16,7 +16,7 @@ export const theme = {
 
     fontSize: {
         logo: 'clamp(1rem, 2vw, 2rem)',
-        P: 'clamp(0.8rem, 5vw, 1rem)',
+        P: 'clamp(0.9rem, 2vw, 1rem)',
         button: '16px',
     },
 
@@ -113,22 +113,4 @@ export const Span = styled.span`
     font-weight: ${theme.fontWeight.bold};
     font-size: 1.2rem;
     color: ${theme.fontColor.main};
-`;
-
-export const Input = styled.input`
-    border: 2px solid transparent;
-    border-radius: 5px;
-    padding: 12px;
-    font-size: ${theme.fontSize.button};
-    font-weight: ${theme.fontWeight.semibold};
-    transition: 0.2s ease;
-
-    &:hover {
-        border: 2px solid var(--main-color);
-    }
-
-    &:focus {
-        outline: none;
-        border: 2px solid var(--main-color);
-    }
 `;

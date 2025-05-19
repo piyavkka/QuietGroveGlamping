@@ -35,7 +35,7 @@ export default function Route() {
                         <h4>🚐 Трансфер</h4>
                         <P>Мы можем организовать для вас трансфер из Нижнего Новгорода прямо до нас — по запросу.</P>
 
-                        <Button>Построить маршрут</Button>
+                        <Button href="https://yandex.ru/maps/11079/nizhny-novgorod-oblast'/?ll=42.959843%2C56.221208&mode=routes&rtext=~56.221499%2C42.960563&rtt=auto&ruri=~ymapsbm1%3A%2F%2Fgeo%3Fdata%3DIgoNntcrQhXR4mBC&z=16">Построить маршрут</Button>
                     </TextContent>
                 </FlexWrapper>
             </SectionWrapper>
@@ -71,7 +71,7 @@ const MapWrapper = styled.div`
         margin-top: 10px;
         height: 300px;
     }
-`
+`;
 
 const TextContent = styled(FlexWrapper)`
     flex: 1;
@@ -81,4 +81,4 @@ const TextContent = styled(FlexWrapper)`
         font-weight: ${theme.fontWeight.semibold};
         color: ${theme.fontColor.main};
     }
-`
+`;

@@ -1,10 +1,10 @@
 import house1 from "../assets/Home/house1.jpg";
-import {IntroSection} from "../components/IntroSection.tsx";
+import {IntroSection} from "../components/common/IntroSection.tsx";
 import {SectionWrapper} from "../components/common/SectionWrapper.ts";
 import styled from "styled-components";
 import {FlexWrapper} from "../components/common/FlexWrapper.ts";
 import {H3Dark, P, Span} from "../styles/theme.ts";
-import { description } from '../components/entertainmentData.ts';
+import { description } from '../components/Data/entertainmentData.ts';
 import Overlay from "../components/common/Overlay.tsx";
 import {useEffect, useState} from "react";
 import {SliderComponent} from "../components/common/SliderComponent.tsx";
@@ -61,7 +61,7 @@ function Entertainment() {
                                 <Img src={card.img} alt={`Entertainment ${card.id}`}/>
                                 <H3Dark>{card.title}</H3Dark>
                                 <P lang="ru">{card.text}</P>
-                                <Span>{card.price}</Span>
+                                <Span>{card.price ? `от ${card.price} / за человека` : 'бесплатно'}</Span>
                             </FlexWrapper>
                         </Card>
                     ))}
@@ -73,10 +73,11 @@ function Entertainment() {
                     <SelectedCard>
                         <FlexWrapper direction="column" gap="20px" align="center">
                             <H3Dark>{selectedCard.title}</H3Dark>
-                            <SliderComponent images={selectedCard.images} height="250px"/>
+                            <SliderComponent images={selectedCard.images} autoplay={false} height="250px"/>
                             <P lang="ru">{selectedCard.text}</P>
                             <P lang="ru">{selectedCard.description}</P>
-                            <Span>{selectedCard.price}</Span>
+                            <Span>{selectedCard.price ? `от ${selectedCard.price} / за человека` : 'бесплатно'}</Span>
+                            <StyledP>*Только для гостей с действующим бронированием*</StyledP>
                         </FlexWrapper>
                     </SelectedCard>
                 </Overlay>
@@ -114,5 +115,10 @@ const SelectedCard = styled.div`
     cursor: pointer;
     background-color: white;
     max-width: 480px;
-    height: 680px;
+    width: min(480px, calc(100vw - 48px));
+`;
+
+const StyledP = styled(P)`
+    color: gray;
+    font-size: 14px;
 `;

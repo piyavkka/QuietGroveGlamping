@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
-import {H1Light, H2Light} from "../styles/theme.ts";
-import {ImageWrapper} from "./common/ImageWrapper.ts";
+import {H1Light, H2Light} from "../../styles/theme.ts";
+import {ImageWrapper} from "./ImageWrapper.ts";
 
 interface IntroSectionProps {
     src: string;
@@ -58,4 +58,4 @@ const StyledH2 = styled(H2Light)`
     display: inline-block;
     max-width: 1000px;
     margin-top: 1rem;
-`
+`;
