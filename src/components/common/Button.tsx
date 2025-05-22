@@ -36,6 +36,7 @@ export const Button = styled(RawButton)`
     font-size: ${theme.fontSize.button};
     cursor: pointer;
     border: none;
+    text-align: center;
 
     &:hover {
         background-color: var(--accent-color);

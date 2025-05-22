@@ -3,6 +3,7 @@ import { Button } from "../common/Button.tsx";
 import {FlexWrapper} from "../common/FlexWrapper.ts";
 import { SectionWrapper } from '../common/SectionWrapper.ts';
 import {H2Dark, P, Span, theme} from "../../styles/theme.ts";
+import {SmartLink} from "../common/SmartLink.tsx";
 
 const whyUsData = [
     {
@@ -35,7 +36,9 @@ export default function WhyUs() {
                             <P key={index}>{item.text}</P>
                         ))}
                         <Span>От 8000 / сутки</Span>
-                        <Button>Забронировать</Button>
+                        <Button as={SmartLink} to="/reservation">
+                            Забронировать
+                        </Button>
                     </WhyUsText>
 
                     <Advantages direction="column" gap="16px">

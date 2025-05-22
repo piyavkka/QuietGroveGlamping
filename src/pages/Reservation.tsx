@@ -6,12 +6,13 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ru as ruLocale } from "date-fns/locale";
 import TextField from "@mui/material/TextField";
 import { addDays, isAfter } from "date-fns";
-import {P, Span, theme} from "../styles/theme.ts";
+import {H3Dark, P, Span, theme} from "../styles/theme.ts";
 import {FlexWrapper} from "../components/common/FlexWrapper.ts";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {housesData} from "../components/Data/housesData.ts";
 import {SliderComponent} from "../components/common/SliderComponent.tsx";
+import {Button} from "../components/common/Button.tsx";
 
 const StyledTextField = styled(TextField)`
     & .MuiInputBase-root {
@@ -45,7 +46,7 @@ export default function Reservation(){
                 >
                     <Form justify="center" align="center" wrap="wrap" gap="24px">
                         <FieldGroup>
-                            <Label htmlFor="check-in">Дата заезда</Label>
+                            <P>Дата заезда</P>
                             <DatePicker
                                 value={checkIn}
                                 onChange={newDate => {
@@ -60,7 +61,7 @@ export default function Reservation(){
                         </FieldGroup>
 
                         <FieldGroup>
-                            <Label htmlFor="check-out">Дата выезда</Label>
+                            <P>Дата выезда</P>
                             <DatePicker
                                 value={checkOut}
                                 onChange={setCheckOut}
@@ -71,7 +72,7 @@ export default function Reservation(){
                         </FieldGroup>
 
                         <FieldGroup style={{width: 160}}>
-                            <Label htmlFor="guests">Количество гостей</Label>
+                            <P>Количество гостей</P>
                             <StyledTextField
                                 value={guests}
                                 type="number"
@@ -87,30 +88,30 @@ export default function Reservation(){
                 </LocalizationProvider>
 
                 <Wrapper>
-                    <FlexWrapper justify="space-between" gap="24px">
-                        <button>
-                            <ArrowBackIosNewIcon/>
-                            назад
-                        </button>
-                        <Label>Выберите номер</Label>
-                        <button>
-                            вперед
-                            <ArrowForwardIosIcon/>
-                        </button>
+                    <FlexWrapper justify="space-between" gap="24px" align="center">
+                        <NavArrowButton>
+                            <ArrowBackIosNewIcon /> Назад
+                        </NavArrowButton>
+
+                        <P>Выберите номер</P>
+
+                        <NavArrowButton>
+                            Вперёд <ArrowForwardIosIcon />
+                        </NavArrowButton>
                     </FlexWrapper>
 
                     <FlexWrapper justify="space-between" gap="24px" wrap="wrap" style={{marginTop: 14}}>
                         {housesData.map(({ id, title, images, timeFirst, timeSecond, people, cost }) => (
-                            <CardHouse key={id}>
-                                <Label>{title}</Label>
+                            <CardHouse key={id} direction="column" gap="14px" align="center">
+                                <H3Dark>{title}</H3Dark>
                                 <SliderComponent images={images} autoplay={false} height="250px"/>
-                                <P>
-                                    Заезд после {timeFirst}
-                                    <br />
-                                    Выезд до {timeSecond}
-                                </P>
-                                <P>Вместимость до {people} человек</P>
+                                <List>
+                                    <li>Заезд после {timeFirst}</li>
+                                    <li>Выезд до {timeSecond}</li>
+                                    <li>Вместимость до {people} человек</li>
+                                </List>
                                 <Span>от {cost} / в сутки</Span>
+                                <Button>выбрать</Button>
                             </CardHouse>
                         ))}
                     </FlexWrapper>
@@ -138,10 +139,6 @@ const FieldGroup = styled.div`
     max-width: 280px;
 `;
 
-const Label = styled.label`
-    font-weight: ${theme.fontWeight.medium};
-`;
-
 const Wrapper = styled.div`
     width: 100%;
     margin-top: 12px;
@@ -151,7 +148,8 @@ const Wrapper = styled.div`
     border: 1px solid var(--light-text-color);
 `;
 
-const CardHouse = styled.div`
+const CardHouse = styled(FlexWrapper)`
+    width: min(380px, calc(100vw - 112px));
     max-width: 380px;
     border-radius: 10px;
     border: 1px solid var(--light-text-color);
@@ -163,4 +161,24 @@ const CardHouse = styled.div`
     &:hover {
         transform: scale(1.02);
     }
+`;
+
+const List = styled.ul`
+    list-style-type: disc;
+    padding-left: 14px;
+    color: inherit;
+    text-align: left;
+    li {
+        margin-bottom: 8px;
+        color: ${theme.fontColor.main};
+        font-size: ${theme.fontSize.P};
+    }
+`;
+
+const NavArrowButton = styled(Button)`
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: fit-content;
+    padding: 8px 10px;
 `;
