@@ -11,6 +11,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import {CardService} from "../components/CardService.tsx";
 import {Button} from "../components/common/Button.tsx";
+import {SmartLink} from "../components/common/SmartLink.tsx";
 
 function BathComplex() {
 
@@ -74,7 +75,7 @@ function BathComplex() {
 
                             <P>{selectedOption?.description}</P>
                             <Span>Цена: {selectedOption?.price} / час</Span>
-                            <Button>Выбрать даты</Button>
+                            <Button as={SmartLink} to="/reservation">Выбрать даты</Button>
                         </FlexWrapper>
                         <FlexWrapper direction="column" gap="12px">
                             <DropdownWrapper>
