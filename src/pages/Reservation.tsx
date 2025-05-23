@@ -65,10 +65,14 @@ export default function Reservation(){
         },
     ];
 
+    const handleSubmit = () => {
+        console.log("📥 Получено в Reservation");
+    };
+
     return(
         <>
             <SectionWrapper style={{padding: 'clamp(40px, 5vw, 60px) clamp(15px, 5vw, 80px)'}}>
-                <ResPageForm/>
+                <ResPageForm onSubmit={handleSubmit} />
                 <Wrapper>
                     <FlexWrapper justify="space-between" gap="24px" align="center">
                         <NavArrowButton onClick={handlePrev} disabled={page === 0}>
