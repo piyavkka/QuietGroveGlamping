@@ -7,8 +7,10 @@ import {P, Span, H3Dark} from "../styles/theme.ts";
 import AccordionUsage from "../components/AccordionUsage.tsx";
 import styled from "styled-components";
 import {housesData} from "../components/Data/housesData.ts";
+import { useNavigate } from "react-router-dom";
 
 function Houses() {
+    const navigate = useNavigate();
     return (
         <>
             <IntroSection
@@ -26,6 +28,7 @@ function Houses() {
                         title={title}
                         description={description}
                         buttonText="Выбрать даты"
+                        action={() => navigate("/reservation")}
                         visibleCount={4}
                         mainImageSize={{ width: 600, height: 500 }}
                         previewSize={{ width: 80, height: 80 }}

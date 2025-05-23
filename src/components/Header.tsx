@@ -15,6 +15,8 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const closeMenu = () => setIsOpen(false);
+
     return (
         <StyledHeader>
             <HeaderWrapper>
@@ -48,12 +50,11 @@ export const Header = () => {
             </HeaderWrapper>
             <Navigation isOpen={isOpen}>
                 <NavList>
-                    <li><NavLink to="/" onClick={() => setIsOpen(false)}>О нас</NavLink></li>
-                    <li><NavLink to="/houses" onClick={() => setIsOpen(false)}>Домики</NavLink></li>
-                    <li><NavLink to="/entertainment" onClick={() => setIsOpen(false)}>Развлечения</NavLink></li>
-                    <li><NavLink to="/events" onClick={() => setIsOpen(false)}>Мероприятия</NavLink></li>
-                    <li><NavLink to="/bath-complex" onClick={() => setIsOpen(false)}>Банный комплекс</NavLink></li>
-                    <li><NavLink to="/reservation" onClick={() => setIsOpen(false)}>reservation</NavLink></li>
+                    <li><NavLink to="/" onClick={closeMenu}>О нас</NavLink></li>
+                    <li><NavLink to="/houses" onClick={closeMenu}>Домики</NavLink></li>
+                    <li><NavLink to="/entertainment" onClick={closeMenu}>Развлечения</NavLink></li>
+                    <li><NavLink to="/events" onClick={closeMenu}>Мероприятия</NavLink></li>
+                    <li><NavLink to="/bath-complex" onClick={closeMenu}>Банный комплекс</NavLink></li>
                 </NavList>
 
                 {isOpen && (
@@ -66,11 +67,13 @@ export const Header = () => {
                             <SiVk/>
                             <Span>@quiet_grove</Span>
                         </MobileLink>
-                        <MobileLink to="https://t.me/yourchannel">
+                        <MobileLink to="https://yandex.ru/maps/11079/nizhny-novgorod-oblast'/house/2_ya_ilyinogorskaya_ulitsa_77/YEsYfwFgTEMEQFtsfX5zcHhqbQ==/?ll=42.959843%2C56.221208&z=16.17">
                             <FaLocationDot/>
                             <Span>посёлок Ильиногорск</Span>
                         </MobileLink>
-                        <Button>забронировать</Button>
+                        <Button as={SmartLink} to="/reservation" onClick={closeMenu}>
+                            Забронировать
+                        </Button>
                     </MobileContacts>
                 )}
             </Navigation>

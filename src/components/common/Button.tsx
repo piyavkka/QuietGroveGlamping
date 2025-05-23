@@ -32,10 +32,11 @@ export const Button = styled(RawButton)`
     text-transform: uppercase;
     font-weight: ${theme.fontWeight.semibold};
     width: 260px;
-    transition: 0.2s;
+    transition: all 0.2s;
     font-size: ${theme.fontSize.button};
     cursor: pointer;
     border: none;
+    text-align: center;
 
     &:hover {
         background-color: var(--accent-color);
