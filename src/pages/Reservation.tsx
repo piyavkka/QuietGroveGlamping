@@ -17,6 +17,7 @@ import {FillDropdown} from "../components/common/FillDropdown.tsx";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
 export default function Reservation(){
+
     const [page, setPage] = useState<number>(0);
     const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
 
@@ -236,13 +237,13 @@ const NavArrowButton = styled(Button)`
     padding: 8px 10px;
     text-transform: lowercase;
     color: ${theme.fontColor.main};
-    background-color: var(--light-text-color);
+    background-color: var(--white-color);
     
     opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
     pointer-events: ${({ disabled }) => (disabled ? "none" : "pointer")};
 
     &:hover {
-        background-color: var(--elem-color);
+        background-color: var(--add-color);
     }
 `;
 
@@ -271,16 +272,16 @@ const SlotButton = styled(Button)<{ selected?: boolean }>`
 `;
 
 const TubSection = styled.div`
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 
-  label {
-    font-weight: 500;
-    cursor: pointer;
-    user-select: none;
-  }
+    label {
+        font-weight: 500;
+        cursor: pointer;
+        user-select: none;
+    }
 `;
 
 const CustomDropdownWrapper = styled.div`

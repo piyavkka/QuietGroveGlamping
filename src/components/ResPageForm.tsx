@@ -8,6 +8,8 @@ import {addDays, isAfter} from "date-fns";
 import {useState} from "react";
 import {FlexWrapper} from "./common/FlexWrapper.ts";
 import {Button} from "./common/Button.tsx";
+import { useLocation } from 'react-router-dom';
+import { parse } from 'date-fns';
 
 const StyledTextField = styled(TextField)`
     & .MuiInputBase-root {
@@ -27,10 +29,20 @@ const datePickerCommon = {
 
 export default function ResPageForm() {
 
-    const [checkIn, setCheckIn]   = useState<Date | null>(null);
-    const [checkOut, setCheckOut] = useState<Date | null>(null);
+    const location = useLocation();
 
-    const [guests, setGuests] = useState<number>(2);
+    const query = new URLSearchParams(location.search);
+    const checkInQuery = query.get('checkIn');
+    const checkOutQuery = query.get('checkOut');
+    const guestsQuery = query.get('guests');
+
+    const [checkIn, setCheckIn] = useState<Date | null>(
+        checkInQuery ? parse(checkInQuery, 'yyyy-MM-dd', new Date()) : null
+    );
+    const [checkOut, setCheckOut] = useState<Date | null>(
+        checkOutQuery ? parse(checkOutQuery, 'yyyy-MM-dd', new Date()) : null
+    );
+    const [guests, setGuests] = useState<number>(guestsQuery ? +guestsQuery : 2);
 
     return (
         <LocalizationProvider
