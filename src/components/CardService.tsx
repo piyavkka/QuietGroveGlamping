@@ -6,7 +6,7 @@ interface CardServiceProps {
     title: string;
     description: string;
     icon: string;
-    price: string;
+    price: number;
 }
 
 export const CardService = ({ title, description, icon, price }: CardServiceProps) => {
@@ -17,7 +17,7 @@ export const CardService = ({ title, description, icon, price }: CardServiceProp
                 <H3Dark>{title}</H3Dark>
             </FlexWrapper>
             <P>{description}</P>
-            <Span>{price}</Span>
+            <Span>{price} ₽</Span>
         </Card>
     );
 };
