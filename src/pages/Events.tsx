@@ -127,6 +127,7 @@ function Events() {
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
                 <Alert
+                    elevation={6}
                     onClose={() => setShowSuccess(false)}
                     severity="success"
                     sx={{ width: "100%" }}

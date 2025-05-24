@@ -12,11 +12,16 @@ import ResPageForm from "../components/ResPageForm.tsx";
 
 import { format } from "date-fns";
 import { ru as ruLocale } from "date-fns/locale";
-import {fillOptions} from "../components/Data/BathData.ts";
+import {fillOptions, Sauna} from "../components/Data/BathData.ts";
 import {FillDropdown} from "../components/common/FillDropdown.tsx";
 import { Checkbox, FormControlLabel } from "@mui/material";
+import { differenceInCalendarDays } from "date-fns";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 export default function Reservation(){
+    const [checkIn, setCheckIn] = useState<Date | null>(null);
+    const [checkOut, setCheckOut] = useState<Date | null>(null);
 
     const [page, setPage] = useState<number>(0);
     const [selectedHouse, setSelectedHouse] = useState<number | null>(null);
@@ -28,13 +33,21 @@ export default function Reservation(){
     const [addTub, setAddTub] = useState(false);
     const [selectedFillId, setSelectedFillId] = useState<number>(0);
 
+    const [showAlert, setShowAlert] = useState(false);
+
     const handlePrev = () => setPage((p) => Math.max(0, p - 1));
-    const handleNext = () => setPage((p) => Math.min(2, p + 1));
+    const handleNext = () => {
+        if (page === 0 && selectedHouse === null) {
+            setShowAlert(true);
+            return;
+        }
+        setShowAlert(false);
+        setPage((p) => Math.min(2, p + 1));
+    };
 
     const pageTitles = [
         "Выберите домик",
         "Баня и чан",
-        "Развлечения",
         "Контакты",
     ];
 
@@ -65,8 +78,32 @@ export default function Reservation(){
         },
     ];
 
-    const handleSubmit = () => {
-        console.log("📥 Получено в Reservation");
+    const handleSubmit = ({ checkIn, checkOut }: { checkIn: Date | null; checkOut: Date | null }) => {
+        setCheckIn(checkIn);
+        setCheckOut(checkOut);
+        console.log("📥 Получено в Reservation", checkIn, checkOut);
+    };
+
+    const calculateTotal = () => {
+        let total = 0;
+
+        const selectedDays =
+            checkIn && checkOut ? Math.max(1, differenceInCalendarDays(checkOut, checkIn)) : 0;
+
+        if (selectedHouse !== null) {
+            const house = housesData.find(h => h.id === selectedHouse);
+            if (house) total += house.cost * selectedDays;
+        }
+
+        const saunaCount = Object.values(selectedSaunaSlots).reduce((sum, set) => sum + set.size, 0);
+        total += saunaCount * Sauna.price;
+
+        if (addTub) {
+            const selectedFill = fillOptions.find(f => f.id === selectedFillId);
+            if (selectedFill?.price) total += selectedFill.price;
+        }
+
+        return total;
     };
 
     return(
@@ -84,6 +121,23 @@ export default function Reservation(){
                         <NavArrowButton onClick={handleNext} disabled={page === pageTitles.length - 1}>
                             Вперёд <ArrowForwardIosIcon />
                         </NavArrowButton>
+
+                        <Snackbar
+                            open={showAlert}
+                            autoHideDuration={6000}
+                            onClose={() => setShowAlert(false)}
+                            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                        >
+                            <Alert
+                                elevation={6}
+                                variant="filled"
+                                onClose={() => setShowAlert(false)}
+                                severity="warning"
+                                sx={{ width: "100%" }}
+                            >
+                                Пожалуйста, выберите домик перед переходом.
+                            </Alert>
+                        </Snackbar>
                     </FlexWrapper>
 
                     <ContentWrapper>
@@ -182,7 +236,10 @@ export default function Reservation(){
 
                         {page === 2 && (
                             <FlexWrapper>
-                                <P>Здесь будут контактные данные</P>
+                                <FlexWrapper direction="column" gap="16px">
+                                    <P>Здесь будут контактные данные</P>
+                                    <P style={{ fontWeight: '600' }}>Итоговая стоимость: {calculateTotal()} ₽</P>
+                                </FlexWrapper>
                             </FlexWrapper>
                         )}
                     </ContentWrapper>

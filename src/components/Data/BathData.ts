@@ -26,6 +26,10 @@ export const description = [
     "Доступен только вместе с арендой бани — отдельно не предоставляется",
 ];
 
+export const Sauna = {
+    price: 2500,
+};
+
 export const fillOptions = [
     {
         id: 0,
