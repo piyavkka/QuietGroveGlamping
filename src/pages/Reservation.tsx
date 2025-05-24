@@ -344,7 +344,6 @@ const TubSection = styled.div`
     display: flex;
     flex-direction: column;
     
-
     label {
         cursor: pointer;
         user-select: none;
