@@ -1,25 +1,37 @@
-import {SectionWrapper} from "../components/common/SectionWrapper.ts";
+import {SectionWrapper} from "../../components/common/SectionWrapper.ts";
 import styled, {css} from "styled-components";
-import {useState} from "react";
-import {H3Dark, P, Span, theme} from "../styles/theme.ts";
-import {FlexWrapper} from "../components/common/FlexWrapper.ts";
+import {useEffect, useState} from "react";
+import { P, Span, theme} from "../../styles/theme.ts";
+import {FlexWrapper} from "../../components/common/FlexWrapper.ts";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import {housesData} from "../components/Data/housesData.ts";
-import {SliderComponent} from "../components/common/SliderComponent.tsx";
-import {Button} from "../components/common/Button.tsx";
-import ResPageForm from "../components/ResPageForm.tsx";
+import {Button} from "../../components/common/Button.tsx";
+import ResPageForm from "./ResPageForm.tsx";
 
 import {format} from "date-fns";
 import {ru as ruLocale} from "date-fns/locale";
-import {fillOptions, Sauna} from "../components/Data/BathData.ts";
-import {FillDropdown} from "../components/common/FillDropdown.tsx";
+import {fillOptions, Sauna} from "../../components/Data/BathData.ts";
+import {FillDropdown} from "../../components/common/FillDropdown.tsx";
 import {Checkbox, FormControlLabel} from "@mui/material";
 import {differenceInCalendarDays} from "date-fns";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import HousesSection from "./HousesSection.tsx";
+import { House } from "./types";
 
 export default function Reservation() {
+    const [houses, setHouses] = useState<House[]>([]);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/houses")
+            .then(res => {
+                if (!res.ok) throw new Error("Ошибка загрузки домов");
+                return res.json();
+            })
+            .then(data => setHouses(data))
+            .catch(err => console.error("Ошибка:", err));
+    }, []);
+
     const [checkIn, setCheckIn] = useState<Date | null>(null);
     const [checkOut, setCheckOut] = useState<Date | null>(null);
     const [page, setPage] = useState<number>(0);
@@ -94,7 +106,7 @@ export default function Reservation() {
         let total = 0;
         const selectedDays = checkIn && checkOut ? Math.max(1, differenceInCalendarDays(checkOut, checkIn)) : 0;
         if (selectedHouse !== null) {
-            const house = housesData.find(h => h.id === selectedHouse);
+            const house = houses.find(h => h.id === selectedHouse);
             if (house) total += house.cost * selectedDays;
         }
         total += saunaCost + tubCost + tubFillPrice;
@@ -103,7 +115,7 @@ export default function Reservation() {
 
     return (
         <>
-            <SectionWrapper style={{padding: 'clamp(40px, 5vw, 20px) clamp(15px, 5vw, 80px)'}}>
+            <SectionWrapper style={{padding: '15px clamp(15px, 5vw, 80px)'}}>
                 <ResPageForm onSubmit={handleSubmit}/>
                 <Wrapper>
                     <FlexWrapper justify="space-between" gap="24px" align="center">
@@ -140,41 +152,11 @@ export default function Reservation() {
 
                     <ContentWrapper>
                         {page === 0 && (
-                            <FlexWrapper
-                                justify="space-between"
-                                gap="24px"
-                                wrap="wrap"
-                            >
-                                {housesData.map(
-                                    ({id, title, images, timeFirst, timeSecond, people, cost}) => (
-                                        <CardHouse
-                                            key={id}
-                                            direction="column"
-                                            gap="14px"
-                                            align="center"
-                                            selected={selectedHouse === id}
-                                        >
-                                            <H3Dark>{title}</H3Dark>
-                                            <SliderComponent
-                                                images={images}
-                                                autoplay={false}
-                                                height="250px"
-                                            />
-                                            <List>
-                                                <li>Заезд после {timeFirst}</li>
-                                                <li>Выезд до {timeSecond}</li>
-                                                <li>Вместимость до {people} человек</li>
-                                            </List>
-                                            <Span>от {cost} / в сутки</Span>
-                                            {selectedHouse !== id && (
-                                                <Button onClick={() => setSelectedHouse(id)}>
-                                                    выбрать
-                                                </Button>
-                                            )}
-                                        </CardHouse>
-                                    )
-                                )}
-                            </FlexWrapper>
+                            <HousesSection
+                                houses={houses}
+                                selectedHouse={selectedHouse}
+                                onSelect={setSelectedHouse}
+                            />
                         )}
 
                         {page === 1 && (
@@ -267,35 +249,6 @@ const Wrapper = styled.div`
 
 const ContentWrapper = styled.div`
     margin-top: 24px;
-`;
-
-const CardHouse = styled(FlexWrapper)<{ selected?: boolean }>`
-    width: min(380px, calc(100vw - 112px));
-    max-width: 380px;
-    border-radius: 10px;
-    border: ${({selected}) =>
-            selected ? "1px solid var(--main-color)" : "1px solid var(--light-text-color)"};
-    padding: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background-color: var(--white-color);
-
-    &:hover {
-        transform: ${({selected}) => (selected ? "none" : "scale(1.02)")};
-    }
-`;
-
-const List = styled.ul`
-    list-style-type: disc;
-    padding-left: 14px;
-    color: inherit;
-    text-align: left;
-
-    li {
-        margin-bottom: 8px;
-        color: ${theme.fontColor.main};
-        font-size: ${theme.fontSize.P};
-    }
 `;
 
 const NavArrowButton = styled(Button)`

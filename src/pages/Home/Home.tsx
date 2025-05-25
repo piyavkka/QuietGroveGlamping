@@ -5,7 +5,7 @@ import {
     Route,
     WhyUs,
     MainSection,
-} from '../components/Home/index.tsx';
+} from './index.tsx';
 
 function Home() {
 

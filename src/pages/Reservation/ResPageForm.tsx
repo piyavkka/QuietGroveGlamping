@@ -2,12 +2,12 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ru as ruLocale } from "date-fns/locale/ru";
-import { P } from "../styles/theme.ts";
+import { P } from "../../styles/theme.ts";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { addDays, isAfter, parse } from "date-fns";
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Button } from "./common/Button.tsx";
+import { Button } from "../../components/common/Button.tsx";
 
 const StyledTextField = styled(TextField)`
     & .MuiInputBase-root {

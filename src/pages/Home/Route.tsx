@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import {Button} from "../common/Button.tsx";
-import {SectionWrapper} from "../common/SectionWrapper.ts";
-import {FlexWrapper} from "../common/FlexWrapper.ts";
+import {Button} from "../../components/common/Button.tsx";
+import {SectionWrapper} from "../../components/common/SectionWrapper.ts";
+import {FlexWrapper} from "../../components/common/FlexWrapper.ts";
 import {H2Dark, P, theme} from "../../styles/theme.ts";
 
 export default function Route() {

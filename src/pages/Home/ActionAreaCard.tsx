@@ -1,4 +1,3 @@
-import {description} from '../Data/entertainmentData.ts';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -6,16 +5,35 @@ import 'swiper/css/keyboard';
 import {Scrollbar, Keyboard} from 'swiper/modules';
 import styled from 'styled-components';
 import {H2Dark, H3Dark, H4Dark, theme} from '../../styles/theme.ts';
-import {SectionWrapper} from "../common/SectionWrapper.ts";
+import {SectionWrapper} from "../../components/common/SectionWrapper.ts";
 import {Link} from "react-router-dom";
-import {FlexWrapper} from "../common/FlexWrapper.ts";
-
+import {FlexWrapper} from "../../components/common/FlexWrapper.ts";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function ActionAreaCard() {
+    type Extra = {
+        id: number;
+        title: string;
+        text: string;
+        description: string;
+        cost: number;
+        images: string[];
+    };
+
+    const [extras, setExtras] = useState<Extra[]>([]);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/extras")
+            .then((res) => {
+                if (!res.ok) throw new Error("Ошибка загрузки развлечений");
+                return res.json();
+            })
+            .then((data) => setExtras(data))
+            .catch((err) => console.error("Ошибка:", err));
+    }, []);
 
     const navigate = useNavigate();
-
     return (
         <section>
             <SectionWrapper>
@@ -37,13 +55,13 @@ export default function ActionAreaCard() {
                     style={{padding: "16px 0"}}
                 >
 
-                    {description.map((card) => (
-                        <SwiperSlideStyled>
-                            <Card key={card.id} onClick={() =>
+                    {extras.map((card) => (
+                        <SwiperSlideStyled key={card.id}>
+                            <Card onClick={() =>
                                 navigate(`/entertainment#card-${card.id}`, {
                                     state: { cardId: card.id, preventScroll: true }
                                 })}>
-                                <Img src={card.img} alt={`Entertainment ${card.id}`}/>
+                                <Img src={card.images[0]} alt={`Entertainment ${card.id}`} />
                                 <H3Dark>{card.title}</H3Dark>
                             </Card>
                         </SwiperSlideStyled>

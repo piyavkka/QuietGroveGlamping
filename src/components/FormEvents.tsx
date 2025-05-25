@@ -58,7 +58,6 @@ interface FormEventsProps {
 }
 
 export default function FormEvents({ onSubmitted }: FormEventsProps) {
-
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [checkIn, setCheckIn] = useState<Date | null>(null);

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Button } from "../common/Button.tsx";
-import {FlexWrapper} from "../common/FlexWrapper.ts";
-import { SectionWrapper } from '../common/SectionWrapper.ts';
+import { Button } from "../../components/common/Button.tsx";
+import {FlexWrapper} from "../../components/common/FlexWrapper.ts";
+import { SectionWrapper } from '../../components/common/SectionWrapper.ts';
 import {H2Dark, P, Span, theme} from "../../styles/theme.ts";
-import {SmartLink} from "../common/SmartLink.tsx";
+import {SmartLink} from "../../components/common/SmartLink.tsx";
 
 const whyUsData = [
     {

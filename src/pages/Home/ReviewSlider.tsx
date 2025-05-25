@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Fade, Rating, Avatar} from '@mui/material';
 import { ArrowForwardIos } from '@mui/icons-material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import {Button} from "../common/Button.tsx";
-import {SectionWrapper} from "../common/SectionWrapper.ts";
+import {Button} from "../../components/common/Button.tsx";
+import {SectionWrapper} from "../../components/common/SectionWrapper.ts";
 import styled from 'styled-components';
 import {MainTitle, P, Span, theme} from '../../styles/theme.ts';
-import {ImageWrapper} from "../common/ImageWrapper.ts";
-import { FlexWrapper } from '../common/FlexWrapper.ts';
+import {ImageWrapper} from "../../components/common/ImageWrapper.ts";
+import { FlexWrapper } from '../../components/common/FlexWrapper.ts';
 
 const reviews = [
     {
