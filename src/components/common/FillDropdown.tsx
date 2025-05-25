@@ -58,7 +58,6 @@ const DropdownWrapper = styled.div`
     position: relative;
     display: inline-block;
     width: 100%;
-    max-width: 600px;
 `;
 
 const DropdownButton = styled.button`
@@ -94,7 +93,6 @@ const DropdownList = styled.ul`
 
     li {
         padding: 14px 24px;
-        white-space: nowrap;
         cursor: pointer;
 
         &:hover {

@@ -8,3 +8,13 @@ export type House = {
     cost: number;
     images: string[];
 };
+
+export interface SaunaSectionProps {
+    saunaSlotsData: { date: Date; slots: string[] }[];
+    selectedSaunaSlots: Record<string, Set<string>>;
+    toggleSlot: (dateKey: string, slot: string) => void;
+    addTub: boolean;
+    setAddTub: (value: boolean) => void;
+    selectedFillId: number;
+    setSelectedFillId: (id: number) => void;
+}

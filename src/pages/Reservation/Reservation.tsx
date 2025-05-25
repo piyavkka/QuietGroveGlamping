@@ -1,5 +1,5 @@
 import {SectionWrapper} from "../../components/common/SectionWrapper.ts";
-import styled, {css} from "styled-components";
+import styled from "styled-components";
 import {useEffect, useState} from "react";
 import { P, Span, theme} from "../../styles/theme.ts";
 import {FlexWrapper} from "../../components/common/FlexWrapper.ts";
@@ -7,17 +7,14 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {Button} from "../../components/common/Button.tsx";
 import ResPageForm from "./ResPageForm.tsx";
-
 import {format} from "date-fns";
-import {ru as ruLocale} from "date-fns/locale";
-import {fillOptions, Sauna} from "../../components/Data/BathData.ts";
-import {FillDropdown} from "../../components/common/FillDropdown.tsx";
-import {Checkbox, FormControlLabel} from "@mui/material";
 import {differenceInCalendarDays} from "date-fns";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import HousesSection from "./HousesSection.tsx";
 import { House } from "./types";
+import {SaunaSection} from "./SaunaSection.tsx";
+import {useBathPricing} from "./useBathPricing.ts";
 
 export default function Reservation() {
     const [houses, setHouses] = useState<House[]>([]);
@@ -81,26 +78,18 @@ export default function Reservation() {
         });
     };
 
-    const extendedFillOptions = [
-        ...fillOptions,
-        {
-            id: Math.max(...fillOptions.map(o => o.id)) + 1,
-            label: "Без наполнения",
-            price: null,
-        },
-    ];
-
     const handleSubmit = ({checkIn, checkOut}: { checkIn: Date | null; checkOut: Date | null }) => {
         setCheckIn(checkIn);
         setCheckOut(checkOut);
         console.log("📥 Получено в Reservation", checkIn, checkOut);
     };
-    const saunaHoursCount = Object.values(selectedSaunaSlots).reduce((sum, set) => sum + set.size, 0);
-    const saunaCost = saunaHoursCount * Sauna.find(s => s.id === 1)!.price;
-    const tubBasePrice = Sauna.find(s => s.id === 2)!.price;
-    const isTubFree = saunaHoursCount >= 2;
-    const tubCost = addTub && !isTubFree ? tubBasePrice : 0;
-    const tubFillPrice = addTub ? (fillOptions.find(f => f.id === selectedFillId)?.price ?? 0) : 0;
+
+    const {
+        saunaHoursCount,
+        saunaCost,
+        tubCost,
+        tubFillPrice
+    } = useBathPricing(selectedSaunaSlots, addTub, selectedFillId);
 
     const calculateTotal = () => {
         let total = 0;
@@ -111,6 +100,41 @@ export default function Reservation() {
         }
         total += saunaCost + tubCost + tubFillPrice;
         return total;
+    };
+    const [showSuccess, setShowSuccess] = useState(false);
+
+    const handleFinalSubmit = () => {
+        const formattedCheckIn = checkIn ? format(checkIn, "yyyy-MM-dd") : null;
+        const formattedCheckOut = checkOut ? format(checkOut, "yyyy-MM-dd") : null;
+
+        const saunaTimes = Object.values(selectedSaunaSlots).flatMap((set) =>
+            Array.from(set)
+        );
+
+        const totalSum = calculateTotal();
+
+        const submissionData = {
+            checkIn: formattedCheckIn,
+            checkOut: formattedCheckOut,
+            selectedHouse,
+            saunaTimes,
+            addTub,
+            fillId: addTub ? selectedFillId : null,
+            total: totalSum
+        };
+
+        console.log("📤 Отправка данных:", submissionData);
+
+        setCheckIn(null);
+        setCheckOut(null);
+        setSelectedHouse(null);
+        setSelectedSaunaSlots({});
+        setAddTub(false);
+        setSelectedFillId(0);
+
+        setPage(0);
+
+        setShowSuccess(true);
     };
 
     return (
@@ -133,7 +157,7 @@ export default function Reservation() {
                             open={showAlert}
                             autoHideDuration={6000}
                             onClose={() => setShowAlert(false)}
-                            anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+                            anchorOrigin={{vertical: "top", horizontal: "center"}}
                         >
                             <Alert
                                 elevation={6}
@@ -148,6 +172,23 @@ export default function Reservation() {
                                 }
                             </Alert>
                         </Snackbar>
+
+                        <Snackbar
+                            open={showSuccess}
+                            autoHideDuration={6000}
+                            onClose={() => setShowSuccess(false)}
+                            anchorOrigin={{vertical: "top", horizontal: "center"}}
+                        >
+                            <Alert
+                                elevation={6}
+                                onClose={() => setShowSuccess(false)}
+                                severity="success"
+                                sx={{width: "100%"}}
+                            >
+                                Данные успешно отправлены!
+                            </Alert>
+                        </Snackbar>
+
                     </FlexWrapper>
 
                     <ContentWrapper>
@@ -160,67 +201,15 @@ export default function Reservation() {
                         )}
 
                         {page === 1 && (
-                            <FlexWrapper direction="column" gap="8px">
-                                <P>
-                                    Выберите не менее двух часов аренды бани. Стоимость: {Sauna.find(s => s.id === 1)?.price}₽ / час
-                                </P>
-
-                                <SaunaContainer>
-                                    {saunaSlotsData.map(({date, slots}) => {
-                                        const dateKey = format(date, "yyyy-MM-dd");
-                                        return (
-                                            <div style={{marginBottom: 24}} key={dateKey}>
-                                                <P style={{ fontWeight: '600', marginBottom: '8px' }}>
-                                                    {format(date, "d MMMM, EEEE", { locale: ruLocale })}
-                                                </P>
-                                                <FlexWrapper wrap="wrap" gap="8px">
-                                                    {slots.map((slot) => {
-                                                        const isSel = selectedSaunaSlots[dateKey]?.has(slot) ?? false;
-                                                        return (
-                                                            <SlotButton key={slot} selected={isSel} onClick={() => toggleSlot(dateKey, slot)}>
-                                                                {slot}
-                                                            </SlotButton>
-                                                        );
-                                                    })}
-                                                </FlexWrapper>
-                                            </div>
-                                        );
-                                    })}
-                                </SaunaContainer>
-
-                                <P>
-                                    Аренда чана: {Sauna.find(s => s.id === 2)?.price}₽. При брони бани на 2+ часа — бесплатно
-                                </P>
-
-                                <TubSection>
-                                    <FormControlLabel
-                                        control={<Checkbox checked={addTub} onChange={() => setAddTub((v) => !v)} />}
-                                        label={<P>Добавить чан</P>}
-                                    />
-                                    {addTub && (
-                                        <CustomDropdownWrapper>
-                                            <FillDropdown
-                                                fillOptions={extendedFillOptions}
-                                                selectedId={selectedFillId}
-                                                setSelectedId={setSelectedFillId}
-                                                renderOptionExtra={(option) => option.price ? `+${option.price}₽ ` : null}
-                                            />
-                                        </CustomDropdownWrapper>
-                                    )}
-                                </TubSection>
-                                <div>
-                                    {saunaHoursCount >= 2 && <P>Баня: {saunaCost}₽</P>}
-                                    {addTub && !isTubFree && <P>Аренда чана: {tubBasePrice}₽</P>}
-                                    {addTub && <P>Наполнение: {tubFillPrice}₽</P>}
-                                    <Span>
-                                        Всего: {
-                                        (saunaHoursCount >= 2 ? saunaCost : 0) +
-                                        (addTub && !isTubFree ? tubBasePrice : 0) +
-                                        (addTub ? tubFillPrice : 0)
-                                    }₽
-                                    </Span>
-                                </div>
-                            </FlexWrapper>
+                            <SaunaSection
+                                saunaSlotsData={saunaSlotsData}
+                                selectedSaunaSlots={selectedSaunaSlots}
+                                toggleSlot={toggleSlot}
+                                addTub={addTub}
+                                setAddTub={setAddTub}
+                                selectedFillId={selectedFillId}
+                                setSelectedFillId={setSelectedFillId}
+                            />
                         )}
 
                         {page === 2 && (
@@ -228,6 +217,7 @@ export default function Reservation() {
                                 <FlexWrapper direction="column" gap="16px">
                                     <P>Здесь будут контактные данные</P>
                                     <P style={{fontWeight: '600'}}>Итоговая стоимость: {calculateTotal()}₽</P>
+                                    <Button onClick={handleFinalSubmit}>Отправить</Button>
                                 </FlexWrapper>
                             </FlexWrapper>
                         )}
@@ -266,57 +256,5 @@ const NavArrowButton = styled(Button)`
 
     &:hover {
         background-color: var(--add-color);
-    }
-`;
-
-const SaunaContainer = styled.div`
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 14px;
-    background-color: var(--white-color);
-    border: 1px solid var(--light-text-color);
-    border-radius: 5px;
-`;
-
-const SlotButton = styled(Button)<{ selected?: boolean }>`
-    width: 180px;
-    padding: 8px 12px;
-    ${({selected}) =>
-            selected &&
-            css`
-                color: ${theme.fontColor.main};
-                background-color: var(--light-text-color);
-
-                &:hover {
-                    background-color: var(--light-text-color);
-                }
-            `}
-`;
-
-const TubSection = styled.div`
-    display: flex;
-    flex-direction: column;
-    
-    label {
-        cursor: pointer;
-        user-select: none;
-    }
-`;
-
-const CustomDropdownWrapper = styled.div`
-    max-width: 380px;
-
-    button {
-        padding: 8px 24px;
-        border-radius: 5px;
-    }
-
-    span {
-        font-weight: 400;
-        font-size: 16px;
-    }
-
-    li {
-        padding: 10px 22px;
     }
 `;
