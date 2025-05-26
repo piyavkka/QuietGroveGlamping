@@ -15,6 +15,7 @@ import HousesSection from "./HousesSection.tsx";
 import { House } from "./types";
 import {SaunaSection} from "./SaunaSection.tsx";
 import {useBathPricing} from "./useBathPricing.ts";
+import ContactSection from "./ContactSection.tsx";
 
 export default function Reservation() {
     const [houses, setHouses] = useState<House[]>([]);
@@ -92,15 +93,30 @@ export default function Reservation() {
     } = useBathPricing(selectedSaunaSlots, addTub, selectedFillId);
 
     const calculateTotal = () => {
-        let total = 0;
-        const selectedDays = checkIn && checkOut ? Math.max(1, differenceInCalendarDays(checkOut, checkIn)) : 0;
+        const selectedDays =
+            checkIn && checkOut
+                ? Math.max(1, differenceInCalendarDays(checkOut, checkIn))
+                : 0;
+
+        let houseCost = 0;
         if (selectedHouse !== null) {
             const house = houses.find(h => h.id === selectedHouse);
-            if (house) total += house.cost * selectedDays;
+            if (house) {
+                houseCost = house.cost * selectedDays;
+            }
         }
-        total += saunaCost + tubCost + tubFillPrice;
-        return total;
+
+        const total = houseCost + saunaCost + tubCost + tubFillPrice;
+
+        return {
+            total,
+            houseCost,
+            saunaCost,
+            tubCost,
+            tubFillPrice
+        };
     };
+
     const [showSuccess, setShowSuccess] = useState(false);
 
     const handleFinalSubmit = () => {
@@ -193,11 +209,11 @@ export default function Reservation() {
 
                     <ContentWrapper>
                         {page === 0 && (
-                            <HousesSection
-                                houses={houses}
-                                selectedHouse={selectedHouse}
-                                onSelect={setSelectedHouse}
-                            />
+                                <HousesSection
+                                    houses={houses}
+                                    selectedHouse={selectedHouse}
+                                    onSelect={setSelectedHouse}
+                                />
                         )}
 
                         {page === 1 && (
@@ -212,15 +228,32 @@ export default function Reservation() {
                             />
                         )}
 
-                        {page === 2 && (
-                            <FlexWrapper>
-                                <FlexWrapper direction="column" gap="16px">
-                                    <P>Здесь будут контактные данные</P>
-                                    <P style={{fontWeight: '600'}}>Итоговая стоимость: {calculateTotal()}₽</P>
-                                    <Button onClick={handleFinalSubmit}>Отправить</Button>
+                        {page === 2 && (() => {
+                            const { total, houseCost, saunaCost, tubCost, tubFillPrice } = calculateTotal();
+
+                            return (
+                                <FlexWrapper>
+                                    <FlexWrapper gap="16px">
+                                        <InfoCard direction="column" gap="8px">
+                                            <Span>Ваше бронирование</Span>
+                                            <P>Домик: {houseCost}₽</P>
+                                            {saunaHoursCount > 0 && <P>Баня: {saunaCost}₽</P>}
+                                            {addTub && (
+                                                <>
+                                                    <P>Чан: {tubCost > 0 ? `${tubCost}₽` : "бесплатно"}</P>
+                                                    {selectedFillId !== 0 && <P>Наполнение чана: {tubFillPrice}₽</P>}
+                                                </>
+                                            )}
+                                            <P>Итоговая стоимость: {total}₽</P>
+                                        </InfoCard>
+                                        <ContactSection />
+                                        <div>
+                                            <Button onClick={handleFinalSubmit}>Отправить</Button>
+                                        </div>
+                                    </FlexWrapper>
                                 </FlexWrapper>
-                            </FlexWrapper>
-                        )}
+                            );
+                        })()}
                     </ContentWrapper>
                 </Wrapper>
             </SectionWrapper>
@@ -257,4 +290,12 @@ const NavArrowButton = styled(Button)`
     &:hover {
         background-color: var(--add-color);
     }
+`;
+
+const InfoCard = styled(FlexWrapper)`
+    background-color: var(--white-color);
+    padding: 14px 24px;
+    width: fit-content;
+    border-radius: 5px;
+    border: 1px solid var(--light-text-color);
 `;

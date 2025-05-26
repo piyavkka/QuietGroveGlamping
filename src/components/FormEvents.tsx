@@ -88,14 +88,14 @@ export default function FormEvents({ onSubmitted }: FormEventsProps) {
             }
             console.log({
                 name,
-                phone,
+                phone: phone.replace(/\D/g, ""),
                 checkIn: checkIn ? format(checkIn, "yyyy-MM-dd") : null,
                 agree,
                 guestsCount,
             });
             onSubmitted?.();
         },
-        [name, phone, checkIn, agree, guestsCount, isFormValid]
+        [name, phone, checkIn, agree, guestsCount, isFormValid, onSubmitted]
     );
 
     return (
