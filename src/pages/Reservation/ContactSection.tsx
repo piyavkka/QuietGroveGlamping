@@ -2,6 +2,10 @@ import styled from "styled-components";
 import { Button } from "../../components/common/Button.tsx";
 import React, { useCallback, useMemo, useState } from "react";
 import TextField from "@mui/material/TextField";
+import QRCode from "react-qr-code";
+import { FlexWrapper } from "../../components/common/FlexWrapper";
+import { ContactSectionProps } from "./types";
+import {P, Span } from "../../styles/theme.ts";
 
 function formatPhone(value: string) {
     const digits = value.replace(/\D/g, "").slice(0, 11);
@@ -17,72 +21,139 @@ function isValidEmail(email: string) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-interface FormEventsProps {
-    onSubmitted?: () => void;
-}
-
-export default function ContactSection({ onSubmitted }: FormEventsProps) {
+export default function ContactSection({   onVerified,
+                                           onFinalSubmit,
+                                           summary,
+                                       }: ContactSectionProps) {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
+    const [code, setCode] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const isFormValid = useMemo(() => {
-        return (
-            name.trim() !== "" &&
-            phone.replace(/\D/g, "").length === 11 &&
-            isValidEmail(email)
-        );
+        return name.trim() !== "" && phone.replace(/\D/g, "").length === 11 && isValidEmail(email);
     }, [name, phone, email]);
 
+    const {
+        houseCost,
+        saunaCost,
+        tubCost,
+        tubFillPrice,
+        total,
+        saunaHoursCount,
+        addTub,
+        selectedFillId,
+    } = summary;
+
     const handleSubmit = useCallback(
-        (e: React.FormEvent) => {
+        async (e: React.FormEvent) => {
             e.preventDefault();
-            if (!isFormValid) return;
+            if (!isFormValid || loading) return;
 
-            console.log({
-                name,
-                phone: phone.replace(/\D/g, ""),
-                email
-            });
-
-            onSubmitted?.();
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await fetch("http://localhost:8080/verification", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: name.trim(),
+                        phone: `+${phone.replace(/\D/g, "")}`,
+                        email: email.trim(),
+                    }),
+                });
+                if (!response.ok) throw new Error("Ошибка верификации");
+                const data: { code: string } = await response.json();
+                setCode(data.code);
+                onVerified?.(data.code);
+            } catch (err) {
+                console.error(err);
+                setError("Не удалось отправить код, попробуйте позже.");
+            } finally {
+                setLoading(false);
+            }
         },
-        [name, phone, email, isFormValid, onSubmitted]
+        [name, phone, email, isFormValid, loading, onVerified]
     );
+
+    const qrValue = code ? `https://t.me/QuiteGrove_bot?start=${code}` : "";
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <StyledTextField
-                placeholder="Имя"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                variant="outlined"
-                required
-            />
+        <FlexWrapper gap="16px">
+            <InfoCard direction="column" gap="8px">
+                <Span>Ваше бронирование</Span>
+                <P>Домик: {houseCost}₽</P>
+                {saunaHoursCount > 0 && <P>Баня: {saunaCost}₽</P>}
+                {addTub && (
+                    <>
+                        <P>Чан: {tubCost > 0 ? `${tubCost}₽` : "бесплатно"}</P>
+                        {selectedFillId !== 0 && <P>Наполнение: {tubFillPrice}₽</P>}
+                    </>
+                )}
+                <P>Итоговая стоимость: {total}₽</P>
+            </InfoCard>
 
-            <StyledTextField
-                placeholder="+7 (999) 999-99-99"
-                value={phone}
-                onChange={(e) => setPhone(formatPhone(e.target.value))}
-                variant="outlined"
-                required
-            />
+            <Form onSubmit={handleSubmit}>
+                <StyledTextField placeholder="Имя" value={name} onChange={(e) => setName(e.target.value)} variant="outlined" required />
+                <StyledTextField
+                    placeholder="+7 (999) 999-99-99"
+                    value={phone}
+                    onChange={(e) => setPhone(formatPhone(e.target.value))}
+                    variant="outlined"
+                    required
+                />
+                <StyledTextField
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    variant="outlined"
+                    required
+                    type="email"
+                />
+                <Button type="submit" disabled={!isFormValid || loading || !!code}>
+                    {loading ? "Отправка…" : code ? "Код отправлен" : "Подтвердить"}
+                </Button>
+                {error && <ErrorMsg>{error}</ErrorMsg>}
+            </Form>
 
-            <StyledTextField
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                variant="outlined"
-                required
-                type="email"
-            />
+            {code && (
+                <QRWrapper>
+                    <P>
+                        Ваш код подтверждения: <strong>{code}</strong>
+                    </P>
 
-            <Button type="submit">
-                Подтвердить
-            </Button>
-        </Form>
+                    <P>
+                        Шаг 2. Отсканируйте QR-код или нажмите ссылку ниже — бот откроется, и код
+                        передастся автоматически.
+                    </P>
+
+                    <QRCode value={qrValue} size={164} />
+
+                    <a href={qrValue} target="_blank" rel="noopener noreferrer">
+                        Открыть Telegram-бот
+                    </a>
+
+                    <Button
+                        onClick={onFinalSubmit}
+                        disabled={!code}
+                    >
+                        Отправить
+                    </Button>
+                </QRWrapper>
+            )}
+        </FlexWrapper>
     );
 }
+
+const InfoCard = styled(FlexWrapper)`
+  background-color: var(--white-color);
+  padding: 14px 24px;
+  width: fit-content;
+  border-radius: 5px;
+  border: 1px solid var(--light-text-color);
+`;
 
 const Form = styled.form`
     display: flex;
@@ -98,4 +169,17 @@ const StyledTextField = styled(TextField)`
     & .MuiOutlinedInput-input {
         padding: 14px 24px;
     }
+`;
+
+const QRWrapper = styled.div`
+  margin-top: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+const ErrorMsg = styled.span`
+  color: red;
+  font-size: 14px;
 `;

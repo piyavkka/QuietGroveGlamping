@@ -9,17 +9,14 @@ type Props = {
     houses: House[];
     selectedHouse: number | null;
     onSelect: (id: number) => void;
+    showButton: boolean;
 };
 
-export default function HousesSection({ houses, selectedHouse, onSelect }: Props){
+export default function HousesSection({ houses, selectedHouse, onSelect, showButton }: Props) {
     return (
-        <FlexWrapper
-            justify="space-between"
-            gap="24px"
-            wrap="wrap"
-        >
+        <FlexWrapper gap="24px" wrap="wrap">
             {houses.map(
-                ({id, title, images, timeFirst, timeSecond, people, cost}) => (
+                ({ id, title, images, timeFirst, timeSecond, people, cost,  basePrice, totalPrice }) => (
                     <CardHouse
                         key={id}
                         direction="column"
@@ -38,19 +35,42 @@ export default function HousesSection({ houses, selectedHouse, onSelect }: Props
                             <li>Выезд до {timeSecond}</li>
                             <li>Вместимость до {people} человек</li>
                         </List>
-                        <Span>от {cost} / в сутки</Span>
-                        {selectedHouse !== id && (
-                            <Button onClick={() => onSelect(id)}>
-                                выбрать
+
+                        <>
+                            {basePrice != null && (
+                                <Span>За сутки {basePrice}₽</Span>
+                            )}
+                            {totalPrice != null && (
+                                <Span>За всё время: {totalPrice}₽</Span>
+                            )}
+                            {basePrice == null && totalPrice == null && (
+                                <Span>от {cost}₽ / в сутки</Span>
+                            )}
+                        </>
+
+                        {showButton && (
+                            <Button
+                                onClick={() => onSelect(id)}
+                                disabled={selectedHouse === id}
+                                style={{
+                                    opacity: selectedHouse === id ? 0.6 : 1,
+                                    cursor: selectedHouse === id ? "default" : "pointer",
+                                }}
+                            >
+                                {selectedHouse === id ? "выбрано" : "выбрать"}
                             </Button>
                         )}
                     </CardHouse>
                 )
             )}
-            <InfoBanner><strong>Внимание:</strong> в зависимости от дней цены могут различаться. Для просмотра актуальной стоимости выберите нужные даты.</InfoBanner>
+            <InfoBanner>
+                <strong>Внимание:</strong> в зависимости от дней цены могут различаться.
+                Для просмотра актуальной стоимости выберите нужные даты.
+            </InfoBanner>
         </FlexWrapper>
     );
 }
+
 
 const CardHouse = styled(FlexWrapper)<{ selected?: boolean }>`
     width: min(380px, calc(100vw - 112px));

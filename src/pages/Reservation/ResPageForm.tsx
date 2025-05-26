@@ -49,7 +49,6 @@ export default function ResPageForm({ onSubmit }: ResPageFormProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("🔍 Отправлено из формы:", { checkIn, checkOut, guests });
         onSubmit({ checkIn, checkOut, guests });
     };
 
