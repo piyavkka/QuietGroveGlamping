@@ -3,7 +3,7 @@ import {IntroSection} from "../components/common/IntroSection.tsx";
 import BathBg from "../assets/BathBg.jpg";
 import {SectionWrapper} from "../components/common/SectionWrapper.ts";
 import {SliderComponent} from "../components/common/SliderComponent.tsx";
-import {bathServices, description, features, fillOptions, images} from "../components/Data/BathData.ts";
+import {bathServices, description, features, fillOptions, images, Sauna} from "../components/Data/BathData.ts";
 import styled from "styled-components";
 import {FlexWrapper} from "../components/common/FlexWrapper.ts";
 import {H2Dark, P, Span, theme} from "../styles/theme.ts";
@@ -50,7 +50,7 @@ function BathComplex() {
                                     <li key={index}>{item}</li>
                                 ))}
                             </FeatureList>
-                            <Span>Аренда от 2 часов, цена: от 2500 / час</Span>
+                            <Span>Аренда от 2 часов, цена: от {Sauna.find(s => s.id === 1)?.price}₽ / час</Span>
                         </StyledWrapper>
                     </FlexWrapper>
 
@@ -70,7 +70,7 @@ function BathComplex() {
                             </FeatureList>
 
                             <P>{selectedOption?.description}</P>
-                            <Span>{selectedOption?.price ?  `Цена: ${selectedOption?.price} / час` : 'бесплатно'}</Span>
+                            <Span>{selectedOption?.price ?  `Цена: ${selectedOption?.price}₽ / час` : `Только чан: ${Sauna.find(s => s.id === 2)?.price}₽, но при аренде бани бесплатно`}</Span>
                             <Button as={SmartLink} to="/reservation">Выбрать даты</Button>
                         </FlexWrapper>
                         <FlexWrapper direction="column" gap="12px">

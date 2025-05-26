@@ -1,7 +1,7 @@
-import { SectionWrapper } from "../common/SectionWrapper.ts";
+import { SectionWrapper } from "../../components/common/SectionWrapper.ts";
 import { H1 } from "../../styles/theme.ts";
-import { FlexWrapper } from "../common/FlexWrapper.ts";
-import {SliderComponent} from "../common/SliderComponent.tsx";
+import { FlexWrapper } from "../../components/common/FlexWrapper.ts";
+import {SliderComponent} from "../../components/common/SliderComponent.tsx";
 
 const images = [
     "/src/assets/Home/house1.jpg",

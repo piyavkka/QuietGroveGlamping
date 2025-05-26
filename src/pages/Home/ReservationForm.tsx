@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Button } from "../common/Button.tsx";
-import { theme } from "../../styles/theme";
+import { Button } from "../../components/common/Button.tsx";
+import { theme } from "../../styles/theme.ts";
 import { Add, Remove } from "@mui/icons-material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { ru as ruLocale } from "date-fns/locale";
 import TextField from "@mui/material/TextField";
 import { format, addDays, isAfter } from "date-fns";
-import {FlexWrapper} from "../common/FlexWrapper.ts";
+import {FlexWrapper} from "../../components/common/FlexWrapper.ts";
+import { useNavigate } from 'react-router-dom';
 
 const StyledTextField = styled(TextField)`
     & .MuiInputBase-root {
@@ -42,6 +43,8 @@ const datePickerCommon = {
 };
 
 export default function ReservationForm() {
+    const navigate = useNavigate();
+
     const [checkIn, setCheckIn]   = useState<Date | null>(null);
     const [checkOut, setCheckOut] = useState<Date | null>(null);
     const [guestsCount, setGuestsCount] = useState(2);
@@ -56,11 +59,12 @@ export default function ReservationForm() {
         e.preventDefault();
         if (!checkIn || !checkOut) return;
 
-        console.log("Данные:", {
-            checkIn : format(checkIn , "yyyy-MM-dd"),
-            checkOut: format(checkOut, "yyyy-MM-dd"),
-            guestsCount,
+        const params = new URLSearchParams({
+            checkIn: format(checkIn, 'yyyy-MM-dd'),
+            checkOut: format(checkOut, 'yyyy-MM-dd'),
+            guests: String(guestsCount),
         });
+        navigate(`/reservation?${params.toString()}`);
     };
 
     return (

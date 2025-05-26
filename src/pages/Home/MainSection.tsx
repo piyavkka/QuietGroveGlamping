@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import main_img from "../../assets/Home/main_img.jpg";
 import {Reservation} from "./index.tsx";
-import {ImageWrapper} from "../common/ImageWrapper.ts";
-import {SectionWrapper} from "../common/SectionWrapper.ts";
+import {ImageWrapper} from "../../components/common/ImageWrapper.ts";
+import {SectionWrapper} from "../../components/common/SectionWrapper.ts";
 import {MainTitle} from "../../styles/theme.ts";
 
 export default function MainSection(){

@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from './pages/Home/Home.tsx';
 import Houses from './pages/Houses';
 import BathComplex from './pages/BathComplex';
 import Entertainment from './pages/Entertainment';
@@ -7,7 +7,7 @@ import Events from './pages/Events';
 import {Header} from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
 import ScrollToTop from "./components/common/ScrollToTop.tsx";
-import Reservation from "./pages/Reservation.tsx";
+import Reservation from "./pages/Reservation/Reservation.tsx";
 
 function App() {
     return (
