@@ -88,7 +88,7 @@ export default function FormEvents({ onSubmitted }: FormEventsProps) {
             }
             console.log({
                 name,
-                phone: phone.replace(/\D/g, ""),
+                phone: `+${phone.replace(/\D/g, "")}`,
                 checkIn: checkIn ? format(checkIn, "yyyy-MM-dd") : null,
                 agree,
                 guestsCount,

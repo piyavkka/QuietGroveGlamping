@@ -32,20 +32,20 @@ export default function Reservation() {
     const [houses, setHouses] = useState<House[]>([]);
     const [checkIn,  setCheckIn]  = useState<Date | null>(null);
     const [checkOut, setCheckOut] = useState<Date | null>(null);
-    const [guestCount, setGuestCount] = useState<number>(2);
+    const [, setGuestCount] = useState<number>(2);
 
     const [availableHouses, setAvailableHouses] = useState<AvailableHouse[] | null>(null);
     const [selectedHouseId, setSelectedHouseId] = useState<number | null>(null);
 
     const [selectedSaunaSlots, setSelectedSaunaSlots] = useState<Record<string, Set<string>>>({});
-    const [addTub, setAddTub]               = useState(false);
+    const [addTub, setAddTub] = useState(false);
     const [selectedFillId, setSelectedFillId] = useState<number>(0);
 
     const [page, setPage] = useState(0);
     const [showAlert,  setShowAlert]  = useState(false);
     const [showSuccess,setShowSuccess]= useState(false);
 
-    const [verificationCode, setVerificationCode] = useState<string | null>(null);
+    const [, setVerificationCode] = useState<string | null>(null);
 
     const location = useLocation();
 
