@@ -94,6 +94,7 @@ const Card = styled.div`
 
     &:hover {
         background-color: #f0f0f0;
+        cursor: pointer;
     }
 `;
 

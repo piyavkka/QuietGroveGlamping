@@ -44,7 +44,6 @@ export const SliderComponent = (
     const openModal = (src: string) => !isMobile && setModalImage(src);
     const closeModal = () => setModalImage(null);
 
-    // если autoplay = false, передаём false; иначе — объект с настройкой задержки
     const autoplayConfig = autoplay
         ? { delay: 10000, disableOnInteraction: false }
         : false;
@@ -59,7 +58,7 @@ export const SliderComponent = (
                 $height={height}
                 modules={[Autoplay, Pagination, Keyboard]}
                 pagination={{ clickable: true }}
-                autoplay={autoplayConfig}          // ← здесь
+                autoplay={autoplayConfig}
                 keyboard={{ enabled: true }}
                 loop
                 onSwiper={(swiper) => (swiperRef.current = swiper)}

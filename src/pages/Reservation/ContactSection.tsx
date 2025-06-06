@@ -21,10 +21,12 @@ function isValidEmail(email: string) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-export default function ContactSection({   onVerified,
-                                           onFinalSubmit,
-                                           summary,
-                                       }: ContactSectionProps) {
+export default function ContactSection(
+    {
+        onVerified,
+        onFinalSubmit,
+        summary,
+    }: ContactSectionProps) {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
@@ -54,6 +56,7 @@ export default function ContactSection({   onVerified,
 
             setLoading(true);
             setError(null);
+
             try {
                 const response = await fetch("http://localhost:8080/verification", {
                     method: "POST",
@@ -64,24 +67,33 @@ export default function ContactSection({   onVerified,
                         email: email.trim(),
                     }),
                 });
-                if (!response.ok) throw new Error("Ошибка верификации");
-                const data: { code: string } = await response.json();
-                setCode(data.code);
-                onVerified?.(data.code);
+
+                if (!response.ok) {
+                    const errText =
+                        (await response.text()) || "Ошибка верификации, попробуйте позже.";
+                    setError(errText);
+                    return;
+                }
+
+                const { code } = (await response.json()) as { code: string };
+                setCode(code);
+                onVerified?.(code);
             } catch (err) {
-                console.error(err);
-                setError("Не удалось отправить код, попробуйте позже.");
+                const message =
+                    err instanceof Error ? err.message : "Сетевая ошибка, попробуйте ещё раз.";
+                console.error(message);
+                setError(message);
             } finally {
                 setLoading(false);
             }
         },
-        [name, phone, email, isFormValid, loading, onVerified]
+        [name, phone, email, isFormValid, onVerified, loading]
     );
 
     const qrValue = code ? `https://t.me/QuiteGrove_bot?start=${code}` : "";
 
     return (
-        <FlexWrapper gap="16px">
+        <FlexWrapper gap="16px" justify="center" wrap="wrap">
             <InfoCard direction="column" gap="8px">
                 <Span>Ваше бронирование</Span>
                 <P>Домик: {houseCost}₽</P>
@@ -119,19 +131,19 @@ export default function ContactSection({   onVerified,
             </Form>
 
             {code && (
-                <QRWrapper>
+                <QRWrapper direction="column" gap="8px" align="center">
                     <P>
                         Ваш код подтверждения: <strong>{code}</strong>
                     </P>
 
                     <P>
-                        Шаг 2. Отсканируйте QR-код или нажмите ссылку ниже — бот откроется, и код
+                        Отсканируйте QR-код или нажмите ссылку ниже — бот откроется, и код
                         передастся автоматически.
                     </P>
 
                     <QRCode value={qrValue} size={164} />
 
-                    <a href={qrValue} target="_blank" rel="noopener noreferrer">
+                    <a href={qrValue} target="_blank" rel="noopener noreferrer" >
                         Открыть Telegram-бот
                     </a>
 
@@ -148,11 +160,11 @@ export default function ContactSection({   onVerified,
 }
 
 const InfoCard = styled(FlexWrapper)`
-  background-color: var(--white-color);
-  padding: 14px 24px;
-  width: fit-content;
-  border-radius: 5px;
-  border: 1px solid var(--light-text-color);
+    background-color: var(--white-color);
+    padding: 14px 24px;
+    width: fit-content;
+    border-radius: 5px;
+    border: 1px solid var(--light-text-color);
 `;
 
 const Form = styled.form`
@@ -166,20 +178,26 @@ const StyledTextField = styled(TextField)`
     & .MuiInputBase-root {
         background-color: var(--white-color);
     }
+
     & .MuiOutlinedInput-input {
         padding: 14px 24px;
     }
 `;
 
-const QRWrapper = styled.div`
-  margin-top: 16px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+const QRWrapper = styled(FlexWrapper)`
+    text-align: center;
+    max-width: 480px;
+
+    a {
+        color: var(--main-color);
+        transition: 0.2s;
+        &:hover {
+            opacity: 0.5;
+        }
+    }
 `;
 
 const ErrorMsg = styled.span`
-  color: red;
-  font-size: 14px;
+    color: red;
+    font-size: 14px;
 `;
