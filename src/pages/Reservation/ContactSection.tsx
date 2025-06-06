@@ -93,7 +93,7 @@ export default function ContactSection(
     const qrValue = code ? `https://t.me/QuiteGrove_bot?start=${code}` : "";
 
     return (
-        <FlexWrapper gap="16px">
+        <FlexWrapper gap="16px" justify="center" wrap="wrap">
             <InfoCard direction="column" gap="8px">
                 <Span>Ваше бронирование</Span>
                 <P>Домик: {houseCost}₽</P>
